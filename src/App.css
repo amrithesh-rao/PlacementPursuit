@@ -1,0 +1,85 @@
+body{
+    margin: 0px;
+    overflow-x: hidden;
+}
+
+.container{
+    width:100% !important;
+}
+
+.form-padding{
+    padding:2% !important;
+}
+.img-padding{
+    padding: 5%;
+}
+.box-pad{
+    padding: 1.5rem 1.5rem 0;
+}
+hr.style-eight {
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #333;
+    color: #333;
+    text-align: center;
+}
+hr.style-eight:after {
+    content: "OR";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: white;
+}
+.forgot-pass{
+    text-align: end ;
+    margin-right: 6rem !important;
+    
+}
+.top-container{
+    margin: 0.5rem !important;
+}
+.container{
+max-width: none;
+}
+.col-padding{
+    padding: 0;
+}
+.row-center {
+    height: 100vh;
+    align-content: center;
+}
+.w-65 {
+    width: 65% !important;
+}
+.img-logo{
+    display: block;
+}
+.reset {
+    width: 450px;
+    margin: 0 auto;
+    margin-top: 5%;
+}
+.footBar {
+    text-align: center;
+    padding: 5px;
+    background: #004b6b;
+    color: white;
+    margin-top: 1em;
+}
+.size-m {
+    width: 50%;
+    
+}
+.profile-pic{
+    width: 2.5rem;
+    border-radius: 50%;
+}
+.ml-7{
+    margin-left: 5rem;
+}
+.ml-10{
+    margin-left: 6rem;
+}
