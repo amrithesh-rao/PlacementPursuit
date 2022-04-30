@@ -2,6 +2,7 @@ import React from "react";
 import NavBar from "../components/NavBar";
 import Footbar from "./Footbar";
 import { Button, Carousel } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 
 import testCarousel from "../img/testCarousel.png";
 import feedbackCarousel from "../img/feedbackCarousel.png";
@@ -13,7 +14,7 @@ import feedbackSectionImg from "../img/feedbackSectionImg.png";
 import practiceSectionImg from "../img/practiceSectionImg.jpg";
 
 const Home = () => {
-
+  let navigate = useNavigate();
   return (
     <>
     <div>
@@ -71,7 +72,7 @@ const Home = () => {
    <div className="row">
     <div className="col">
     <div><p className="h1 p-4 mt-5 ml-7">After studying from Practice Section, test your knowledge using quizes in Test Section</p></div> 
-    <div className="p-2 ml-10"><Button>Test ---{'>'}</Button></div>
+    <div className="p-2 ml-10"  onClick={()=>navigate("/test")}><Button>Test ---{'>'}</Button></div>
     </div>
     <div className="col">
     <img src = { testSectionImg } alt="test" width={800} height={450}/>
