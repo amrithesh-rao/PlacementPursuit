@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+// import firebase from 'firebase';
 
 
 const firebaseConfig = {
@@ -10,7 +11,7 @@ const firebaseConfig = {
     messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
     appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
-
+// export const db=firebase.firestore();
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export default app;
