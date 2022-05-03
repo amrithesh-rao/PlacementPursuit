@@ -63,7 +63,7 @@ const Home = () => {
     </div>
     <div className="col">
      <div><p className="h1 p-4 mt-5">Practice Section holds all materials for concepts that are important to interview.</p></div> 
-    <div className="p-2 m-3"><Button>Practice ---{'>'}</Button></div>
+    <div className="p-2 m-3" onClick={()=>navigate("/practice")}><Button>Practice ---{'>'}</Button></div>
     </div>
    </div>
    </div>
