@@ -8,7 +8,7 @@ import Reset from "./components/Reset";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import Practice from "./components/Practice";
-
+import SubPractice from "./components/SubPractice";
 
 function App() {
   return (
@@ -31,7 +31,22 @@ function App() {
               </ProtectedRoute>
                 } 
           />
-
+          <Route
+           path="/practice/:id" 
+           element={
+            <ProtectedRoute>
+              <SubPractice />
+              </ProtectedRoute>
+                } 
+          />
+          <Route
+           path="/practice/:id/subtitle/:id" 
+           element={
+            <ProtectedRoute>
+              <SubPractice />
+              </ProtectedRoute>
+                } 
+          />
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/reset" element={<Reset />} />
