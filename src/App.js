@@ -10,6 +10,7 @@ import { UserAuthContextProvider } from "./context/UserAuthContext";
 import Practice from "./components/Practice";
 import SubPractice from "./components/SubPractice";
 import PageNotFound from "./404";
+import PracticeItems from "./components/PracticeItems";
 
 function App() {
   return (
@@ -44,7 +45,7 @@ function App() {
            path="/practice/:id/:sid" 
            element={
             <ProtectedRoute>
-              <SubPractice />
+              <PracticeItems />
               </ProtectedRoute>
                 } 
           />
