@@ -9,6 +9,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import Practice from "./components/Practice";
 import SubPractice from "./components/SubPractice";
+import PageNotFound from "./404";
 
 function App() {
   return (
@@ -40,7 +41,7 @@ function App() {
                 } 
           />
           <Route
-           path="/practice/:id/subtitle/:id" 
+           path="/practice/:id/:sid" 
            element={
             <ProtectedRoute>
               <SubPractice />
@@ -50,7 +51,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/reset" element={<Reset />} />
-
+          <Route path="*" element={<PageNotFound />} />
           {/* <Route path="/test" element={<TestHome />} /> */}
           {/* <Route path="/feedback" element={<FeedbackHome />} /> */}
         </Routes>
