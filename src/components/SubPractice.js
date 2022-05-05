@@ -3,7 +3,7 @@ import NavBar from "./NavBar";
 import Footbar from "./Footbar";
 import SubPracticeCard from "./SubPracticeCard";
 import { db } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { useParams } from "react-router-dom";
 
 export default function SubPractice() {
@@ -12,8 +12,8 @@ export default function SubPractice() {
 
   useEffect(() => {
     try{
-      const colRef = collection(db, "infodb", id ,"subtitle");
-      getDocs(colRef)
+      const colRef = collection(db, "infodb",  id , "subTopic");
+      getDocs(query(colRef, orderBy("priority")))
           .then( snapshot => {
               setSubtitles(snapshot.docs.map(doc =>({
                   sid: doc.id,
@@ -23,19 +23,16 @@ export default function SubPractice() {
     }
     catch(e){
         console.log(e);
-    }
-    console.log();
-    console.log();
-      
+    }   
 
-}, []);
-  
+}, [id]);
+  console.log(id);
   return (
     <>
       <NavBar />
       {
       subtitles?.map( subtitle  => (
-        <SubPracticeCard subtitle={ subtitle.data.title } sid={ subtitle.sid }/>
+        <SubPracticeCard subtitle={ subtitle.data.dsaTitle } sid={ subtitle.sid }/>
       ))
       }
       <Footbar />

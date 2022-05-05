@@ -3,7 +3,7 @@ import NavBar from "./NavBar";
 import Footbar from "./Footbar";
 import PracticeCard from "./PracticeCard";
 import { db } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
 
 export default function Practice() {
   const [titles, setTitles] = useState([]);
@@ -11,7 +11,7 @@ export default function Practice() {
   useEffect(() => {
       try{
         const colRef = collection(db, "infodb");
-        getDocs(colRef)
+        getDocs(query(colRef, orderBy("priority")))
             .then( snapshot => {
                 setTitles(snapshot.docs.map(doc =>({
                     id: doc.id,
