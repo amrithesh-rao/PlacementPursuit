@@ -32,12 +32,18 @@ export default function TestInner1() {
   return (
     <>
       <NavBar />
-      {
+      <div className="container">
+        <div className="row px-auto">
+        {
         levels?.map(level => (
+          <div className="col-lg-3 p-5 mx-auto">
         <TopicCard title={level.data.level} id = {level.id}/>
-      
+        </div>
       ))}
-      <Footbar />
+        </div>
+      </div>
+      
+      <Footbar class="footBar-bottom"/>
     </>
   );
 }

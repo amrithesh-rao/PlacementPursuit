@@ -30,12 +30,18 @@ export default function SubPractice() {
   return (
     <>
       <NavBar />
-      {
-      subtitles?.map( subtitle  => (
+      <div className="container">
+        <div className="row px-auto">
+        {
+        subtitles?.map( subtitle  => (
+          <div className="col-lg-3 p-5 mx-auto">
         <SubPracticeCard subtitle={ subtitle.data.dsaTitle } sid={ subtitle.sid }/>
-      ))
-      }
-      <Footbar />
+        </div>
+      ))}
+        </div>
+      </div>
+      
+      <Footbar class="footBar-bottom"/>
     </>
   );
 }

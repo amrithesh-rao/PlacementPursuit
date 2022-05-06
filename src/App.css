@@ -68,6 +68,17 @@ max-width: none;
     background: #004b6b;
     color: white;
     margin-top: 1em;
+    
+}
+.footBar-bottom{
+    text-align: center;
+    padding: 5px;
+    background: #004b6b;
+    color: white;
+    margin-top: 1em;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 .size-m {
     width: 50%;

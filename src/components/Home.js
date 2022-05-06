@@ -91,7 +91,7 @@ const Home = () => {
     </div>
    </div>
    </div>
-    <Footbar />
+    <Footbar class="footBar"/>
     </>
   );
 };
