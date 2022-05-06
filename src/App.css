@@ -83,3 +83,19 @@ max-width: none;
 .ml-10{
     margin-left: 6rem;
 }
+
+.nbox {
+    background-color: darkgray;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding-top: 5px;
+    text-align: center;
+    margin: 0.5rem;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.quiz-card {
+    text-align: center;
+}
+
