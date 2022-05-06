@@ -29,12 +29,18 @@ export default function Practice() {
   return (
     <>
       <NavBar />
-      {
-      titles?.map( title  => (
+      <div className="container">
+        <div className="row px-auto">
+        {
+        titles?.map( title  => (
+          <div className="col-lg-3 p-5 mx-auto">
         <PracticeCard title={title.data.title} id = {title.id}/>
-      ))
-      }
-      <Footbar />
+        </div>
+      ))}
+        </div>
+      </div>
+      
+      <Footbar class="footBar-bottom"/>
     </>
   );
 }

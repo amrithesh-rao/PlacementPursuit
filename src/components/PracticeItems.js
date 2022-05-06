@@ -57,7 +57,7 @@ export default function PracticeItems() {
 
         </tbody>
       </Table>
-      <Footbar />
+      <Footbar class="footBar-bottom"/>
     </>
   );
 }

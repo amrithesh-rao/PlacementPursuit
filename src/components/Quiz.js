@@ -42,7 +42,7 @@ export default function Quiz() {
       
       ))}
        <QuizCard questionNo={qno} question={quiz[qno].data.question} options={quiz[qno].data.options} />
-      <Footbar /> 
+      <Footbar class="footBar"/> 
     </>
   );
 }

@@ -24,12 +24,18 @@ export default function Test() {
   return (
     <>
       <NavBar />
-      {
+      <div className="container">
+        <div className="row px-auto">
+        {
         titles?.map(title => (
+          <div className="col-lg-3 p-5 ">
         <TopicCard title={title.data.subject} id = {title.id}/>
-      
+        </div>
       ))}
-      <Footbar />
+        </div>
+      </div>
+      
+      <Footbar class="footBar-bottom"/>
     </>
   );
 }
