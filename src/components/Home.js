@@ -2,7 +2,7 @@ import React from "react";
 import NavBar from "../components/NavBar";
 import Footbar from "./Footbar";
 import { Button, Carousel } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import testCarousel from "../img/testCarousel.png";
 import feedbackCarousel from "../img/feedbackCarousel.png";

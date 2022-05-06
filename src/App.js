@@ -7,13 +7,13 @@ import Signup from "./components/Signup";
 import Reset from "./components/Reset";
 import Test from "./components/Test";
 import Quiz from "./components/Quiz";
-import PracticeItems from "./components/PracticeItems";
 import TestInner from "./components/TestInner";
-import SubPractice from "./components/SubPractice";
-import PageNotFound from './components/PageNotFound';
 import ProtectedRoute from "./components/ProtectedRoute";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import Practice from "./components/Practice";
+import SubPractice from "./components/SubPractice";
+import PageNotFound from "./404";
+import PracticeItems from "./components/PracticeItems";
 
 function App() {
   return (
