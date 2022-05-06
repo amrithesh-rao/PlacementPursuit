@@ -87,7 +87,7 @@ const Home = () => {
     </div>
     <div className="col">
     <div><p className="h1 p-4 mt-5">Read feebacks from seniors and prepare accordingly for interview process of specific companies.</p></div> 
-    <div className="p-2 m-3"><Button>Feedback ---{'>'}</Button></div>
+    <div className="p-2 m-3"><Button onClick={()=>navigate("/feedback")}>Feedback ---{'>'}</Button></div>
     </div>
    </div>
    </div>

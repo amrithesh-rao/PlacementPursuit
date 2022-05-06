@@ -14,6 +14,7 @@ import Practice from "./components/Practice";
 import SubPractice from "./components/SubPractice";
 import PageNotFound from "./404";
 import PracticeItems from "./components/PracticeItems";
+import Feedback from "./components/Feedback";
 
 function App() {
   return (
@@ -76,12 +77,13 @@ function App() {
               </ProtectedRoute>
                 } 
           />
+          <Route path="/feedback" element={<Feedback />} />
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/reset" element={<Reset />} />
           <Route path="*" element={<PageNotFound />} />
           {/* <Route path="/test" element={<TestHome />} /> */}
-          {/* <Route path="/feedback" element={<FeedbackHome />} /> */}
+
         </Routes>
       </UserAuthContextProvider>
     </Container>
