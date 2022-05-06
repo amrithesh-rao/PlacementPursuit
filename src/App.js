@@ -7,20 +7,19 @@ import Signup from "./components/Signup";
 import Reset from "./components/Reset";
 import Test from "./components/Test";
 import Quiz from "./components/Quiz";
+import PracticeItems from "./components/PracticeItems";
 import TestInner from "./components/TestInner";
+import SubPractice from "./components/SubPractice";
+import PageNotFound from './components/PageNotFound';
 import ProtectedRoute from "./components/ProtectedRoute";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import Practice from "./components/Practice";
-
 
 function App() {
   return (
     <Container className="p-0">
       <UserAuthContextProvider>
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/reset" element={<Reset />} />
           <Route
             path="/home"
             element={
@@ -37,7 +36,22 @@ function App() {
               </ProtectedRoute>
                 } 
           />
-          
+          <Route
+           path="/practice/:id" 
+           element={
+            <ProtectedRoute>
+              <SubPractice />
+              </ProtectedRoute>
+                } 
+          />
+          <Route
+           path="/practice/:id/:sid" 
+           element={
+            <ProtectedRoute>
+              <PracticeItems />
+              </ProtectedRoute>
+                } 
+          />
           <Route 
             path="/test" 
             element={
@@ -62,8 +76,11 @@ function App() {
               </ProtectedRoute>
                 } 
           />
-          
-          
+          <Route path="/" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/reset" element={<Reset />} />
+          <Route path="*" element={<PageNotFound />} />
+          {/* <Route path="/test" element={<TestHome />} /> */}
           {/* <Route path="/feedback" element={<FeedbackHome />} /> */}
         </Routes>
       </UserAuthContextProvider>
