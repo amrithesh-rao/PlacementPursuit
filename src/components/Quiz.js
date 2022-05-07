@@ -10,17 +10,19 @@ import QuizCard from "./QuizCard";
 export default function Quiz() {
   const {lid,tid} = useParams();
   const [quiz, setQuiz] = useState([]);
-  const [qno, setQno] = useState(5);
+  const [qno, setQno] = useState(1);
   
   useEffect(  () => {
     try{
     const collectionRef = collection(db,"quiz_questions",tid,"levels",lid,"questions");
     getDocs(collectionRef)
       .then( snapshot => {
+      
       setQuiz(snapshot.docs.map(doc => ({
           data: doc.data()
       })))
   })
+
   }
   catch(e){
     console.log(e);
@@ -36,12 +38,15 @@ export default function Quiz() {
     <>
       <NavBar />
       {
-        quiz?.map(questions => (
+        quiz.map(questions => (
             <NumberBox questionNo={quiz.indexOf(questions)+1} />
-            
-      
       ))}
-       <QuizCard questionNo={qno} question={quiz[qno].data.question} options={quiz[qno].data.options} />
+      {
+      (quiz.length !==0)?
+      <QuizCard questionNo={qno} question={quiz[qno].data.question} options={quiz[qno].data.options} />  
+      :""
+      }
+
       <Footbar class="footBar"/> 
     </>
   );

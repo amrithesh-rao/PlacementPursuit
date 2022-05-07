@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 export default function QuizCard(props) {
 
   let navigate = useNavigate();
-
+    
     return (
       <Card className=" quiz-card mx-auto">
       <Card.Body>
