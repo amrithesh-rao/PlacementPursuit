@@ -5,12 +5,14 @@ import { db } from "../firebase.js";
 import {collection,getDocs} from "firebase/firestore"
 import { useParams } from "react-router-dom";
 import NumberBox from "./NumberBox";
-import QuizCard from "./QuizCard";
 import { sampleSize } from "lodash";
-import { Button } from "react-bootstrap";
+import { Button,Card,Form,Modal } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Quiz() {
+  let navigate = useNavigate();
+
   function startTimer(duration, display) {
     var timer = duration, minutes, seconds;
    var counter= setInterval(function () {
@@ -41,20 +43,21 @@ export default function Quiz() {
     document.documentElement.dataset['calcLoaded'] = 'true';
   };
 
-
-
-// if( document.readyState === 'loading' ) {
-//     document.addEventListener( 'DOMContentLoaded', quizTimer );
-// }
-// else if( document.readyState === 'interactive' || document.readyState === 'complete' ) {
-//     quizTimer();
-// }
-
+  const answers = useRef({});
 
   const {lid,tid} = useParams();
   const [quiz, setQuiz] = useState([]);
   const [qno, setQno] = useState(0);
+  const [show1, setShow1] = useState(false);
+  const [show2, setShow2] = useState(false);
+  const ans= useRef({});
+
+  const handleClose1 = () => setShow1(false);
+  const handleShow1 = () => setShow1(true);
+  const handleClose2 = () => setShow2(false);
+  const handleShow2 = () => setShow2(true);
   const randomQuestions = useRef([]);
+  const score = useRef(0);
   const qlength=15;
   
   useEffect(  () => {
@@ -82,7 +85,37 @@ export default function Quiz() {
     randomQuestions.current=sampleSize(quiz,qlength);
     
   }
-  
+  function saveAns(e){
+    e.preventDefault();
+    handleShow1();
+    const {selectOptions,questionNo}=e.target.elements;
+    ans.current={
+      qno:questionNo.value,
+      option:selectOptions.value
+    }
+    
+
+  }
+  function confirmAns(e){
+    handleClose1();
+    answers.current[ans.current.qno.toString()]=ans.current.option;
+    console.log(answers)
+    
+
+  }
+  function endTest(){
+    handleClose2();
+    for(let x in answers){
+      randomQuestions.current.length!==0?computeScore(x):console.log()
+      
+      
+    }
+    navigate('/test/'+tid+'/report',{state:{score:score.current,tq:qlength,questions:randomQuestions.current,answers:answers.current}})
+  }
+  function computeScore(x){
+    if(answers[x]===randomQuestions.current[x-1].data.answer)
+    score.current+=1
+  }
   return (
     <>
       <NavBar  />
@@ -92,19 +125,68 @@ export default function Quiz() {
       </div>
       <h2 className="m-3">Quiz-1</h2>
 
-
+  
 
       {randomQuestions.current.map(questions => (
         <NumberBox questionNo={randomQuestions.current.indexOf(questions) + 1} handleClick={() => setQno(randomQuestions.current.indexOf(questions))} />
       ))}
-      {(quiz.length !== 0) ?
-        <QuizCard questionNo={qno + 1} question={randomQuestions.current[qno].data.question} options={randomQuestions.current[qno].data.options}/>
-        : ""}
+      {randomQuestions.current.length!==0?
+        <>
+        <Card className=" quiz-card mx-auto">
+        <Card.Body>
+          <Card.Title>Q{qno + 1} : {randomQuestions.current[qno].data.question}</Card.Title>
+          <Form onSubmit={saveAns} id="ansForm">
+          <Card.Text>
+            {randomQuestions.current[qno].data.options.map(option=>
+            <Form.Check type={"radio"}
+            id={randomQuestions.current[qno].data.options.indexOf(option)+1}
+            label={option}
+            value={option}
+            name={"selectOptions"}/>)}
+          </Card.Text>
+          <input type="hidden" name={"questionNo"} value={qno + 1}></input>
+          <Button variant="primary" type="submit">Save Choice</Button>
+          
+          <Modal show={show1} onHide={handleClose1}>
+        <Modal.Header closeButton>
+          <Modal.Title>Save Answer</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Save this choice!You can come back later and change it.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose1}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={confirmAns}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+          </Form>
+          
+        </Card.Body>
+      </Card>
+      </>:""}
+        
+      
       <div style={{display:"flex", justifyContent: "space-around"}}>
       <Button className="quiz-nav-but m-3" onClick={()=>setQno(qno-1<0?qlength-1:qno-1)}>Previous</Button>
-      <Button className="quiz-nav-but m-3" >Save Choice</Button>
+      <Button className="quiz-nav-but m-3" onClick={handleShow2} >Submit</Button>
       <Button className="quiz-nav-but m-3" onClick={()=>setQno((qno+1)%qlength)}>Next</Button>
       </div>
+      <Modal show={show2} onHide={handleClose2}>
+        <Modal.Header closeButton>
+          <Modal.Title>End Test?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Finish and submit answers?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose2}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={endTest}>
+            Submit Test
+          </Button>
+        </Modal.Footer>
+      </Modal>
     <Footbar class="footBar-bottom" />
     </>
   );
