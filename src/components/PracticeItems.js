@@ -36,8 +36,8 @@ export default function PracticeItems() {
   return (
     <>
       <NavBar />
-
-      <Table striped bordered hover>
+        <div className="p-5 mx-auto">
+        <Table striped bordered hover >
         <thead>
           <tr>
             <th>Index</th>
@@ -50,13 +50,15 @@ export default function PracticeItems() {
         {practiceItem?.map((practiceItem) => (
                     <tr>
         <td>{practiceItem.data.practiceItemNumber}</td>
-        <td><a href={practiceItem.data.practiceItemLink} target="_blank">{practiceItem.data.practiceItemName}</a></td>
+        <td><a href={practiceItem.data.practiceItemLink} target="_blank" rel="noreferrer">{practiceItem.data.practiceItemName}</a></td>
         <td></td>
         </tr>
       ))}
 
         </tbody>
       </Table>
+        </div>
+      
       <Footbar class="footBar-bottom"/>
     </>
   );

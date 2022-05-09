@@ -96,13 +96,11 @@ max-width: none;
 }
 
 .nbox {
-    background-color: darkgray;
     width: 2.5rem;
     height: 2.5rem;
     padding-top: 5px;
     text-align: center;
     margin: 0.5rem;
-    border-radius: 10px;
     display: inline-block;
 }
 
@@ -135,4 +133,11 @@ max-width: none;
     border-radius: 0 10px 10px 0;
     border-color: black;
     padding: 5px 0;
+}
+
+.quiz-nav-but{
+    width: 7rem;
+}
+.option{
+    border: #333 0.5rem;
 }
