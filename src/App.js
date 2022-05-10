@@ -15,6 +15,7 @@ import SubPractice from "./components/SubPractice";
 import PageNotFound from "./404";
 import PracticeItems from "./components/PracticeItems";
 import Feedback from "./components/Feedback";
+import QuizReport from "./components/QuizReport";
 
 function App() {
   return (
@@ -74,6 +75,14 @@ function App() {
            element={
             <ProtectedRoute>
               <Quiz />
+              </ProtectedRoute>
+                } 
+          />
+          <Route
+           path="/test/:tid/report" 
+           element={
+            <ProtectedRoute>
+              <QuizReport />
               </ProtectedRoute>
                 } 
           />
