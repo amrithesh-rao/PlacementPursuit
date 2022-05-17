@@ -14,7 +14,7 @@ import Practice from "./components/Practice";
 import SubPractice from "./components/SubPractice";
 import PageNotFound from "./404";
 import PracticeItems from "./components/PracticeItems";
-import Feedback from "./components/Feedback";
+import Feedback from "./components/Search";
 import QuizReport from "./components/QuizReport";
 
 function App() {
