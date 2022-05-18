@@ -4,6 +4,7 @@ import NavBar from "./NavBar";
 import SearchCard from "./SearchCard";
 import Footbar from "./Footbar";
 import { collection, getDocs, query, where } from "firebase/firestore";
+import FeedbackImg from "../img/preview.jpg"
 
 export default function SearchBar() {
   const [company_name, setCompanyName] = useState([]);
@@ -27,6 +28,9 @@ export default function SearchBar() {
     return(
       <>
       <NavBar/>
+      <div>
+        <img className="feedback-img"  src={FeedbackImg} alt="First slide" />
+      </div>
       <div>
       <form className='box'>
         <input type='text' className='search' onChange={(e)=>{pt = e.target.value}} placeholder='Search Feedback' required/>
