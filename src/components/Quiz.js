@@ -2,16 +2,21 @@ import React, { useEffect, useRef, useState } from "react";
 import NavBar from "./NavBar";
 import Footbar from "./Footbar";
 import { db } from "../firebase.js";
-import {collection,getDocs} from "firebase/firestore"
-import { useParams } from "react-router-dom";
+import {addDoc, collection,doc,getDocs,serverTimestamp} from "firebase/firestore"
+import { useLocation, useParams } from "react-router-dom";
 import NumberBox from "./NumberBox";
 import { sampleSize } from "lodash";
 import { Button,Card,Form,Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useUserAuth } from "../context/UserAuthContext";
 
 
 export default function Quiz() {
   let navigate = useNavigate();
+  const location = useLocation();
+  const {level} = location.state;
+  console.log(level)
+  const {user} = useUserAuth();
 
   function startTimer(duration, display) {
     var timer = duration, minutes, seconds;
@@ -83,6 +88,21 @@ export default function Quiz() {
     randomQuestions.current=sampleSize(quiz,qlength);
     
   }
+  const setQuizReport = async ()=>{
+    const collRef = collection(
+      db,"userdb",user?.uid,"test",tid,"quiz"
+    );
+    const payload = {
+      score:score.current,
+      tq:qlength,
+      questions:randomQuestions.current,
+      answers:answers.current,
+      level:level,
+      created:serverTimestamp()
+
+    };
+    await addDoc(collRef,payload);
+  }
   function saveAns(e){
     e.preventDefault();
     handleShow1();
@@ -108,6 +128,7 @@ export default function Quiz() {
       }
       
     }
+    setQuizReport();
     handleClose2();
     navigate('/test/'+tid+'/report',{state:{score:score.current,tq:qlength,questions:randomQuestions.current,answers:answers.current}})
   }
