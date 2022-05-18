@@ -1,32 +1,68 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import NavBar from "./NavBar";
 import Footbar from "./Footbar";
 import { useLocation } from "react-router-dom";
-import { Form } from "react-bootstrap";
 
 export default function QuizReport() {
   
   const location=useLocation();
   const {score,tq,questions,answers} =location.state;
   const attempted = [];
+  const avg=parseInt(score/tq*100);
+  const cssval={"--value":avg}
   for(let x in answers){
     attempted.push(parseInt(x));
   }
-  
+  useEffect(() => {
+    const divs= document.getElementsByClassName("qreport")
+    let i;
+    console.log(attempted)
+    for(i=0;i<15;i++){
+      if(attempted.includes(parseInt(divs[i].id))){
+        console.log(divs[i].id)
+        
+      }else{
+        divs[i].classList.add("unattempted")
+      }
+    }
+}, [])
   return (
     <>
       <NavBar />
-      {console.log(score,tq,questions,answers)}
-      <h2 className="m-3">Quiz-1</h2>
+      <h1 className="m-3 quizno">Quiz-1</h1>
+      <div className="main-div">
+      
+      <div className="first-div mx-auto" role="progressbar"  aria-valuemin="0" aria-valuemax="100" style={cssval}></div>
+      <div className="p-4 score-div">
+        {score}/{tq}
+      </div>
+      <div className="second-div mx-auto">
+      <div className="des-box">
+      <div className="q-box attempted"></div><p>Attempted Questions</p>
+      </div>
+      <div className="des-box">
+      <div className="q-box unattempted"></div><p>Unattempted Questions</p>
+      </div>
+      <div className="des-box">
+      <div className="q-box correct"></div><p>Correct Answer</p>
+      </div>
+      <div className="des-box">
+      <div className="q-box wrong"></div><p>Wrong Answer</p>
+      </div>   
+      </div>
+      </div>
+      
       {
         
       
         questions.map((question)=>(<>
-        {/* {questions.indexOf(question)+1 in attempted?console.log():document.querySelector("#ques").classList.add("unattempted")} */}
+        
+        
+          <div className="qreport w-75 m-5 mx-auto" id={questions.indexOf(question)+1}>
           
-          <div className="qreport w-75 m-5 mx-auto" id="questionn">
             <div className=" m-2 p-3">
             {questions.indexOf(question)+1}) {question.data.question}
+            
             </div>
             <div className="m-2 p-3">
               {question.data.options.map(option=>(
