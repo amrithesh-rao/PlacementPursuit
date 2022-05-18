@@ -142,17 +142,89 @@ max-width: none;
     border: #333 0.5rem;
 }
 .qreport{
-    background-color: aqua;
+    background-color: rgb(183, 201, 244);
 }
 .oreport{
-    background-color: rgb(153, 0, 255);
+    background-color: rgb(227, 203, 244);
 }
 .correct{
-    background-color: green;
+    background-color: rgb(90, 183, 90);
 }
 .wrong{
-    background-color: red;
+    background-color: rgb(246, 114, 114);
 }
 .unattempted{
-    background-color: grey;
+    background-color: rgb(243, 228, 210);
 }
+.attempted{
+    background-color: rgb(183, 201, 244);
+}
+.quizno{
+    text-align: center;
+}
+.main-div{
+    display: inline-flex;
+    flex-direction: row;
+    align-items: stretch;
+    width: -webkit-fill-available;
+    justify-content: space-between;
+}
+.first-div{
+    
+    display: inline-grid;
+}
+.second-div{
+    display: inline-flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    flex-direction: column;
+}
+.score-div{
+    font-size: 1.5cm;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+.q-box{
+    width: 20px;
+    height:20px;
+    display: inline-flex;
+    margin-right: 2rem;
+}
+.des-box{
+    display: inline-flex;
+}
+
+@keyframes growProgressBar {
+    0%, 33% { --pgPercentage: 0; }
+    100% { --pgPercentage: var(--value); }
+  }
+  
+  @property --pgPercentage {
+    syntax: '<number>';
+    inherits: false;
+    initial-value: 0;
+  }
+  
+  div[role="progressbar"] {
+    --size: 12rem;
+    --fg: rgb(19, 176, 79);
+    --bg: #def;
+    --pgPercentage: var(--value);
+    animation: growProgressBar 3s 1 forwards;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: 
+      radial-gradient(closest-side, white 80%, transparent 0 99.9%, white 0),
+      conic-gradient(var(--fg) calc(var(--pgPercentage) * 1%), var(--bg) 0)
+      ;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: calc(var(--size) / 5);
+    color: var(--fg);
+  }
+  
+  div[role="progressbar"]::before {
+    counter-reset: percentage var(--value);
+    content: counter(percentage) '%';
+  }

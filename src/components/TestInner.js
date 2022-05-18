@@ -5,30 +5,51 @@ import TopicCard from "./TopicCard";
 import { db } from "../firebase.js";
 import {collection,getDocs, orderBy, query} from "firebase/firestore"
 import { useParams } from "react-router-dom";
+import { useUserAuth } from "../context/UserAuthContext";
+import {Table,Button} from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
-export default function TestInner1() {
+export default function TestInner() {
     const [levels, setLevels] = useState([]);
-    // const [subTopics, setSupTopics] = useState([]);
+    const [quizReports,setQuizReports] = useState([]);
     const {id} = useParams();
+    let navigate = useNavigate();
+    const {user} = useUserAuth();
+    console.log(user)
     console.log(id)
+
+    
+      
 
   useEffect(  () => {
 
-        const collectionRef = collection(db,"quiz_questions",id,"levels")
-      getDocs(query(collectionRef, orderBy("priority")))
+    const collectionRef1 = collection(db,"quiz_questions",id,"levels")
+    getDocs(query(collectionRef1, orderBy("priority")))
+      .then((snapshot) => {
+      setLevels(snapshot.docs.map(doc => ({
+          id:doc.id,
+          data:doc.data()
+      })));
+    }).catch(e=>console.log(e));
+
+
+      
+    if(quizReports.length==0){
+      const collectionRef2 = collection(db,"userdb",user?.uid,"test",id,"quiz")
+      getDocs(query(collectionRef2,orderBy("created")))
         .then((snapshot) => {
-        setLevels(snapshot.docs.map(doc => ({
+        setQuizReports(snapshot.docs.map(doc => ({
             id:doc.id,
             data:doc.data()
         })));
+
         
         }).catch(e=>console.log(e));
-      
-    
+    } 
     
 
-  }, [id]);
-  console.log(levels)
+  }, []);
+  console.log(quizReports)
   return (
     <>
       <NavBar />
@@ -41,6 +62,30 @@ export default function TestInner1() {
         </div>
       ))}
         </div>
+      </div>
+      <div>
+      <Table striped bordered hover >
+        <thead>
+          <tr>
+            <th>Quiz</th>
+            <th>Level</th>
+            <th>Attempted On</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        {quizReports?.map((quizReport) => (
+                    <tr>
+        <td><Button  variant="light" onClick={()=>navigate('/test/'+id+'/report',{state:{score:quizReport.data.score,tq:quizReport.data.tq,questions:quizReport.data.questions,answers:quizReport.data.answers}})}>Quiz-{quizReports.indexOf(quizReport)+1}</Button></td>
+        <td>{quizReport.data.level}</td>
+        <td>{Date(quizReport.data.created.nanoseconds)}</td>
+        <td>{quizReport.data.score}/{quizReport.data.tq}</td>
+        </tr>
+      ))}
+
+        </tbody>
+      </Table>
       </div>
       
       <Footbar class="footBar-bottom"/>
