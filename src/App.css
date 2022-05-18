@@ -141,3 +141,18 @@ max-width: none;
 .option{
     border: #333 0.5rem;
 }
+.qreport{
+    background-color: aqua;
+}
+.oreport{
+    background-color: rgb(153, 0, 255);
+}
+.correct{
+    background-color: green;
+}
+.wrong{
+    background-color: red;
+}
+.unattempted{
+    background-color: grey;
+}
