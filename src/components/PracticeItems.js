@@ -9,15 +9,15 @@ import {
   orderBy,
   doc,
   setDoc,
-  onSnapshot,
-  updateDoc,
+  merge,
+  getDoc,
 } from "firebase/firestore";
 import { useParams } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import { ToggleButton } from "react-bootstrap";
 import { useUserAuth } from "../context/UserAuthContext";
-import { isEmpty } from "lodash";
 import { async } from "@firebase/util";
+import { truncate } from "lodash";
 
 export default function PracticeItems() {
   const [practiceItem, setPracticeItem] = useState([]);
@@ -26,6 +26,43 @@ export default function PracticeItems() {
   const [checked, setChecked] = useState([]);
 
   useEffect(() => {
+    const setTrackDoc = async (length) => {
+      var ref = doc(
+        db,
+        "userdb",
+        user?.uid,
+        "practice",
+        id,
+        "subTopic",
+        sid,
+        "track",
+        "1"
+      );
+      const docSnap = await getDoc(ref);
+
+      if (docSnap.exists()) {
+      } else {
+        for (let i = 1; i <= length; i++) {
+          const docRef = doc(
+            db,
+            "userdb",
+            user?.uid,
+            "practice",
+            id,
+            "subTopic",
+            sid,
+            "track",
+            i.toString()
+          );
+          const payload = {
+            checked: false,
+            priority: i,
+          };
+          await setDoc(docRef, payload);
+        }
+      }
+    };
+
     try {
       const colRef = collection(
         db,
@@ -45,65 +82,67 @@ export default function PracticeItems() {
       if (practiceItem.length !== 0) {
         setTrackDoc(practiceItem.length);
       }
+      const colRef2 = collection(
+        db,
+        "userdb",
+        user?.uid,
+        "practice",
+        id,
+        "subTopic",
+        sid,
+        "track"
+      );
+      getDocs(query(colRef2, orderBy("priority"))).then((snapshot) => {
+        setChecked(
+          snapshot.docs.map((doc) => ({
+            data: doc.data(),
+          }))
+        );
+      });
     } catch (e) {
       console.log(e);
     }
-  }, [id, sid]);
+  }, [id, practiceItem.length, sid, user]);
 
-  const setTrackDoc = async (length) => {
-    const docRef = doc(
-      db,
-      "userdb",
-      user?.uid,
-      "practice",
-      id,
-      "subTopic",
-      sid
-    );
-    const payload = {
-      track: Array(length).fill(false),
-    };
-    await setDoc(docRef, payload);
-  };
+  console.log(user);
+  //   const changeCheck = async (index) => {
+  //     const docRef = doc(
+  //       db,
+  //       "userdb",
+  //       user?.uid,
+  //       "practice",
+  //       id,
+  //       "subTopic",
+  //       sid
+  //     );
+  //   if(checked[index] === false){
+  //     const temp = checked;
+  //     temp[index] = true;
+  //     setChecked(temp);
+  //     console.log(temp);
+  //    await updateDoc(docRef,{
+  //   track : checked
+  // })
+  //   }
+  // else{
+  //   const temp = checked;
+  //   temp[index] = false;
+  //   setChecked(temp);
+  //   console.log(temp);
+  //  await updateDoc(docRef,{
+  // track : checked
+  // })
+  // }
+  //   };
 
-  const changeCheck = async (index) => {
-    const docRef = doc(
-      db,
-      "userdb",
-      user?.uid,
-      "practice",
-      id,
-      "subTopic",
-      sid
-    );
-  if(checked[index] === false){
-    const temp = checked;
-    temp[index] = true;
-    setChecked(temp);
-    console.log(temp);
-   await updateDoc(docRef,{
-  track : checked
-})
-  }
-else{
-  const temp = checked;
-  temp[index] = false;
-  setChecked(temp);
-  console.log(temp);
- await updateDoc(docRef,{
-track : checked
-})
-}
-  };
-
-  useEffect(() =>
-    onSnapshot(
-      doc(db, "userdb", user?.uid, "practice", id, "subTopic", sid),
-      (doc) => {
-        setChecked(doc.data().track);
-      }
-    )
-  );
+  // useEffect(() =>
+  //   get(
+  //     doc(db, "userdb", user?.uid, "practice", id, "subTopic", sid),
+  //     (doc) => {
+  //       setChecked(doc.data().track);
+  //     }
+  //   )
+  // );
 
   return (
     <>
@@ -131,17 +170,76 @@ track : checked
                   </a>
                 </td>
                 <td>
-                  <ToggleButton
-                    className="mb-2"
-                    id="toggle-check"
-                    type="checkbox"
-                    variant="outline-primary"
-                    checked={checked[practiceItem.data.practiceItemNumber-1]}
-                    value="1"
-                    onChange={(e) => changeCheck(practiceItem.data.practiceItemNumber-1)}
-                  >
-                    Checked
-                  </ToggleButton>
+                  {checked.length !== 0 ? (
+                    <ToggleButton
+                      className="mb-2"
+                      id="toggle-check"
+                      type="checkbox"
+                      variant="outline-primary"
+                      checked={
+                        checked[practiceItem.data.practiceItemNumber - 1].data
+                          .checked
+                      }
+                      value={practiceItem.data.practiceItemNumber}
+                      //  onChange={(e) =>
+                      //   // setChecked(...checked, e.currentTarget.value)
+                      //   console.log(e)
+                      //  }
+                      //  //checked[practiceItem.data.practiceItemNumber-1].data.checked =
+                      onClick = {() => {
+
+
+                        const docRef = doc(
+                          db,
+                          "userdb",
+                          user?.uid,
+                          "practice",
+                          id,
+                          "subTopic",
+                          sid,
+                          "track",
+                          practiceItem.data.practiceItemNumber.toString()
+                        );
+                    console.log(practiceItem.data.practiceItemNumber);
+                        if(checked[practiceItem.data.practiceItemNumber-1].data.checked === true){ 
+                          const payload = {
+                            checked: false,
+                            priority: practiceItem.data.practiceItemNumber,
+                          };
+                          setDoc(docRef, payload);
+                        }
+                        else{
+                          const payload = {
+                            checked: true,
+                            priority: practiceItem.data.practiceItemNumber,
+                          };
+                          setDoc(docRef, payload);
+                    
+                          const colRef2 = collection(
+                            db,
+                            "userdb",
+                            user?.uid,
+                            "practice",
+                            id,
+                            "subTopic",
+                            sid,
+                            "track"
+                          );
+                          getDocs(query(colRef2, orderBy("priority"))).then((snapshot) => {
+                            setChecked(
+                              snapshot.docs.map((doc) => ({
+                                data: doc.data(),
+                              }))
+                            );
+                          });
+                        }
+                      }}
+                    >
+                      Checked
+                    </ToggleButton>
+                  ) : (
+                    ""
+                  )}
                 </td>
               </tr>
             ))}

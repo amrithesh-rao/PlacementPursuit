@@ -34,9 +34,7 @@ export default function Quiz() {
   }
   
   const quizTimer = function () {
-    console.log("i ran")
     if( document.documentElement.dataset['calcLoaded'] === 'true' ) return;
-    console.log("i also ran")
     var time = 5, // your time in seconds here
         display = document.querySelector('#safeTimerDisplay');
     startTimer(time, display);
@@ -99,22 +97,21 @@ export default function Quiz() {
   function confirmAns(e){
     handleClose1();
     answers.current[ans.current.qno.toString()]=ans.current.option;
-    console.log(answers)
     
 
   }
   function endTest(){
-    handleClose2();
-    for(let x in answers.current){
-     randomQuestions.current.length!==0?computeScore(x):console.log()
-    }
     
+    for(let x in answers.current){
+      if(answers.current[x]===randomQuestions.current[x-1].data.answer){
+        score.current=score.current+1;
+      }
+      
+    }
+    handleClose2();
     navigate('/test/'+tid+'/report',{state:{score:score.current,tq:qlength,questions:randomQuestions.current,answers:answers.current}})
   }
-  function computeScore(x){
-    if(answers[x]===randomQuestions.current[x-1].data?.answer)
-    score.current+=1
-  }
+  
   return (
     <>
       <NavBar  />
