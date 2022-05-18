@@ -16,6 +16,7 @@ import PageNotFound from "./404";
 import PracticeItems from "./components/PracticeItems";
 import Feedback from "./components/Search";
 import QuizReport from "./components/QuizReport";
+import FeedbackReport from "./components/FeedbackReport";
 
 function App() {
   return (
@@ -83,6 +84,14 @@ function App() {
            element={
             <ProtectedRoute>
               <QuizReport />
+              </ProtectedRoute>
+                } 
+          />
+          <Route
+           path="/feedback/:fid" 
+           element={
+            <ProtectedRoute>
+              <FeedbackReport />
               </ProtectedRoute>
                 } 
           />
