@@ -105,15 +105,14 @@ export default function Quiz() {
   }
   function endTest(){
     handleClose2();
-    for(let x in answers){
-      randomQuestions.current.length!==0?computeScore(x):console.log()
-      
-      
+    for(let x in answers.current){
+     randomQuestions.current.length!==0?computeScore(x):console.log()
     }
+    
     navigate('/test/'+tid+'/report',{state:{score:score.current,tq:qlength,questions:randomQuestions.current,answers:answers.current}})
   }
   function computeScore(x){
-    if(answers[x]===randomQuestions.current[x-1].data.answer)
+    if(answers[x]===randomQuestions.current[x-1].data?.answer)
     score.current+=1
   }
   return (

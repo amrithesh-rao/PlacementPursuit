@@ -36,6 +36,12 @@ export function UserAuthContextProvider({ children }) {
     const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
       console.log("Auth", currentuser);
       setUser(currentuser);
+      if(user){
+        
+      }
+      else{
+
+      }
     });
 
     return () => {
@@ -44,6 +50,7 @@ export function UserAuthContextProvider({ children }) {
   }, []);
 
   return (
+    
     <userAuthContext.Provider
       value={{ user, logIn, signUp, logOut, googleSignIn, sendPasswordReset }}
     >
