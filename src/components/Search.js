@@ -5,10 +5,12 @@ import SearchCard from "./SearchCard";
 import Footbar from "./Footbar";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import FeedbackImg from "../img/preview.jpg"
+import { useNavigate } from "react-router-dom";
 
 export default function SearchBar() {
   const [company_name, setCompanyName] = useState([]);
   var pt ="";
+  let navigate = useNavigate();
   const colRef = collection(db, "feedbackdb");
   function filter(){
     try{
@@ -23,6 +25,7 @@ export default function SearchBar() {
     catch(e){
         console.log(e);
     }
+    // navigate('/feedback/'+{state:{name:pt}})
   }
   console.log(company_name)
     return(
