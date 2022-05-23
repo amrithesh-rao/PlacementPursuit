@@ -9,15 +9,14 @@ import {
   orderBy,
   doc,
   setDoc,
-  merge,
   getDoc,
+  onSnapshot
 } from "firebase/firestore";
 import { useParams } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import { ToggleButton } from "react-bootstrap";
 import { useUserAuth } from "../context/UserAuthContext";
-import { async } from "@firebase/util";
-import { truncate } from "lodash";
+
 
 export default function PracticeItems() {
   const [practiceItem, setPracticeItem] = useState([]);
@@ -42,7 +41,7 @@ export default function PracticeItems() {
 
       if (docSnap.exists()) {
       } else {
-        for (let i = 1; i <= length; i++) {
+        for (let i = 0; i < length; i++) {
           const docRef = doc(
             db,
             "userdb",
@@ -79,6 +78,7 @@ export default function PracticeItems() {
           }))
         );
       });
+      
       if (practiceItem.length !== 0) {
         setTrackDoc(practiceItem.length);
       }
@@ -92,9 +92,16 @@ export default function PracticeItems() {
         sid,
         "track"
       );
-      getDocs(query(colRef2, orderBy("priority"))).then((snapshot) => {
+      // getDocs(query(colRef2, orderBy("priority"))).then((snapshot) => {
+      //   setChecked(
+      //     snapshot.docs.map((doc) => ({
+      //       data: doc.data(),
+      //     }))
+      //   );
+      // });
+      onSnapshot(query(colRef2, orderBy("priority")),(querysnapshot) => {
         setChecked(
-          snapshot.docs.map((doc) => ({
+          querysnapshot.docs.map((doc) => ({
             data: doc.data(),
           }))
         );
@@ -104,7 +111,6 @@ export default function PracticeItems() {
     }
   }, [id, practiceItem.length, sid, user]);
 
-  console.log(user);
   //   const changeCheck = async (index) => {
   //     const docRef = doc(
   //       db,
@@ -147,6 +153,10 @@ export default function PracticeItems() {
   return (
     <>
       <NavBar />
+
+                  {
+              practiceItem.length !==0 && checked.length !==0 ?
+
       <div className="p-5 mx-auto">
         <Table striped bordered hover>
           <thead>
@@ -157,7 +167,8 @@ export default function PracticeItems() {
             </tr>
           </thead>
           <tbody>
-            {practiceItem?.map((practiceItem) => (
+            {
+            practiceItem?.map((practiceItem) => (
               <tr>
                 <td>{practiceItem.data.practiceItemNumber}</td>
                 <td>
@@ -180,7 +191,7 @@ export default function PracticeItems() {
                         checked[practiceItem.data.practiceItemNumber - 1].data
                           .checked
                       }
-                      value={practiceItem.data.practiceItemNumber}
+                      // value={practiceItem.data.practiceItemNumber}
                       //  onChange={(e) =>
                       //   // setChecked(...checked, e.currentTarget.value)
                       //   console.log(e)
@@ -198,40 +209,40 @@ export default function PracticeItems() {
                           "subTopic",
                           sid,
                           "track",
-                          practiceItem.data.practiceItemNumber.toString()
+                          (practiceItem.data.practiceItemNumber-1).toString()
                         );
-                    console.log(practiceItem.data.practiceItemNumber);
+                    console.log(practiceItem.data.practiceItemNumber-1);
                         if(checked[practiceItem.data.practiceItemNumber-1].data.checked === true){ 
                           const payload = {
                             checked: false,
-                            priority: practiceItem.data.practiceItemNumber,
+                            priority: practiceItem.data.practiceItemNumber-1,
                           };
                           setDoc(docRef, payload);
                         }
                         else{
                           const payload = {
                             checked: true,
-                            priority: practiceItem.data.practiceItemNumber,
+                            priority: practiceItem.data.practiceItemNumber-1,
                           };
                           setDoc(docRef, payload);
                     
-                          const colRef2 = collection(
-                            db,
-                            "userdb",
-                            user?.uid,
-                            "practice",
-                            id,
-                            "subTopic",
-                            sid,
-                            "track"
-                          );
-                          getDocs(query(colRef2, orderBy("priority"))).then((snapshot) => {
-                            setChecked(
-                              snapshot.docs.map((doc) => ({
-                                data: doc.data(),
-                              }))
-                            );
-                          });
+                          // const colRef2 = collection(
+                          //   db,
+                          //   "userdb",
+                          //   user?.uid,
+                          //   "practice",
+                          //   id,
+                          //   "subTopic",
+                          //   sid,
+                          //   "track"
+                          // );
+                          // getDocs(query(colRef2, orderBy("priority"))).then((snapshot) => {
+                          //   setChecked(
+                          //     snapshot.docs.map((doc) => ({
+                          //       data: doc.data(),
+                          //     }))
+                          //   );
+                          // });
                         }
                       }}
                     >
@@ -240,13 +251,18 @@ export default function PracticeItems() {
                   ) : (
                     ""
                   )}
+
+            
                 </td>
               </tr>
-            ))}
+            ))
+                  }
           </tbody>
         </Table>
       </div>
-
+      :
+      ""
+}
       <Footbar class="footBar-bottom" />
     </>
   );

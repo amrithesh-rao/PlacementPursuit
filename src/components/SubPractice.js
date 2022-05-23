@@ -33,11 +33,19 @@ export default function SubPractice() {
       <div className="container">
         <div className="row px-auto">
         {
+          id === "cY1T9XTiPw5ZeQSajOym" ?
         subtitles?.map( subtitle  => (
           <div className="col-lg-3 p-5 mx-auto">
         <SubPracticeCard subtitle={ subtitle.data.dsaTitle } sid={ subtitle.sid }/>
         </div>
-      ))}
+      ))
+    :
+    subtitles?.map( subtitle  => (
+      <div className="col-lg-3 p-5 mx-auto">
+    <SubPracticeCard subtitle={ subtitle.data.subTitle } sid={ subtitle.sid }/>
+    </div>
+  ))
+    }
         </div>
       </div>
       
