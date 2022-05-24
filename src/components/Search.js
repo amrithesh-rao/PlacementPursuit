@@ -27,6 +27,11 @@ export default function SearchBar() {
     }
     // navigate('/feedback/'+{state:{name:pt}})
   }
+  const handleSubmit = event => {
+    event.preventDefault();
+
+    console.log('form submitted ✅');
+  };
   console.log(company_name)
     return(
       <>
@@ -35,9 +40,9 @@ export default function SearchBar() {
         <img className="feedback-img"  src={FeedbackImg} alt="First slide" />
       </div>
       <div>
-      <form className='box'>
-        <input type='text' className='search' onChange={(e)=>{pt = e.target.value}} placeholder='Search Feedback' required/>
-        <button type='button' className='search-btn' onClick={filter}>Search</button>
+      <form className='box' onSubmit={handleSubmit}>
+        <input type='text' className='search' onChange={(e)=>{pt = e.target.value}}  placeholder='Search Feedback' required/>
+        <button type='submit' className='search-btn' onClick={filter} >Search</button>
       </form>
     </div>
 
