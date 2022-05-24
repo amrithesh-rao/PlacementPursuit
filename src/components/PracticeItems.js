@@ -183,15 +183,16 @@ export default function PracticeItems() {
                       type="checkbox"
                       variant="outline-primary"
                       checked={
-                        checked[practiceItem.data.practiceItemNumber - 1].data
+                        () =>
+                        {
+                        if(checked.length!==0) 
+                        return checked[practiceItem.data.practiceItemNumber - 1].data
                           .checked
+                        else
+                        return false
+                        }
+
                       }
-                      // value={practiceItem.data.practiceItemNumber}
-                      //  onChange={(e) =>
-                      //   // setChecked(...checked, e.currentTarget.value)
-                      //   console.log(e)
-                      //  }
-                      //  //checked[practiceItem.data.practiceItemNumber-1].data.checked =
                       onClick = {() => {
 
 
@@ -207,6 +208,7 @@ export default function PracticeItems() {
                           (practiceItem.data.practiceItemNumber-1).toString()
                         );
                     console.log(practiceItem.data.practiceItemNumber-1);
+                    checked[practiceItem.data.practiceItemNumber-1].data.checked=!checked[practiceItem.data.practiceItemNumber-1].data.checked;
                         if(checked[practiceItem.data.practiceItemNumber-1].data.checked === true){ 
                           const payload = {
                             checked: false,
