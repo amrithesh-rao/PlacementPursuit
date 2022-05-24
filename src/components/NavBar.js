@@ -19,7 +19,7 @@ export default function NavBar() {
   return (
     <Navbar collapse OnSelect expand="lg"  variant="light">
   <Container className='navBar'>
-  <Navbar.Brand href="/home"><img className='size-m' src={logo} alt='logo' /></Navbar.Brand>
+  <Navbar.Brand onClick={() => navigate("/home")}><img className='size-m' src={logo} alt='logo' /></Navbar.Brand>
   <Navbar.Toggle aria-controls="responsive-navbar-nav" />
   <Navbar.Collapse id="responsive-navbar-nav">
     <Nav className="me-auto">
