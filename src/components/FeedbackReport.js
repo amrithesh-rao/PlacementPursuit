@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "./NavBar";
 import Footbar from "./Footbar";
-import SubPracticeCard from "./SubPracticeCard"
 import './Search.js';
 import { db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 
 export default function FeedbackReport(){
@@ -56,18 +54,17 @@ console.log(feedbackInfo);
 return(
   <>
   <NavBar/>
-  <div >
-  <div >
+  <div className="feedbox" >
         
-          <div >
-            <h2> { feedbackInfo.name } </h2>
-            <p>{ feedbackInfo.company_name } </p>
-            <p>{ feedbackInfo.role } </p>
-            <p>{ feedbackInfo.ctc } </p>
-            <p>{ feedbackInfo.experience } </p>
+        <div className="feedreportbox">
+            <h2> Name : { feedbackInfo.name } </h2>
+            <h3> Company Name :{ feedbackInfo.company_name } </h3>
+            <h3> Role : { feedbackInfo.role } </h3>
+            <h3>CTC : { feedbackInfo.ctc } </h3>
+            <h6> Experience : { feedbackInfo.experience } </h6>
         </div>
-        </div>
-      </div>
+  </div>
+      
   <Footbar class="footBar-bottom"/>
   </>
 )

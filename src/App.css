@@ -275,3 +275,16 @@ div[role="progressbar"]::before {
 .btn-outline-primary:active:focus {
     box-shadow: 0 0 0 0 rgb(0 0 0 / 0%) !important;
 }
+
+.feedbox{
+    background-color: white;
+}
+
+.feedreportbox{
+    background-color: #EEDD82;
+    padding: 50px;
+    margin-top: 20px ;
+    margin-right: 50px;
+    margin-left: 50px;
+    margin-bottom: 10px;
+}
