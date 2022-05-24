@@ -10,13 +10,12 @@ import {
   doc,
   setDoc,
   getDoc,
-  onSnapshot
+  onSnapshot,
 } from "firebase/firestore";
 import { useParams } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import { ToggleButton } from "react-bootstrap";
 import { useUserAuth } from "../context/UserAuthContext";
-
 
 export default function PracticeItems() {
   const [practiceItem, setPracticeItem] = useState([]);
@@ -60,7 +59,7 @@ export default function PracticeItems() {
         }
       }
     };
-    const setPracticeDocs =  () => {
+    const setPracticeDocs = () => {
       const colRef = collection(
         db,
         "infodb",
@@ -76,36 +75,41 @@ export default function PracticeItems() {
           }))
         );
       });
-
-    }
+    };
     try {
-      setPracticeDocs(); 
+      setPracticeDocs();
       if (practiceItem.length !== 0) {
         setTrackDoc(practiceItem.length);
-        
-      onSnapshot(query(collection(
-        db,
-        "userdb",
-        user?.uid,
-        "practice",
-        id,
-        "subTopic",
-        sid,
-        "track"
-      ), orderBy("priority")),(querysnapshot) => {
-        setChecked(
-          querysnapshot.docs.map((doc) => ({
-            data: doc.data(),
-          }))
-        );
-      });
 
+        onSnapshot(
+          query(
+            collection(
+              db,
+              "userdb",
+              user?.uid,
+              "practice",
+              id,
+              "subTopic",
+              sid,
+              "track"
+            ),
+            orderBy("priority")
+          ),
+          (querysnapshot) => {
+            setChecked(
+              querysnapshot.docs.map((doc) => ({
+                data: doc.data(),
+              }))
+            );
+          }
+        );
       }
     } catch (e) {
       console.log(e);
     }
-  }, [id, practiceItem.length, checked, checked.length, practiceItem, sid, user]);
-
+  }, [id, practiceItem.length, sid, user]);
+  console.log(practiceItem);
+  console.log(checked);
   //   const changeCheck = async (index) => {
   //     const docRef = doc(
   //       db,
@@ -149,41 +153,37 @@ export default function PracticeItems() {
     <>
       <NavBar />
 
-        {
-      (practiceItem?.length !==0 && checked?.length !==0    )  &&
-
-      <div className="p-5 mx-auto">
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Index</th>
-              <th>Question name</th>
-              <th>Completed</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-            practiceItem?.map((practiceItem) => (
+      {practiceItem?.length !== 0 && checked?.length !== 0 && (
+        <div className="p-5 mx-auto">
+          <Table striped bordered hover>
+            <thead>
               <tr>
-                <td>{practiceItem.data.practiceItemNumber}</td>
-                <td>
-                  <a
-                    href={practiceItem.data.practiceItemLink}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {practiceItem.data.practiceItemName}
-                  </a>
-                </td>
-                <td>
-
+                <th>Index</th>
+                <th>Question name</th>
+                <th>Completed</th>
+              </tr>
+            </thead>
+            <tbody>
+              {practiceItem?.map((practiceItem) => (
+                <tr>
+                  <td>{practiceItem.data.practiceItemNumber}</td>
+                  <td>
+                    <a
+                      href={practiceItem.data.practiceItemLink}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {practiceItem.data.practiceItemName}
+                    </a>
+                  </td>
+                  <td>
                     <ToggleButton
                       className="mb-2"
                       id="toggle-check"
                       type="checkbox"
                       variant="outline-primary"
                       checked={
-                        checked[practiceItem.data.practiceItemNumber - 1].data
+                        checked[practiceItem.data.practiceItemNumber - 1]?.data
                           .checked
                       }
                       // value={practiceItem.data.practiceItemNumber}
@@ -192,9 +192,7 @@ export default function PracticeItems() {
                       //   console.log(e)
                       //  }
                       //  //checked[practiceItem.data.practiceItemNumber-1].data.checked =
-                      onClick = {() => {
-
-
+                      onClick={() => {
                         const docRef = doc(
                           db,
                           "userdb",
@@ -204,23 +202,25 @@ export default function PracticeItems() {
                           "subTopic",
                           sid,
                           "track",
-                          (practiceItem.data.practiceItemNumber-1).toString()
+                          (practiceItem.data.practiceItemNumber - 1).toString()
                         );
-                    console.log(practiceItem.data.practiceItemNumber-1);
-                        if(checked[practiceItem.data.practiceItemNumber-1].data.checked === true){ 
+                        console.log(practiceItem.data.practiceItemNumber - 1);
+                        if (
+                          checked[practiceItem.data.practiceItemNumber - 1].data
+                            .checked === true
+                        ) {
                           const payload = {
                             checked: false,
-                            priority: practiceItem.data.practiceItemNumber-1,
+                            priority: practiceItem.data.practiceItemNumber - 1,
                           };
                           setDoc(docRef, payload);
-                        }
-                        else{
+                        } else {
                           const payload = {
                             checked: true,
-                            priority: practiceItem.data.practiceItemNumber-1,
+                            priority: practiceItem.data.practiceItemNumber - 1,
                           };
                           setDoc(docRef, payload);
-                    
+
                           // const colRef2 = collection(
                           //   db,
                           //   "userdb",
@@ -243,17 +243,13 @@ export default function PracticeItems() {
                     >
                       Checked
                     </ToggleButton>
-
-
-            
-                </td>
-              </tr>
-            ))
-                  }
-          </tbody>
-        </Table>
-      </div>
-}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
+      )}
       <Footbar class="footBar-bottom" />
     </>
   );
