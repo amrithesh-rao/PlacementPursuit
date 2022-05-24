@@ -3,6 +3,8 @@ import { Navbar , Container, Nav,NavDropdown } from 'react-bootstrap';
 import logo from '../img/logo.png';
 import { useUserAuth } from "../context/UserAuthContext";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
+
 
 export default function NavBar() {
     const { user, logOut } = useUserAuth();
@@ -23,9 +25,9 @@ export default function NavBar() {
   <Navbar.Toggle aria-controls="responsive-navbar-nav" />
   <Navbar.Collapse id="responsive-navbar-nav">
     <Nav className="me-auto">
-      <Nav.Link href="/practice">Practice</Nav.Link>
-      <Nav.Link href="/test">Test</Nav.Link>
-      <Nav.Link href="/feedback">Feedback</Nav.Link>
+      <Nav.Link><Link to="/practice">Practice</Link></Nav.Link>
+      <Nav.Link><Link to = "/test">Test</Link></Nav.Link>
+      <Nav.Link><Link to = "/feedback">Feedback</Link></Nav.Link>
       
     </Nav>
     <Nav>

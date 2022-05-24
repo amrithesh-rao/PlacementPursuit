@@ -35,10 +35,9 @@ export default function PracticeItems() {
         "subTopic",
         sid,
         "track",
-        "1"
+        "0"
       );
       const docSnap = await getDoc(ref);
-
       if (docSnap.exists()) {
       } else {
         for (let i = 0; i < length; i++) {
@@ -61,8 +60,7 @@ export default function PracticeItems() {
         }
       }
     };
-
-    try {
+    const setPracticeDocs =  () => {
       const colRef = collection(
         db,
         "infodb",
@@ -78,11 +76,14 @@ export default function PracticeItems() {
           }))
         );
       });
-      
+
+    }
+    try {
+      setPracticeDocs(); 
       if (practiceItem.length !== 0) {
         setTrackDoc(practiceItem.length);
-      }
-      const colRef2 = collection(
+        
+      onSnapshot(query(collection(
         db,
         "userdb",
         user?.uid,
@@ -91,25 +92,19 @@ export default function PracticeItems() {
         "subTopic",
         sid,
         "track"
-      );
-      // getDocs(query(colRef2, orderBy("priority"))).then((snapshot) => {
-      //   setChecked(
-      //     snapshot.docs.map((doc) => ({
-      //       data: doc.data(),
-      //     }))
-      //   );
-      // });
-      onSnapshot(query(colRef2, orderBy("priority")),(querysnapshot) => {
+      ), orderBy("priority")),(querysnapshot) => {
         setChecked(
           querysnapshot.docs.map((doc) => ({
             data: doc.data(),
           }))
         );
       });
+
+      }
     } catch (e) {
       console.log(e);
     }
-  }, [id, practiceItem.length, sid, user]);
+  }, [id, practiceItem.length, checked, checked.length, practiceItem, sid, user]);
 
   //   const changeCheck = async (index) => {
   //     const docRef = doc(
@@ -154,8 +149,8 @@ export default function PracticeItems() {
     <>
       <NavBar />
 
-                  {
-              practiceItem.length !==0 && checked.length !==0 ?
+        {
+      (practiceItem?.length !==0 && checked?.length !==0    )  &&
 
       <div className="p-5 mx-auto">
         <Table striped bordered hover>
@@ -181,7 +176,7 @@ export default function PracticeItems() {
                   </a>
                 </td>
                 <td>
-                  {checked.length !== 0 ? (
+
                     <ToggleButton
                       className="mb-2"
                       id="toggle-check"
@@ -248,9 +243,7 @@ export default function PracticeItems() {
                     >
                       Checked
                     </ToggleButton>
-                  ) : (
-                    ""
-                  )}
+
 
             
                 </td>
@@ -260,8 +253,6 @@ export default function PracticeItems() {
           </tbody>
         </Table>
       </div>
-      :
-      ""
 }
       <Footbar class="footBar-bottom" />
     </>
