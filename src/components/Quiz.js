@@ -15,7 +15,7 @@ export default function Quiz() {
   let navigate = useNavigate();
   const location = useLocation();
   const {level} = location.state;
-  console.log(level)
+  const oneTime = useRef(true);
   const {user} = useUserAuth();
 
   function startTimer(duration, display) {
@@ -31,7 +31,7 @@ export default function Quiz() {
         if (--timer<= -1) {
           
             clearInterval(counter);
-            document.documentElement.dataset['calcLoaded'] = 'false';
+            endTest();
 
             // timer = duration; // uncomment this line to reset timer automatically after reaching 0
         }
@@ -39,11 +39,11 @@ export default function Quiz() {
   }
   
   const quizTimer = function () {
-    if( document.documentElement.dataset['calcLoaded'] === 'true' ) return;
-    var time = 5, // your time in seconds here
+    if( oneTime.current === false ) return;
+    var time = 30, // your time in seconds here
         display = document.querySelector('#safeTimerDisplay');
     startTimer(time, display);
-    document.documentElement.dataset['calcLoaded'] = 'true';
+    oneTime.current = false;
   };
 
   const answers = useRef({});
