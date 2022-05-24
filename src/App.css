@@ -159,11 +159,12 @@ hr.style-eight:after {
 }
 
 .option {
-    border: #333 0.5rem;
+    border-radius: 10px;
 }
 
 .qreport {
     background-color: rgb(183, 201, 244);
+    border-radius: 15px;
 }
 
 .oreport {
@@ -175,7 +176,7 @@ hr.style-eight:after {
 }
 
 .wrong {
-    background-color: rgb(246, 114, 114);
+    background-color: rgb(246, 73, 73);
 }
 
 .unattempted {
