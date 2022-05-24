@@ -2,9 +2,7 @@ import React from 'react';
 import { Navbar , Container, Nav,NavDropdown } from 'react-bootstrap';
 import logo from '../img/logo.png';
 import { useUserAuth } from "../context/UserAuthContext";
-import { useNavigate } from "react-router";
-import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 export default function NavBar() {
     const { user, logOut } = useUserAuth();
@@ -25,10 +23,9 @@ export default function NavBar() {
   <Navbar.Toggle aria-controls="responsive-navbar-nav" />
   <Navbar.Collapse id="responsive-navbar-nav">
     <Nav className="me-auto">
-      <Nav.Link><Link to="/practice">Practice</Link></Nav.Link>
-      <Nav.Link><Link to = "/test">Test</Link></Nav.Link>
-      <Nav.Link><Link to = "/feedback">Feedback</Link></Nav.Link>
-      
+      <Nav.Link onClick={() => navigate("/practice")}>Practice</Nav.Link>
+      <Nav.Link onClick={() => navigate("/test")}>Test</Nav.Link>
+      <Nav.Link onClick={() => navigate("/feedback")}>Feedback</Nav.Link>
     </Nav>
     <Nav>
         
