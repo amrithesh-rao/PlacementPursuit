@@ -135,16 +135,17 @@ hr.style-eight:after {
     height: 400px;
 }
 .box{
-
-    width: 100%;
     text-align: center;
+    width: 100%;
+    
 }
 .box-n {
-    width: 100%;
-    text-align: center;
     display: inline-flex;
     justify-content: center;
-    
+    width: 100%;
+    text-align: center;
+   
+
 }
 
 .search {
