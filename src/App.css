@@ -134,8 +134,12 @@ hr.style-eight:after {
     width: 50%;
     height: 400px;
 }
+.box{
 
-.box {
+    width: 100%;
+    text-align: center;
+}
+.box-n {
     width: 100%;
     text-align: center;
     display: inline-flex;
