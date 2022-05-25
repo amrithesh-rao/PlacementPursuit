@@ -16,14 +16,15 @@ import { useParams } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import { ToggleButton } from "react-bootstrap";
 import { useUserAuth } from "../context/UserAuthContext";
-
+import { useLocation } from "react-router-dom";
 
 export default function PracticeItems() {
   const [practiceItem, setPracticeItem] = useState([]);
   const { id, sid } = useParams();
   const { user } = useUserAuth();
   const [checked, setChecked] = useState([]);
-
+  const location=useLocation();
+  const { subtitle } = location.state;
   useEffect(() => {
     const setTrackDoc = async (length) => {
       var ref = doc(
@@ -149,7 +150,7 @@ console.log(checked);
   return (
     <>
       <NavBar />
-
+      <h2 className="subtopic-name">{subtitle}</h2>
         {
       (practiceItem?.length !==0 && checked?.length !==0    )  &&
 

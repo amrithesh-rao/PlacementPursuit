@@ -13,7 +13,7 @@ export default function PracticeCard(props) {
     <Card.Title className='text-center'>{props.subtitle}</Card.Title>
     
   </Card.Body>
-  <div className='mx-auto'><Button variant="primary" onClick={()=>navigate( props.sid )}>Practice now</Button></div>
+  <div className='mx-auto'><Button variant="primary" onClick={()=>navigate( props.sid,{state:{subtitle : props.subtitle }})}>Practice now</Button></div>
   </Card.ImgOverlay>
 </Card>
     )

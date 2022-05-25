@@ -34,7 +34,7 @@ export default function TestInner() {
 
 
       
-    if(quizReports.length==0){
+    if(quizReports.length===0){
       const collectionRef2 = collection(db,"userdb",user?.uid,"test",id,"quiz")
       getDocs(query(collectionRef2,orderBy("created")))
         .then((snapshot) => {
@@ -48,7 +48,7 @@ export default function TestInner() {
     } 
     
 
-  }, []);
+  }, [quizReports.length,id,user?.uid]);
   console.log(quizReports)
   return (
     <>

@@ -5,11 +5,13 @@ import SubPracticeCard from "./SubPracticeCard";
 import { db } from "../firebase";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export default function SubPractice() {
   const [subtitles, setSubtitles] = useState([]);
   const { id } = useParams();
-
+  const location=useLocation();
+  const { title } = location.state;
   useEffect(() => {
     try{
       const colRef = collection(db, "infodb",  id , "subTopic");
@@ -30,6 +32,7 @@ export default function SubPractice() {
   return (
     <>
       <NavBar />
+      <h2 className="subtopic-name">{title}</h2>
       <div className="container">
         <div className="row px-auto">
         {

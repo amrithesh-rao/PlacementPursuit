@@ -140,20 +140,22 @@ export default function Quiz() {
         <h6>Time remaining</h6>
         <p id="safeTimerDisplay"></p>
       </div>
-      <h2 className="m-3">Quiz-1</h2>
+      <h2 className="m-3 subtopic-name">Quiz-1</h2>
 
   
-
+      <div className="num-center">
       {randomQuestions.current.map(questions => (
         <NumberBox questionNo={randomQuestions.current.indexOf(questions) + 1} handleClick={() => setQno(randomQuestions.current.indexOf(questions))} />
       ))}
+      </div>
+      
       {randomQuestions.current.length!==0?
         <>
         <Card className=" quiz-card mx-auto">
         <Card.Body>
           <Card.Title>Q{qno + 1} : {randomQuestions.current[qno].data.question}</Card.Title>
           <Form onSubmit={saveAns} id="ansForm">
-          <Card.Text>
+          <Card.Text className="options-box">
             {randomQuestions.current[qno].data.options.map(option=>
             <Form.Check type={"radio"}
             id={randomQuestions.current[qno].data.options.indexOf(option)+1}
@@ -162,7 +164,7 @@ export default function Quiz() {
             name={"selectOptions"}/>)}
           </Card.Text>
           <input type="hidden" name={"questionNo"} value={qno + 1}></input>
-          <Button variant="primary" type="submit">Save Choice</Button>
+          <Button className="btn-ctr mx-auto" variant="primary" type="submit">Save Choice</Button>
           
           <Modal show={show1} onHide={handleClose1}>
         <Modal.Header closeButton>
