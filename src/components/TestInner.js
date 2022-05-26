@@ -33,8 +33,8 @@ export default function TestInner() {
     }).catch(e=>console.log(e));
 
 
-      
-    if(quizReports.length===0){
+      console.log(user)
+    if(quizReports?.length===0 && user.uid!==undefined){
       const collectionRef2 = collection(db,"userdb",user?.uid,"test",id,"quiz")
       getDocs(query(collectionRef2,orderBy("created")))
         .then((snapshot) => {
@@ -77,7 +77,7 @@ export default function TestInner() {
 
         {quizReports?.map((quizReport) => (
                     <tr>
-        <td><Button  variant="light" onClick={()=>navigate('/test/'+id+'/report',{state:{score:quizReport.data.score,tq:quizReport.data.tq,questions:quizReport.data.questions,answers:quizReport.data.answers}})}>Quiz-{quizReports.indexOf(quizReport)+1}</Button></td>
+        <td><Button  variant="success" onClick={()=>navigate('/test/'+id+'/report',{state:{score:quizReport.data.score,tq:quizReport.data.tq,questions:quizReport.data.questions,answers:quizReport.data.answers}})}>Quiz-{quizReports.indexOf(quizReport)+1}</Button></td>
         <td>{quizReport.data.level}</td>
         <td>{Date(quizReport.data.created.nanoseconds)}</td>
         <td>{quizReport.data.score}/{quizReport.data.tq}</td>

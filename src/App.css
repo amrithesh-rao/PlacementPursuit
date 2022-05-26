@@ -298,12 +298,18 @@ div[role="progressbar"]::before {
 }
 
 .feedreportbox{
-    background-color: #EEDD82;
-    padding: 50px;
+    background-color: #eee093;
+    padding: 30px;
     margin-top: 20px ;
     margin-right: 50px;
     margin-left: 50px;
     margin-bottom: 10px;
+    border-radius: 10px;
+}
+.e-feedback{
+    position: absolute;
+    top: 5rem;
+    right: 3rem;
 }
 /**
  * Main wrapper

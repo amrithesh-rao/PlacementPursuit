@@ -7,6 +7,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import FeedbackImg from "../img/preview.jpg"
 import { useNavigate } from "react-router-dom";
 import SelectSearch,{ fuzzySearch } from 'react-select-search';
+import { Button } from "react-bootstrap";
 
 export default function SearchBar() {
   const [company_name, setCompanyName] = useState([]);
@@ -83,7 +84,7 @@ const [pt,setPt] = useState("");
       ))}
         </div>
       </div>
-      
+      <Button className="e-feedback" onClick={()=>navigate('addFeedback')}>Placed? Give Feedback</Button>
     <Footbar class="footBar-bottom"/>
       </>
     );
