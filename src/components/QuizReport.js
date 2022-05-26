@@ -65,7 +65,7 @@ export default function QuizReport() {
             
             </div>
             <div className="m-2 p-3">
-              {question.data.options.map(option=>(
+              {question.data.options?.map(option=>(
                   answers[questions.indexOf(question)+1]===question.data.answer?
                     option===question.data.answer?<>
                       <div className=" option correct m-3 p-3">
