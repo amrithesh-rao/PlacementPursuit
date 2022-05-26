@@ -14,7 +14,7 @@ export default function SearchCard(props) {
     <Card.Title className='text-center'>{props.name}</Card.Title>
     
   </Card.Body>
-  <div className='mx-auto'><Button variant="primary" onClick={()=>navigate( props.id,{state:{name:props.name}})}>Open now</Button></div>
+  <div className='subtopic-name mt-3'><Button variant="primary" onClick={()=>navigate( props.id,{state:{name:props.name}})}>Open now</Button></div>
   </Card.ImgOverlay>
 </Card>
     )
