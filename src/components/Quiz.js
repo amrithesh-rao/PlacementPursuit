@@ -16,6 +16,7 @@ export default function Quiz() {
   const location = useLocation();
   const {level} = location.state;
   const oneTime = useRef(true);
+  const oneSubmit= useRef(false);
   const {user} = useUserAuth();
 
   function startTimer(duration, display) {
@@ -31,7 +32,10 @@ export default function Quiz() {
         if (--timer<= -1) {
           
             clearInterval(counter);
-            endTest();
+            if(oneSubmit===false){
+              endTest();
+            }
+            
 
             // timer = duration; // uncomment this line to reset timer automatically after reaching 0
         }
@@ -201,7 +205,7 @@ export default function Quiz() {
           <Button variant="secondary" onClick={handleClose2}>
             Close
           </Button>
-          <Button variant="primary" onClick={endTest}>
+          <Button variant="primary" onClick={()=>{oneSubmit.current=true; endTest();}}>
             Submit Test
           </Button>
         </Modal.Footer>
