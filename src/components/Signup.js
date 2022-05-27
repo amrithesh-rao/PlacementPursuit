@@ -27,7 +27,7 @@ const Signup = () => {
 
     try {
       await signUp(emailRef.current.value, passwordRef.current.value);
-      navigate("/");
+      navigate("/home");
     } catch (err) {
       setError(err.message);
     }
