@@ -17,7 +17,6 @@ import Table from "react-bootstrap/Table";
 import { ToggleButton } from "react-bootstrap";
 import { useUserAuth } from "../context/UserAuthContext";
 import { useLocation } from "react-router-dom";
-
 export default function PracticeItems() {
   const [practiceItem, setPracticeItem] = useState([]);
   const { id, sid } = useParams();

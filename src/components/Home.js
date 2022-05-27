@@ -10,7 +10,6 @@ import testCarousel from "../img/testCarousel.png";
 import feedbackCarousel from "../img/feedbackCarousel.png";
 import practiceCarousel from "../img/practiceCarousel.png";
 import homeCarousel from "../img/homeCarousel.png";
-import { collection, setDoc, doc, getDoc } from "firebase/firestore";
 import testSectionImg from "../img/testSectionImg.png";
 import feedbackSectionImg from "../img/feedbackSectionImg.png";
 import practiceSectionImg from "../img/practiceSectionImg.jpg";

@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
 import {Table,Button} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export default function TestInner() {
     const [levels, setLevels] = useState([]);
@@ -15,6 +16,10 @@ export default function TestInner() {
     const {id} = useParams();
     let navigate = useNavigate();
     const {user} = useUserAuth();
+    const location=useLocation();
+
+    const { testHeading } = location.state;
+    
     console.log(user)
     console.log(id)
 
@@ -53,6 +58,7 @@ export default function TestInner() {
   return (
     <>
       <NavBar />
+      <h2 className="subtopic-name">{testHeading}</h2>
       <div className="container">
         <div className="row px-auto">
         {
