@@ -24,7 +24,7 @@ export default function TestInner() {
     console.log(id)
 
     
-      
+    
 
   useEffect(  () => {
 
@@ -85,7 +85,7 @@ export default function TestInner() {
                     <tr>
         <td><Button  variant="success" onClick={()=>navigate('/test/'+id+'/report',{state:{score:quizReport.data.score,tq:quizReport.data.tq,questions:quizReport.data.questions,answers:quizReport.data.answers}})}>Quiz-{quizReports.indexOf(quizReport)+1}</Button></td>
         <td>{quizReport.data.level}</td>
-        <td>{Date(quizReport.data.created.nanoseconds)}</td>
+        <td>{Date(quizReport.data.created?.nanoseconds)}</td>
         <td>{quizReport.data.score}/{quizReport.data.tq}</td>
         </tr>
       ))}

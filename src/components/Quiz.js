@@ -8,7 +8,7 @@ import NumberBox from "./NumberBox";
 import { sampleSize } from "lodash";
 import { Button,Card,Form,Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { useUserAuth } from "../context/UserAuthContext";
+import { useUserAuth} from "../context/UserAuthContext";
 
 
 export default function Quiz() {
@@ -67,6 +67,17 @@ export default function Quiz() {
   const score = useRef(0);
   const qlength=15;
   
+  window.onpopstate = (e) => {
+    oneSubmit.current=true;
+    for(let x in answers.current){
+      if(answers.current[x]===randomQuestions.current[x-1].data.answer){
+        score.current=score.current+1;
+      }
+      
+    }
+    setQuizReport();
+  }
+
   useEffect(  () => {
     try{
     const collectionRef = collection(db,"quiz_questions",tid,"levels",lid,"questions");
@@ -134,11 +145,12 @@ export default function Quiz() {
     }
     setQuizReport();
     handleClose2();
-    navigate('/test/'+tid+'/report',{state:{score:score.current,tq:qlength,questions:randomQuestions.current,answers:answers.current}})
+    navigate('/test/'+tid+'/report',{replace: true,state:{score:score.current,tq:qlength,questions:randomQuestions.current,answers:answers.current}})
   }
   
   return (
     <>
+    
       <NavBar  />
       <div id="safeTimer" className="p-2 position-absolute end-0">
         <h6>Time remaining</h6>
