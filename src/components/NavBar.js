@@ -44,7 +44,7 @@ export default function NavBar() {
       <Nav.Link onClick={() => navigate("/test")}>Test</Nav.Link>
       <Nav.Link onClick={() => navigate("/feedback")}>Feedback</Nav.Link>
     </Nav>
-    <Nav>
+    <Nav className="mr-7">
         
     <img src={user.photoURL} className="profile-pic" alt="profile"/>
       <NavDropdown title={user.displayName} id="collasible-nav-dropdown">
