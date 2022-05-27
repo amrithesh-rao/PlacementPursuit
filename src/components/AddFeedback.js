@@ -47,7 +47,7 @@ export default function AddFeedback() {
     e.preventDefault();
     const collRef1 = collection(db, "feedbackdb");
     const docSnap = await getDocs(
-      query(collRef1, where("name", "==", user?.displayName))
+      query(collRef1, where("email", "==", user?.email))
     );
         if(docSnap.docs.length!==0){
             console.log(docSnap.docs)
@@ -62,6 +62,7 @@ export default function AddFeedback() {
       experience: formExperience.value,
       role: formRole.value,
       name: user.displayName,
+      email:user.email
     };
     await addDoc(collRef, payload);
     handleShow2();

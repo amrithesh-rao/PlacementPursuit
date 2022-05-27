@@ -31,7 +31,7 @@ const Home = () => {
       handleShow();
       
     }
-  }, [user?.displayName]);
+  }, []);
     
     
     
@@ -126,13 +126,13 @@ const Home = () => {
           </div>
           <div className="col">
             <div>
-              <p className="h1 p-4 mt-5">
+              <p className="h1 p-4 mt-5 desc">
                 Practice Section holds all materials for concepts that are
                 important to interview.
               </p>
             </div>
             <div className="p-2 m-3" onClick={() => navigate("/practice")}>
-              <Button>Practice ---{">"}</Button>
+              <Button size="lg">Practice ---{">"}</Button>
             </div>
           </div>
         </div>
@@ -142,13 +142,13 @@ const Home = () => {
         <div className="row">
           <div className="col">
             <div>
-              <p className="h1 p-4 mt-5 ml-7">
+              <p className="h1 p-4 mt-5 ml-7 desc">
                 After studying from Practice Section, test your knowledge using
                 quizes in Test Section
               </p>
             </div>
             <div className="p-2 ml-10" onClick={() => navigate("/test")}>
-              <Button>Test ---{">"}</Button>
+              <Button size="lg">Test ---{">"}</Button>
             </div>
           </div>
           <div className="col">
@@ -169,13 +169,13 @@ const Home = () => {
           </div>
           <div className="col">
             <div>
-              <p className="h1 p-4 mt-5">
+              <p className="h1 p-4 mt-5 desc">
                 Read feebacks from seniors and prepare accordingly for interview
                 process of specific companies.
               </p>
             </div>
             <div className="p-2 m-3">
-              <Button onClick={() => navigate("/feedback")}>
+              <Button size="lg" onClick={() => navigate("/feedback")}>
                 Feedback ---{">"}
               </Button>
             </div>

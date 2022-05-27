@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
 body {
     margin: 0px;
     overflow-x: hidden;
@@ -38,7 +39,9 @@ hr.style-eight:after {
     padding: 0 0.25em;
     background: white;
 }
-
+.desc{
+   font-family:  Verdana, Geneva, Tahoma, sans-serif;
+}
 .forgot-pass {
     text-align: end;
     margin-right: 6rem !important;
