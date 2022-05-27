@@ -27,7 +27,7 @@ const Signup = () => {
 
     try {
       await signUp(emailRef.current.value, passwordRef.current.value);
-      navigate("/home");
+      navigate("/home", { replace: true });
     } catch (err) {
       setError(err.message);
     }
@@ -37,7 +37,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       await googleSignIn();
-      navigate("/home");
+      navigate("/home", { replace: true });
     } catch (error) {
       console.log(error.message);
     }
