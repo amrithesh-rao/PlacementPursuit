@@ -12,22 +12,27 @@ export default function SubPractice() {
   const { id } = useParams();
   const location=useLocation();
   const { title } = location.state;
+
   useEffect(() => {
+
     try{
       const colRef = collection(db, "infodb",  id , "subTopic");
       getDocs(query(colRef, orderBy("priority")))
           .then( snapshot => {
               setSubtitles(snapshot.docs.map(doc =>({
                   sid: doc.id,
-                  data: doc.data()
+                  data: doc.data(),
               })))
-          })
-    }
+           })
+
+      }
+
     catch(e){
         console.log(e);
     }   
 
 }, [id]);
+
   console.log(id);
   return (
     <>
@@ -40,12 +45,15 @@ export default function SubPractice() {
         subtitles?.map( subtitle  => (
           <div className="col-lg-3 p-5 mx-auto">
         <SubPracticeCard subtitle={ subtitle.data.dsaTitle } sid={ subtitle.sid }/>
+        
+
         </div>
       ))
     :
     subtitles?.map( subtitle  => (
       <div className="col-lg-3 p-5 mx-auto">
     <SubPracticeCard subtitle={ subtitle.data.subTitle } sid={ subtitle.sid }/>
+
     </div>
   ))
     }

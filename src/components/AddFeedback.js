@@ -127,9 +127,7 @@ export default function AddFeedback() {
     await addDoc(collRef, payload);
     handleShow2();
     setTimeout(()=>navigate("/Feedback"),5000)
-    
         }
-    
   }
 
   return (
