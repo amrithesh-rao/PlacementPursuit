@@ -32,7 +32,7 @@ export default function Quiz() {
         if (--timer<= -1) {
           
             clearInterval(counter);
-            if(oneSubmit===false){
+            if(oneSubmit.current===false){
               endTest();
             }
             
