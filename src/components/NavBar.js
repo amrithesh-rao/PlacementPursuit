@@ -13,6 +13,7 @@ export default function NavBar() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
     const handleLogout = async () => {
         try {
           await logOut();
@@ -39,8 +40,8 @@ export default function NavBar() {
   <Navbar.Brand onClick={() => navigate("/home")}><img className='size-m' src={logo} alt='logo' /></Navbar.Brand>
   <Navbar.Toggle aria-controls="responsive-navbar-nav" />
   <Navbar.Collapse id="responsive-navbar-nav">
-    <Nav className="me-auto">
-      <Nav.Link onClick={() => navigate("/practice")}>Practice</Nav.Link>
+    <Nav className="me-auto" >
+      <Nav.Link onClick={() => navigate("/practice")} >Practice</Nav.Link>
       <Nav.Link onClick={() => navigate("/test")}>Test</Nav.Link>
       <Nav.Link onClick={() => navigate("/feedback")}>Feedback</Nav.Link>
     </Nav>

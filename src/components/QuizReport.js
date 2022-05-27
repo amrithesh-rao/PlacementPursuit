@@ -106,7 +106,7 @@ export default function QuizReport() {
         
       }
       
-      <Footbar class="footBar-bottom"/>
+      <Footbar class="footBar"/>
     </>
   );
 }
