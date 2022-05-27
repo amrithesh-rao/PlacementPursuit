@@ -32,7 +32,7 @@ const [pt,setPt] = useState("");
     try{
       getDocs(query(colRef, where("company_name", "==", pt)))
           .then( snapshot => {
-            if(snapshot.docs.length == 0)
+            if(snapshot.docs.length === 0)
             alert("No data found");
             else
               setCompanyName(snapshot.docs.map(doc =>({
