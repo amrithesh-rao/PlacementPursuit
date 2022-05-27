@@ -3,7 +3,6 @@ import NavBar from "../components/NavBar";
 import Footbar from "./Footbar";
 import { Button, Carousel, Modal, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { db } from "../firebase";
 import {  updateProfile } from 'firebase/auth';
 import { useUserAuth } from "../context/UserAuthContext";
 import testCarousel from "../img/testCarousel.png";
@@ -45,7 +44,7 @@ const Home = () => {
       displayName: uName.current,
       photoURL: 'https://media.istockphoto.com/vectors/male-profile-flat-blue-simple-icon-with-long-shadow-vector-id522855255?k=20&m=522855255&s=612x612&w=0&h=fLLvwEbgOmSzk1_jQ0MgDATEVcVOh_kqEe0rqi7aM5A='
     });
-    window.location.reload(); 
+    navigate(0); 
   }
   return (
     <>

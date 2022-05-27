@@ -30,7 +30,7 @@ export default function NavBar() {
         updateProfile(user,{
           displayName: uName.current
           });
-        window.location.reload(); 
+        navigate(0); 
       }
   return (
     <>
