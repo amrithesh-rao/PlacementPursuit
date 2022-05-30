@@ -14,7 +14,7 @@ import { useUserAuth} from "../context/UserAuthContext";
 export default function Quiz() {
   let navigate = useNavigate();
   const location = useLocation();
-  const {level} = location.state;
+  const {level,testNo} = location.state;
   const oneTime = useRef(true);
   const oneSubmit= useRef(false);
   const {user} = useUserAuth();
@@ -51,7 +51,7 @@ export default function Quiz() {
   };
 
   const answers = useRef({});
-
+  const [answeres1,setAnswers]=useState([])
   const {lid,tid} = useParams();
   const [quiz, setQuiz] = useState([]);
   const [qno, setQno] = useState(0);
@@ -67,17 +67,20 @@ export default function Quiz() {
   const score = useRef(0);
   const qlength=15;
   
-  window.onpopstate = (e) => {
-    oneSubmit.current=true;
-    for(let x in answers.current){
-      if(answers.current[x]===randomQuestions.current[x-1].data.answer){
-        score.current=score.current+1;
-      }
-      
-    }
-    setQuizReport();
-  }
+  // window.onpopstate = (e) => {
+  //   oneSubmit.current=true;
+  //   for(let x in answers.current){
+  //     if(answers.current[x]===randomQuestions.current[x-1].data.answer){
+  //       score.current=score.current+1;
+  //     }
+  //   }
+  //   setQuizReport();
+    
+  //   navigate(0,{replace:true})
+  // }
 
+
+  useEffect(()=>{},[answeres1])
   useEffect(  () => {
     try{
     const collectionRef = collection(db,"quiz_questions",tid,"levels",lid,"questions");
@@ -132,7 +135,8 @@ export default function Quiz() {
   function confirmAns(e){
     handleClose1();
     answers.current[ans.current.qno.toString()]=ans.current.option;
-    
+    setAnswers([...answeres1,parseInt(ans.current.qno)])
+    console.log(answeres1)
 
   }
   function endTest(){
@@ -145,7 +149,7 @@ export default function Quiz() {
     }
     setQuizReport();
     handleClose2();
-    navigate('/test/'+tid+'/report',{replace: true,state:{score:score.current,tq:qlength,questions:randomQuestions.current,answers:answers.current}})
+    navigate('/test/'+tid+'/report',{replace: true,state:{quizNo:testNo,score:score.current,tq:qlength,questions:randomQuestions.current,answers:answers.current}})
   }
   
   return (
@@ -156,31 +160,35 @@ export default function Quiz() {
         <h6>Time remaining</h6>
         <p id="safeTimerDisplay"></p>
       </div>
-      <h2 className="m-3 subtopic-name">Quiz-1</h2>
+      <h2 className="m-3 subtopic-name">Quiz-{testNo}</h2>
 
-  
-      <div className="num-center">
-      {randomQuestions.current.map(questions => (
-        <NumberBox questionNo={randomQuestions.current.indexOf(questions) + 1} handleClick={() => setQno(randomQuestions.current.indexOf(questions))} />
+      <div className="outDiv">
+      <div className="num-center mx-auto">
+      {randomQuestions.current.map(questions => (answeres1.includes(randomQuestions.current.indexOf(questions) + 1)?
+        <NumberBox css='success' questionNo={randomQuestions.current.indexOf(questions) + 1} handleClick={() => setQno(randomQuestions.current.indexOf(questions))} />
+        :
+        <NumberBox css='primary' questionNo={randomQuestions.current.indexOf(questions) + 1} handleClick={() => setQno(randomQuestions.current.indexOf(questions))} />
       ))}
       </div>
+      </div>
+      
       
       {randomQuestions.current.length!==0?
-        <>
-        <Card className=" quiz-card mx-auto">
+        <><Form onSubmit={saveAns} id="ansForm">
+        <Card className=" quiz-card p-3 ">
         <Card.Body>
-          <Card.Title>Q{qno + 1} : {randomQuestions.current[qno].data.question}</Card.Title>
-          <Form onSubmit={saveAns} id="ansForm">
+          <Card.Title className="question-title">Q{qno + 1} : {randomQuestions.current[qno].data.question}</Card.Title>
+          
           <Card.Text className="options-box">
             {randomQuestions.current[qno].data.options.map(option=>
-            <Form.Check type={"radio"}
+            <Form.Check type={"radio"} required
             id={randomQuestions.current[qno].data.options.indexOf(option)+1}
             label={option}
             value={option}
             name={"selectOptions"}/>)}
           </Card.Text>
           <input type="hidden" name={"questionNo"} value={qno + 1}></input>
-          <Button className="btn-ctr mx-auto" variant="primary" type="submit">Save Choice</Button>
+          
           
           <Modal show={show1} onHide={handleClose1}>
         <Modal.Header closeButton>
@@ -196,16 +204,18 @@ export default function Quiz() {
           </Button>
         </Modal.Footer>
       </Modal>
-          </Form>
+          
           
         </Card.Body>
       </Card>
+      <Button className="btn-ctr mx-auto mb-3" variant="success" type="submit">Save Choice</Button>
+      </Form>
       </>:""}
-        
+      
       
       <div style={{display:"flex", justifyContent: "space-around"}}>
       <Button className="quiz-nav-but m-3" onClick={()=>setQno(qno-1<0?qlength-1:qno-1)}>Previous</Button>
-      <Button className="quiz-nav-but m-3" onClick={handleShow2} >Submit</Button>
+      <Button variant="danger" className="quiz-nav-but m-3" onClick={handleShow2} >Submit</Button>
       <Button className="quiz-nav-but m-3" onClick={()=>setQno((qno+1)%qlength)}>Next</Button>
       </div>
       <Modal show={show2} onHide={handleClose2}>

@@ -40,7 +40,7 @@ hr.style-eight:after {
     background: white;
 }
 .desc{
-   font-family:  Verdana, Geneva, Tahoma, sans-serif;
+   font-family:  arial, Geneva, Tahoma, sans-serif;
 }
 .forgot-pass {
     text-align: end;
@@ -130,7 +130,13 @@ hr.style-eight:after {
 
 .quiz-card {
     text-align: center;
+    margin: 2rem 7rem;
+    background-color: lavender;
 }
+.question-title{
+    font-size: 0.65cm;
+}
+
 
 .feedback-img {
     display: block;
@@ -175,6 +181,7 @@ hr.style-eight:after {
 }
 .options-box{
     display: inline-block;
+    font-size: 0.5cm;
 }
 .btn-ctr{
     display: block;
@@ -532,4 +539,13 @@ div[role="progressbar"]::before {
     padding: 16px;
     text-align: center;
     color: #888;
+}
+.num-center {
+    width: 55%;
+}
+.outDiv{
+    width: 100%;
+}
+button.btn.btn-primary.btn-lg {
+    font-weight: 900;
 }
