@@ -94,7 +94,7 @@ export default function QuizReport() {
                   </>
                   
                   
-                
+              
                   ))}
             </div>
           
@@ -110,3 +110,4 @@ export default function QuizReport() {
     </>
   );
 }
+                                 
