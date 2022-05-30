@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 export default function QuizReport() {
   
   const location=useLocation();
-  const {score,tq,questions,answers} =location.state;
+  const {score,tq,questions,answers,quizNo} =location.state;
   const attempted = [];
   const avg=parseInt(score/tq*100);
   const cssval={"--value":avg}
@@ -29,7 +29,7 @@ export default function QuizReport() {
   return (
     <>
       <NavBar />
-      <h1 className="m-3 quizno">Quiz-1</h1>
+      <h1 className="m-3 quizno">Quiz-{quizNo}</h1>
       <div className="main-div">
       
       <div className="first-div mx-auto" role="progressbar"  aria-valuemin="0" aria-valuemax="100" style={cssval}></div>

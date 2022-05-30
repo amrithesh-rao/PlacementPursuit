@@ -64,13 +64,13 @@ export default function TestInner() {
         {
         levels?.map(level => (
           <div className="col-lg-3 p-5 mx-auto">
-        <TopicCard title={level.data.level} id = {level.id}/>
+        <TopicCard title={level.data.level} id = {level.id} quizNo={quizReports.length+1} />
         </div>
       ))}
         </div>
       </div>
       <div>
-      <Table striped bordered hover >
+      <Table striped bordered hover className="mb-5" >
         <thead>
           <tr>
             <th>Quiz</th>
