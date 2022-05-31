@@ -57,11 +57,11 @@ return(
   <div className="feedbox" >
         
         <div className="feedreportbox">
-            <h2> Name : { feedbackInfo.name } </h2>
-            <h3> Company Name :{ feedbackInfo.company_name } </h3>
-            <h3> Role : { feedbackInfo.role } </h3>
-            <h3>CTC : { feedbackInfo.ctc } </h3>
-            <h6> Experience : { feedbackInfo.experience } </h6>
+            <p className="p1"> Name : <strong className="s1">{ feedbackInfo.name }</strong> </p>
+            <p className="p1"> Company Name : <strong className="s1">{ feedbackInfo.company_name }</strong> </p>
+            <p className="p1"> Role : <strong className="s1">{ feedbackInfo.role }</strong> </p>
+            <p className="p1">CTC : <strong className="s1">{ feedbackInfo.ctc }</strong> </p>
+            <p className="p2"> <strong>Experience : </strong><span className="s2">{ feedbackInfo.experience }</span> </p>
         </div>
   </div>
       

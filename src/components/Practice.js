@@ -3,16 +3,22 @@ import NavBar from "./NavBar";
 import Footbar from "./Footbar";
 import PracticeCard from "./PracticeCard";
 import { db } from "../firebase";
-import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { collection, getDocs, query, orderBy, where } from "firebase/firestore";
+import SelectSearch from "react-select-search";
 
 export default function Practice() {
   const [titles, setTitles] = useState([]);
-
+  const [dept, setDept] = useState("CS");
   useEffect(() => {
       try{
         const colRef = collection(db, "infodb");
-        getDocs(query(colRef, orderBy("priority")))
+        getDocs(query(colRef,where("dept","array-contains",dept),orderBy("priority")))
             .then( snapshot => {
+              if(snapshot.docs.length === 0){
+                alert("Yet to add")
+                setTitles([])
+              }
+              else
                 setTitles(snapshot.docs.map(doc =>({
                     id: doc.id,
                     data: doc.data()
@@ -23,12 +29,24 @@ export default function Practice() {
           console.log(e);
       }
         
+  }, [dept]);
 
-  }, []);
-  
   return (
     <>
       <NavBar />
+      <div className="container"> 
+      <SelectSearch
+      className="select-search dept-search"
+       options={[
+           { value: 'CS', name: 'Computer Science' },
+           { value: 'EC', name: 'Electronics and Communication' },
+           { value: 'IS', name: 'Information Science' },
+           { value: 'MECH', name: 'Mechanical' },
+       ]}
+       onChange={setDept}
+       value={dept}
+       />
+       </div>
       <div className="container">
         <div className="row px-auto">
         {
@@ -38,6 +56,7 @@ export default function Practice() {
         </div>
       ))}
         </div>
+        
       </div>
       
       <Footbar class="footBar-bottom"/>
