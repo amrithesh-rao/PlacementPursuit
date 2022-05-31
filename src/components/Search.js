@@ -121,6 +121,9 @@ const [pt,setPt] = useState("");
         <img className="feedback-img"  src={FeedbackImg} alt="First slide" />
       </div> */}
       <div>
+        <h2 className="subtopic-name">Feedback from Aluminies</h2>
+      </div>
+      <div>
       <form className='box-n mt-5' onSubmit={handleSubmit}>
       <SelectSearch
         options={options}
