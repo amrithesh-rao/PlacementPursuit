@@ -12,21 +12,39 @@ import homeCarousel from "../img/homeCarousel.png";
 import testSectionImg from "../img/testSectionImg.png";
 import feedbackSectionImg from "../img/feedbackSectionImg.png";
 import practiceSectionImg from "../img/practiceSectionImg.jpg";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../firebase";
 
 const Home = () => {
   let navigate = useNavigate();
-  const { user } = useUserAuth();
+  const { user, logOut } = useUserAuth();
   const uName = useRef("");
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [show1, setShow1] = useState(false);
+  const [show2, setShow2] = useState(false);
+
+  const handleClose1 = () => setShow1(false);
+  const handleShow1 = () => setShow1(true);
+  const handleClose2 = () => setShow2(false);
+  const handleShow2 = () => setShow2(true);
   
 
  
   useEffect(  () => {
+    const colRef = collection(db, "usndb");
+    try{
+      getDocs(query(colRef, where("email", "==", user?.email)))
+          .then( snapshot => {
+            if(snapshot.docs.length === 0)
+            handleShow2();
+              
+          })
+    }
+    catch(e){
+        console.log(e);
+    }
     if (user?.displayName!==null) {
     } else {
-      handleShow();
+      handleShow1();
       
     }
   }, []);
@@ -39,13 +57,21 @@ const Home = () => {
     e.preventDefault();
     const {name}=e.target.elements
     uName.current=name.value;
-    handleClose();
+    handleClose1();
     updateProfile(user,{
       displayName: uName.current,
       photoURL: 'https://media.istockphoto.com/vectors/male-profile-flat-blue-simple-icon-with-long-shadow-vector-id522855255?k=20&m=522855255&s=612x612&w=0&h=fLLvwEbgOmSzk1_jQ0MgDATEVcVOh_kqEe0rqi7aM5A='
     });
     navigate(0); 
   }
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      navigate("/");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <>
       <div>
@@ -90,7 +116,7 @@ const Home = () => {
         </Carousel>
       </div>
       <div>
-      <Modal show={show} onHide={handleClose} centered={true} backdrop="static">
+      <Modal show={show1} onHide={handleClose1} centered={true} backdrop="static">
       <Form onSubmit={saveName}>
         <Modal.Header closeButton>
           <Modal.Title>Setup your name</Modal.Title>
@@ -109,6 +135,27 @@ const Home = () => {
           
         </Modal.Footer>
         </Form>
+      </Modal>
+      </div>
+      <div>
+      <Modal show={show2} onHide={handleClose2} centered={true} backdrop="static">
+      
+        <Modal.Header >
+          <Modal.Title>Sorry!!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        We are currently open only to SJCE students.
+
+          
+         
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleLogout}>
+            Exit
+          </Button>
+          
+        </Modal.Footer>
+       
       </Modal>
       </div>
       

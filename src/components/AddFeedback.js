@@ -104,6 +104,18 @@ export default function AddFeedback() {
     {name: 'Pensando', value: 'Pensando'},
   ];
 
+  const colRef = collection(db, "usndb");
+    try{
+      getDocs(query(colRef, where("email", "==", user?.email)))
+          .then( snapshot => {
+            
+              
+          })
+    }
+    catch(e){
+        console.log(e);
+    }
+
   async function addNewFeedback(e) {
     e.preventDefault();
     const collRef1 = collection(db, "feedbackdb");
