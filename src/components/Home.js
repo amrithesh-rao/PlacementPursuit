@@ -32,12 +32,15 @@ const Home = () => {
   useEffect(  () => {
     const colRef = collection(db, "usndb");
     try{
-      getDocs(query(colRef, where("email", "==", user?.email)))
+      
+        getDocs(query(colRef, where("email", "==", user?.email)))
           .then( snapshot => {
             if(snapshot.docs.length === 0)
             handleShow2();
               
           })
+      
+      
     }
     catch(e){
         console.log(e);

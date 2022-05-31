@@ -549,3 +549,6 @@ div[role="progressbar"]::before {
 button.btn.btn-primary.btn-lg {
     font-weight: 900;
 }
+.single-line{
+  display: inline-block;  
+}

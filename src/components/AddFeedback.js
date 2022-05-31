@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import NavBar from "./NavBar";
 import Footbar from "./Footbar";
 import { db } from "../firebase";
@@ -21,6 +21,8 @@ export default function AddFeedback() {
   const [pt, setPt] = useState("");
   const [show1, setShow1] = useState(false);
   const [show2, setShow2] = useState(false);
+  const [usn,setUsn] = useState("");
+  const info = useRef({});
   const { user } = useUserAuth();
   let navigate = useNavigate();
 
@@ -104,17 +106,26 @@ export default function AddFeedback() {
     {name: 'Pensando', value: 'Pensando'},
   ];
 
-  const colRef = collection(db, "usndb");
+
+  useEffect(()=>{
+    const colRef = collection(db, "usndb");
+      
     try{
+      if(user?.email!==undefined){
       getDocs(query(colRef, where("email", "==", user?.email)))
           .then( snapshot => {
-            
+            info.current=snapshot.docs[0].data()
+            setUsn(info.current.usn)
               
           })
+        }
+        console.log(info.current.usn)
     }
     catch(e){
         console.log(e);
     }
+  },[user?.email])
+  
 
   async function addNewFeedback(e) {
     e.preventDefault();
@@ -126,8 +137,7 @@ export default function AddFeedback() {
             console.log(docSnap.docs)
             handleShow1();
         }else{
-            const { formCTC, formExperience, formRole } = e.target.elements;
-    console.log(formCTC.value, formExperience.value, formRole.value, pt);
+    const { formCTC, formExperience, formRole,formYear,formWord } = e.target.elements;
     const collRef = collection(db, "feedbackdb");
     const payload = {
       company_name: pt,
@@ -135,7 +145,10 @@ export default function AddFeedback() {
       experience: formExperience.value,
       role: formRole.value,
       name: user.displayName,
-      email:user.email
+      email:user.email,
+      usn:info.current?.usn,
+      year:formYear.value,
+      word:formWord.value
     };
     await addDoc(collRef, payload);
     handleShow2();
@@ -147,9 +160,21 @@ export default function AddFeedback() {
     <>
       <NavBar />
       <h2 className="subtopic-name">Add Feedback</h2>
-      <div className="feedbox">
+      <div className="feedbox mb-5">
         <div className="feedreportbox w-75 mx-auto">
           <Form onSubmit={addNewFeedback}>
+            <div className="mx-auto">
+            <Form.Group className="mt-3 mb-3 w-25 single-line ms-5 me-4" controlId="formUSN">
+              <Form.Label>USN</Form.Label>
+              <Form.Control type="number" placeholder={info.current.usn} disabled />
+            </Form.Group>
+            <Form.Group className="mt-3 mb-3 w-25 single-line ms-5 me-4" controlId="formYear">
+              <Form.Label>Year</Form.Label>
+              <Form.Control type="number" defaultValue={2022} step={1} required/>
+            </Form.Group>
+            <Form.Group className="mt-3 mb-3 w-25 single-line ms-5" controlId="formCompany">
+            <Form.Label>Company</Form.Label>
+
             <SelectSearch
               options={options}
               search
@@ -158,20 +183,32 @@ export default function AddFeedback() {
               value={pt}
               placeholder="Select company name"
             />
-            <Form.Group className="mt-3 mb-3" controlId="formRole">
+            </Form.Group>
+            </div>
+          
+            
+            <Form.Group className=" mb-3 w-50 single-line ms-5 me-4" controlId="formRole">
               <Form.Label>Role</Form.Label>
-              <Form.Control type="text" placeholder="Enter your role" />
+              <Form.Control type="text" placeholder="Enter your role" required/>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formCTC">
+            <Form.Group className="mb-3 w-25 single-line ms-5 me-4" controlId="formCTC">
               <Form.Label>CTC</Form.Label>
-              <Form.Control type="text" placeholder="Enter your CTC" />
+              <Form.Control type="float" placeholder="CTC in lakhs" required />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formExperience">
+            <Form.Group className="mb-3" controlId="formExperience" >
               <Form.Label>Experience</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={5}
-                placeholder="Enter your Experience"
+                placeholder="Enter your Experience" required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formWord">
+              <Form.Label>Word to Aspirants</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={2}
+                placeholder="Piece of advice for juniors.."
               />
             </Form.Group>
             <Button className="btn-ctr mx-auto" variant="primary" type="submit">
