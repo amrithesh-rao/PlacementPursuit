@@ -562,8 +562,16 @@ div[role="progressbar"]::before {
 .outDiv{
     width: 100%;
 }
+button.btn.btn-primary.btn-lg {
+    font-weight: 900;
+}
+.single-line{
+  display: inline-block;  
+}
+
 .dept-search{
     margin-left: auto !important;
     margin-right: auto !important;
     margin-top: 1em;
 }
+
