@@ -5,6 +5,7 @@ import { useUserAuth } from "../context/UserAuthContext";
 import { Button, Modal, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import {  updateProfile } from 'firebase/auth';
+import { collection, query, where, getDoc } from "firebase/firestore";
 
 export default function NavBar() {
     const { user, logOut } = useUserAuth();
@@ -13,7 +14,7 @@ export default function NavBar() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  const [ isAdmin,setAdmin ] = useState(false);
     const handleLogout = async () => {
         try {
           await logOut();
@@ -21,7 +22,7 @@ export default function NavBar() {
         } catch (error) {
           console.log(error.message);
         }
-      };
+      }
       async function saveName(e){
 
         e.preventDefault();
@@ -33,6 +34,17 @@ export default function NavBar() {
           });
         navigate(0); 
       }
+    //   useEffect(() => {
+    //     getDocs(query(colRef, where("email", "==", user?.email)))
+    //     .then( snapshot => {
+          
+    //       if(snapshot.docs.length === 0)
+    //       handleShow2();
+    //       usn.current=snapshot.docs[0].data().usn;
+
+    //     })
+
+    // },[]);
   return (
     <>
     <Navbar collapse OnSelect expand="lg"  variant="light">
@@ -51,6 +63,8 @@ export default function NavBar() {
       <NavDropdown title={user.displayName} id="collasible-nav-dropdown">
 
         <NavDropdown.Item onClick={ handleShow }>Edit Name</NavDropdown.Item>
+        
+        <NavDropdown.Item onClick={ ()=>navigate("/dashboard") }>Dashboard</NavDropdown.Item>
         <NavDropdown.Item onClick={ handleLogout }>Log Out</NavDropdown.Item>
       </NavDropdown>
     </Nav>

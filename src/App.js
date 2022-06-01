@@ -18,6 +18,7 @@ import AddFeedback from "./components/AddFeedback";
 import Feedback from "./components/Search";
 import QuizReport from "./components/QuizReport";
 import FeedbackReport from "./components/FeedbackReport";
+import AdminDashboard from "./components/AdminDashboard";
 
 function App() {
   return (
@@ -61,6 +62,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Test />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/dashboard" 
+            element={
+              <ProtectedRoute>
+                <AdminDashboard />
               </ProtectedRoute>
             } 
           />
