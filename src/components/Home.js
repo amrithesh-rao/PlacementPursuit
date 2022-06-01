@@ -12,7 +12,7 @@ import homeCarousel from "../img/homeCarousel.png";
 import testSectionImg from "../img/testSectionImg.png";
 import feedbackSectionImg from "../img/feedbackSectionImg.png";
 import practiceSectionImg from "../img/practiceSectionImg.jpg";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where,doc,getDoc,setDoc } from "firebase/firestore";
 import { db } from "../firebase";
 
 const Home = () => {
@@ -21,7 +21,7 @@ const Home = () => {
   const uName = useRef("");
   const [show1, setShow1] = useState(false);
   const [show2, setShow2] = useState(false);
-
+  const usn =useRef("");
   const handleClose1 = () => setShow1(false);
   const handleShow1 = () => setShow1(true);
   const handleClose2 = () => setShow2(false);
@@ -30,15 +30,21 @@ const Home = () => {
 
  
   useEffect(  () => {
+    
     const colRef = collection(db, "usndb");
     try{
       
-        getDocs(query(colRef, where("email", "==", user?.email)))
+        if(user.email!==undefined){
+          getDocs(query(colRef, where("email", "==", user?.email)))
           .then( snapshot => {
+            
             if(snapshot.docs.length === 0)
             handleShow2();
-              
+            usn.current=snapshot.docs[0].data().usn;
+
           })
+        }
+        
       
       
     }
@@ -51,7 +57,23 @@ const Home = () => {
       
     }
   }, []);
-    
+
+  useEffect(()=>{
+    const setUser=async ()=>{
+      if(user.uid!==undefined){
+        const docRef= doc(db,"userdb",user?.uid);
+        const docSnap=await getDoc(docRef)
+        if(docSnap.exists()){
+          console.log(docSnap.data())
+        }else{
+          await setDoc(docRef,{userName:user?.displayName,usn:usn.current,id:user?.uid})
+        }
+        
+        
+      }
+    }
+    setUser()
+   },[user.uid]);
     
     
   
