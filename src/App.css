@@ -562,9 +562,6 @@ div[role="progressbar"]::before {
 .outDiv{
     width: 100%;
 }
-button.btn.btn-primary.btn-lg {
-    font-weight: 900;
-}
 .single-line{
   display: inline-block;  
 }

@@ -9,7 +9,7 @@ import { sampleSize } from "lodash";
 import { Button,Card,Form,Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth} from "../context/UserAuthContext";
-
+//import useUnsavedChangesWarning from "./useUnsavedChangesWarning";
 
 export default function Quiz() {
   let navigate = useNavigate();
@@ -18,6 +18,7 @@ export default function Quiz() {
   const oneTime = useRef(true);
   const oneSubmit= useRef(false);
   const {user} = useUserAuth();
+  //const [ Prompt, setDirty, setProstine ] = useUnsavedChangesWarning();
 
   function startTimer(duration, display) {
     var timer = duration, minutes, seconds;
@@ -57,6 +58,7 @@ export default function Quiz() {
   const [qno, setQno] = useState(0);
   const [show1, setShow1] = useState(false);
   const [show2, setShow2] = useState(false);
+
   const ans= useRef({});
 
   const handleClose1 = () => setShow1(false);
@@ -81,7 +83,26 @@ export default function Quiz() {
 
 
   useEffect(()=>{},[answeres1])
+  // useEffect(()=>{window.onbeforeunload = isDirty && (() => "super"); return window.onbeforeunload = null; },[isDirty])
+  // useEffect(()=>{
+  //   if(isDirty){
+  //    window.addEventListener("beforeunload",(event)=>{
+  //     event.preventDefault();
+  //     // Chrome requires returnValue to be set.
+  //     event.returnValue = 'yaaa';
+  //     alert("ok");
+  //     console.log("its comming")
+  //   })
+  // }
+  //   return window.removeEventListener("beforeunload",(event)=>{
+  //     event.preventDefault();
+  //     // Chrome requires returnValue to be set.
+  //     event.returnValue = 'yaadsfdsfa';
+  //     alert("not ok")
+  //   });
+  // },[isDirty])
   useEffect(  () => {
+    
     try{
     const collectionRef = collection(db,"quiz_questions",tid,"levels",lid,"questions");
     getDocs(collectionRef)
@@ -154,7 +175,7 @@ export default function Quiz() {
   
   return (
     <>
-    
+
       <NavBar  />
       <div id="safeTimer" className="p-2 position-absolute end-0">
         <h6>Time remaining</h6>
@@ -233,6 +254,7 @@ export default function Quiz() {
         </Modal.Footer>
       </Modal>
     <Footbar class="footBar-bottom" />
+
     </>
   );
 }

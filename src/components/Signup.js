@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Form, Alert } from "react-bootstrap";
 import { Button,Carousel } from "react-bootstrap";
 import { useUserAuth } from "../context/UserAuthContext";
@@ -14,7 +14,7 @@ const Signup = () => {
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
-  const { signUp, googleSignIn } = useUserAuth();
+  const { user, signUp, googleSignIn } = useUserAuth();
   let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -44,6 +44,7 @@ const Signup = () => {
   };
 
   return (
+    !user ?
     <><div className="container">
       <div className="row row-center">
         <div className="col form-padding">
@@ -132,6 +133,8 @@ const Signup = () => {
     </div>
       
     </>
+          :
+          <Navigate to="/home" replace/>
   );
 };
 
