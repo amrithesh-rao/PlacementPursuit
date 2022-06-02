@@ -575,3 +575,15 @@ button.btn.btn-primary.btn-lg {
     margin-top: 1em;
 }
 
+.practice-report{
+    height: 20rem;
+    background-color: #2eb378;
+}
+.test-report{
+    height: 20rem;
+    background-color: aquamarine;
+}
+.dropdown-menu {
+    max-height: 280px;
+    overflow-y: auto;
+}

@@ -40,6 +40,7 @@ const Home = () => {
             
             if(snapshot.docs.length === 0)
             handleShow2();
+            else
             usn.current=snapshot.docs[0].data().usn;
 
           })
