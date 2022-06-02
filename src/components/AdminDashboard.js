@@ -21,10 +21,11 @@ function getPractice(){
   const colRef=collection(db,'userdb',currentUser.current.id,"practice");
   
 }
-useEffect(()=>{getSubTopics()},[ptopic, topics, subtopics])
+// useEffect(()=>{getSubTopics()},[ptopic, topics, subtopics])
 function getSubTopics(){
+  console.log("asdeasdadfdgfdgdfgfdgdfgfdgdfgsdasd")
   try{
-    const colRef = collection(db, "infodb",  ptopic.title , "subTopic");
+    const colRef = collection(db, "infodb",  ptopic?.id , "subTopic");
     getDocs(query(colRef, orderBy("priority")))
         .then( snapshot => {
             setSubtopics(snapshot.docs.map(doc =>({
@@ -38,6 +39,7 @@ function getSubTopics(){
   catch(e){
       console.log(e);
   }  
+  console.log(ptopic.id)
 }
 
   function searchUSN(e) {
@@ -188,13 +190,13 @@ function getSubTopics(){
                 <div>
                 <Dropdown className="single-line m-3">
                     <Dropdown.Toggle variant="success" id="dropdown-basic">
-                      {ptopic.title}
+                      {ptopic.data?.title}
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
                       {
                         topics?.map(topic=>(
-                          <Dropdown.Item onClick={()=>{setPtopic(topic.data);getSubTopics()}}>{topic.data.title}</Dropdown.Item>
+                          <Dropdown.Item onClick={()=>{console.log("asdeasdasdasd");setPtopic(topic);getSubTopics()}}>{topic.data.title}</Dropdown.Item>
                         ))
                       }
                       
