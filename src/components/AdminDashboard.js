@@ -9,10 +9,6 @@ import { Form, Button, Modal, Dropdown, Table } from "react-bootstrap";
 export default function AdminDashboard() {
   let navigate = useNavigate();
   const [users, setUsers] = useState([]);
-  // const [ptopic,setPtopic] = useState({id:'sdasf',data:{title:"Data Structure And Algorithms"}});
-  // const [psub,setPsub] = useState({subTitle:"Arrays"});
-  // const [topics,setTopics] = useState([]);
-  // const [subtopics,setSubtopics] = useState([]);
   const [qtopic, setQtopic] = useState({
     title: "Data Structures",
     id: "xUddbjWlwvVpbvXn5aHZ",
@@ -90,8 +86,8 @@ export default function AdminDashboard() {
       });
     } catch (e) {
       console.log(e);
-
-
+    }
+  }
   function searchUSN(e) {
     e.preventDefault();
     const { formUSN } = e.target.elements;
@@ -190,42 +186,6 @@ export default function AdminDashboard() {
             <div className="row">
               
               <div className="row m-0 p-0">
-                {/* <div className="col practice-report">
-                  <div className="row">
-                  Practice
-                  </div>
-                  
-                  <Dropdown className="single-line m-3">
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                      {ptopic.data?.title}
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                      {
-                        topics?.map(topic=>(
-                          <Dropdown.Item onClick={()=>{setPtopic(topic);getSubTopics();}}>{topic.data.title}</Dropdown.Item>
-                        ))
-                      }
-                      
-                    </Dropdown.Menu>
-                  </Dropdown>
-                  <Dropdown className="single-line m-3">
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                     {psub.subTitle}
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu >
-                    {
-                        subtopics?.map(subtopic=>(
-                          <Dropdown.Item onClick={()=>{setPsub(subtopic.data)}} >{subtopic.data.subTitle}</Dropdown.Item>
-                        ))
-                        
-                        
-                      }
-                    </Dropdown.Menu>
-                  </Dropdown>
-
-                </div> */}
                 <div className="col p-0 test-report m-0 my-3">
                 <div className="col-12 level-title h2 mt-2 ">Test</div>
                 <div className="row mx-auto">
@@ -344,4 +304,5 @@ export default function AdminDashboard() {
       <Footbar class="footBar-bottom" />
     </>
   );
-}
+ }
+                        
