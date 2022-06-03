@@ -35,6 +35,7 @@ export default function AdminDashboard() {
   const [show1, setShow1] = useState(false);
   const handleClose1 = () => setShow1(false);
   const handleShow1 = () => setShow1(true);
+
   const test = [
     {
       title: "Data Structures",
@@ -66,6 +67,7 @@ export default function AdminDashboard() {
     },
   ];
 
+
   function getDetails() {
     console.log("called",currentUser?.userName)
     try {
@@ -88,8 +90,7 @@ export default function AdminDashboard() {
       });
     } catch (e) {
       console.log(e);
-    }
-  }
+
 
   function searchUSN(e) {
     e.preventDefault();
@@ -223,6 +224,7 @@ export default function AdminDashboard() {
                       }
                     </Dropdown.Menu>
                   </Dropdown>
+
                 </div> */}
                 <div className="col p-0 test-report m-0 my-3">
                 <div className="col-12 level-title h2 mt-2 ">Test</div>
@@ -282,6 +284,7 @@ export default function AdminDashboard() {
                       aria-valuemax="100"
                       style={cssval3}
                     ></div>
+
                   </div>
                   <div className="row my-2">
                     <div className="col-4 level-title h4 ">Easy</div>
