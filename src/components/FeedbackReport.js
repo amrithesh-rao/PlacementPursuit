@@ -19,8 +19,7 @@ export default function FeedbackReport(){
       async function getDocumentData(){
 
         const docRef = doc(db, "feedbackdb",  fid );
-        const docSnap = await getDoc(docRef);
-
+        const docSnap = await getDoc(docRef);      
         if (docSnap.exists()) {
           console.log("Document data:", docSnap.data());
           setFeedbackInfo({
@@ -28,7 +27,11 @@ export default function FeedbackReport(){
             company_name: docSnap.data().company_name,
             ctc: docSnap.data().ctc,
             experience:docSnap.data().experience,
-            role :docSnap.data().role
+            role :docSnap.data().role,
+            // usn :docSnap.data().usn,
+            // email :docSnap.data().email,
+            // year : docSnap.data().year,
+            // word : docSnap.data().word
           });
         } else {
           console.log("No such document!");
@@ -59,9 +62,13 @@ return(
         <div className="feedreportbox">
             <p className="p1"> Name : <strong className="s1">{ feedbackInfo.name }</strong> </p>
             <p className="p1"> Company Name : <strong className="s1">{ feedbackInfo.company_name }</strong> </p>
+            {/* <p className="p1"> USN : <strong className="s1">{ feedbackInfo.usn  }</strong> </p> */}
             <p className="p1"> Role : <strong className="s1">{ feedbackInfo.role }</strong> </p>
             <p className="p1">CTC : <strong className="s1">{ feedbackInfo.ctc }</strong> </p>
+            {/* <p className="p1"> Year : <strong className="s1">{ feedbackInfo.year }</strong> </p>
+            <p className="p1"> Email : <strong className="s1">{ feedbackInfo.email }</strong> </p> */}
             <p className="p2"> <strong>Experience : </strong><span className="s2">{ feedbackInfo.experience }</span> </p>
+            {/* <p className="p2"> <strong>Word : </strong><span className="s2">{ feedbackInfo.word }</span> </p> */}
         </div>
   </div>
       
