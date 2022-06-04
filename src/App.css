@@ -282,7 +282,6 @@ div[role="progressbar"] {
     width: var(--size);
     height: var(--size);
     border-radius: 50%;
-    display: grid;
     place-items: center;
     background:
         radial-gradient(closest-side, white 80%, transparent 0 99.9%, white 0),
@@ -318,6 +317,7 @@ div[role="progressbar"]::before {
     border-radius: 10px;
     /* text-align: center; */
 }
+
 .p1{
     font-size: 25px;
     text-align: center;
@@ -577,10 +577,19 @@ div[role="progressbar"]::before {
     background-color: #2eb378;
 }
 .test-report{
-    height: 20rem;
-    background-color: aquamarine;
+    background-color: rgb(252, 253, 253);
 }
 .dropdown-menu {
     max-height: 280px;
     overflow-y: auto;
+}
+.progress-circle-single-line{
+    display:inline-grid;
+}
+.flex-line{
+    display: flex;
+}
+.level-title{
+    display: inline-grid;
+    justify-items: center;
 }

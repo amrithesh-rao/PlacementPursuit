@@ -1,47 +1,93 @@
 import React, { useEffect, useState, useRef } from "react";
 import NavBar from "./NavBar";
 import Footbar from "./Footbar";
+import { useNavigate } from "react-router-dom";
 import { db } from "../firebase.js";
-import { collection, getDocs, query, where,orderBy } from "firebase/firestore";
-import { Form, Button, Modal, Dropdown } from "react-bootstrap";
+import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
+import { Form, Button, Modal, Dropdown, Table } from "react-bootstrap";
 
 export default function AdminDashboard() {
+  let navigate = useNavigate();
   const [users, setUsers] = useState([]);
-  const [ptopic,setPtopic] = useState({title:"Data Structure And Algorithms"});
-  const [psub,setPsub] = useState({subTitle:"Arrays"});
-  const [topics,setTopics] = useState([]);
-  const [subtopics,setSubtopics] = useState([]);
-  const [quiz,setQuiz]=useState([]);
-  const currentUser = useRef({});
+  const [qtopic, setQtopic] = useState({
+    title: "Data Structures",
+    id: "xUddbjWlwvVpbvXn5aHZ",
+  });
+  const [quizs, setQuiz] = useState([]);
+  const [currentUser,setCurrentUser] = useState({});
+  const [userSearched,setUserSearched] = useState(false);
+  const [avg1, setAvg1] = useState(50);
+  const [avg2, setAvg2] = useState(50);
+  const [avg3, setAvg3] = useState(50);
+  let total1 = 0;
+  let total2 = 0;
+  let total3 = 0;
+  let qc1 = 0;
+  let qc2 = 0;
+  let qc3 = 0;
+  const cssval1 = { "--value": avg1 };
+  const cssval2 = { "--value": avg2 };
+  const cssval3 = { "--value": avg3 };
   const [show1, setShow1] = useState(false);
   const handleClose1 = () => setShow1(false);
   const handleShow1 = () => setShow1(true);
-  
-function getPractice(){
-  const colRef=collection(db,'userdb',currentUser.current.id,"practice");
-  
-}
-// useEffect(()=>{getSubTopics()},[ptopic, topics, subtopics])
-function getSubTopics(){
-  console.log("asdeasdadfdgfdgdfgfdgdfgfdgdfgsdasd")
-  try{
-    const colRef = collection(db, "infodb",  ptopic?.id , "subTopic");
-    getDocs(query(colRef, orderBy("priority")))
-        .then( snapshot => {
-            setSubtopics(snapshot.docs.map(doc =>({
-                sid: doc.id,
-                data: doc.data(),
-            })))
-         })
 
-    }
+  const test = [
+    {
+      title: "Data Structures",
+      id: "xUddbjWlwvVpbvXn5aHZ",
+    },
+    {
+      title: "Operating Systems",
+      id: "o3HDaE1zkwku3O5Ek4MK",
+    },
+    {
+      title: "Database Management System",
+      id: "6F3ay2Vc4Kt5u15EwvHy",
+    },
+    {
+      title: "Computer Networks",
+      id: "bPZ6KRpI1V1wxrKolv9w",
+    },
+    {
+      title: "Java",
+      id: "7yCtIflJmzahNTCW05Ro",
+    },
+    {
+      title: "Aptitude",
+      id: "LLsFpj69XzihDhCwb59q",
+    },
+    {
+      title: "General Knowledge",
+      id: "rY1PKnOvYWC5eYgWtF1L",
+    },
+  ];
 
-  catch(e){
+
+  function getDetails() {
+    console.log("called",currentUser?.userName)
+    try {
+      console.log(qtopic.id);
+      const colRef = collection(
+        db,
+        "userdb",
+        currentUser?.id,
+        "test",
+        qtopic?.id,
+        "quiz"
+      );
+      getDocs(colRef).then((snapshot) => {
+        setQuiz(
+          snapshot.docs.map((doc) => ({
+            sid: doc.id,
+            data: doc.data(),
+          }))
+        );
+      });
+    } catch (e) {
       console.log(e);
-  }  
-  console.log(ptopic.id)
-}
-
+    }
+  }
   function searchUSN(e) {
     e.preventDefault();
     const { formUSN } = e.target.elements;
@@ -51,49 +97,27 @@ function getSubTopics(){
         (snapshot) => {
           if (snapshot.docs.length === 0) handleShow1();
           else {
-            currentUser.current = snapshot.docs[0].data();
+            setCurrentUser( snapshot.docs[0].data());
           }
 
-          console.log(currentUser.current);
+          console.log(currentUser);
         }
       );
     } catch (e) {
       console.log(e);
     }
-  }
-  function getDetails(){
+    
     
   }
-  useEffect(()=>{
-    try{
-      const colRef = collection(db, "infodb");
-      getDocs(query(colRef,orderBy("priority")))
-          .then( snapshot => {
-              setTopics(snapshot.docs.map(doc =>({
-                  id: doc.id,
-                  data: doc.data()
-              })))
-          })
-    }
-    catch(e){
-        console.log(e);
-    }
-    try{
-      const colRef = collection(db, "infodb",  "cY1T9XTiPw5ZeQSajOym" , "subTopic");
-      getDocs(query(colRef, orderBy("priority")))
-          .then( snapshot => {
-              setSubtopics(snapshot.docs.map(doc =>({
-                  sid: doc.id,
-                  data: doc.data(),
-              })))
-           })
-
-      }
-
-    catch(e){
-        console.log(e);
-    }  
-  },[])
+  useEffect(()=>{getDetails();},[currentUser])
+  useEffect(() => {
+    console.log(quizs);
+    console.log(total1);
+    setAvg1(parseInt((total1 / (qc1 * 15)) * 100));
+    setAvg2(parseInt((total2 / (qc2 * 15)) * 100));
+    setAvg3(parseInt((total3 / (qc3 * 15)) * 100));
+    console.log(avg1);
+  }, [quizs]);
   useEffect(() => {
     const collectionRef = collection(db, "userdb");
     getDocs(collectionRef)
@@ -108,7 +132,20 @@ function getSubTopics(){
       })
       .catch((e) => console.log(e));
   }, []);
-  console.log(topics,subtopics)
+  quizs.forEach((quiz) => {
+    if (quiz.data.level === "Easy") {
+      qc1 += 1;
+      total1 += parseInt(quiz.data.score);
+    } else if (quiz.data.level === "Medium") {
+      qc2 += 1;
+      total2 += parseInt(quiz.data.score);
+    }
+    if (quiz.data.level === "Hard") {
+      qc3 += 1;
+      total3 += parseInt(quiz.data.score);
+    }
+  });
+
   return (
     <>
       <NavBar />
@@ -144,73 +181,128 @@ function getSubTopics(){
             </Modal>
           </div>
         </div>
-        <div className="row">
-          <div className="col">
+        {currentUser.userName!==undefined?<div className="row">
+          <div className="col p-0">
             <div className="row">
-              <div className="row mx-auto">
-                <div className="col mx-auto">Vishal Rajkumar Naik</div>
+              
+              <div className="row m-0 p-0">
+                <div className="col p-0 test-report m-0 my-3">
+                <div className="col-12 level-title h2 mt-2 ">Test</div>
+                <div className="row mx-auto">
+                <div className="col mx-auto level-title h4">
+                  <div>Name:</div><div>{currentUser?.userName}</div></div>
+                <div className="col mx-auto level-title h4"><div>USN:</div><div>{currentUser?.usn}</div></div>
               </div>
-              <div className="row">
-                <div className="col practice-report">
-                  <div className="row">
-                  Practice
+                  <div className="col-12 level-title ">
+                    <div>
+                    <Dropdown className="single-line m-2 mb-4">
+                      <Dropdown.Toggle variant="success" id="dropdown-basic">
+                        {qtopic.title}
+                      </Dropdown.Toggle>
+
+                      <Dropdown.Menu>
+                        {test.map((topic) => (
+                          <Dropdown.Item
+                            onClick={() => {
+                              setQtopic(topic);
+                            }}
+                          >
+                            {topic.title}
+                          </Dropdown.Item>
+                        ))}
+                      </Dropdown.Menu>
+                    </Dropdown>
+                    <Button
+                      className=" mx-auto"
+                      variant="primary"
+                      onClick={() => getDetails()}
+                    >
+                      Get
+                    </Button>
+                    </div>
+                    
                   </div>
-                  
-                  <Dropdown className="single-line m-3">
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                      {ptopic.title}
-                    </Dropdown.Toggle>
+                  <div className="mx-auto flex-line">
+                    <div
+                      className=" col-4 first-div progress-circle-single-line mx-auto"
+                      role="progressbar"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      style={cssval1}
+                    ></div>
+                    <div
+                      className="col-4  first-div progress-circle-single-line  mx-auto"
+                      role="progressbar"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      style={cssval2}
+                    ></div>
+                    <div
+                      className="col-4 first-div progress-circle-single-line mx-auto"
+                      role="progressbar"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      style={cssval3}
+                    ></div>
 
-                    <Dropdown.Menu>
-                      {
-                        topics?.map(topic=>(
-                          <Dropdown.Item onClick={()=>{setPtopic(topic.data);getSubTopics()}}>{topic.data.title}</Dropdown.Item>
-                        ))
-                      }
-                      
-                    </Dropdown.Menu>
-                  </Dropdown>
-                  <Dropdown className="single-line m-3">
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                     {psub.subTitle}
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu >
-                    {
-                        subtopics?.map(subtopic=>(
-                          <Dropdown.Item onClick={()=>{setPsub(subtopic.data)}} >{subtopic.data.subTitle}</Dropdown.Item>
-                        ))
-                        
-                        
-                      }
-                    </Dropdown.Menu>
-                  </Dropdown>
+                  </div>
+                  <div className="row my-2">
+                    <div className="col-4 level-title h4 ">Easy</div>
+                    <div className="col-4 level-title h4">Medium</div>
+                    <div className="col-4 level-title h4">Hard</div>
+                  </div>
                 </div>
-                <div className="col test-report">Test
-                <div>
-                <Dropdown className="single-line m-3">
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                      {ptopic.data?.title}
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                      {
-                        topics?.map(topic=>(
-                          <Dropdown.Item onClick={()=>{console.log("asdeasdasdasd");setPtopic(topic);getSubTopics()}}>{topic.data.title}</Dropdown.Item>
-                        ))
-                      }
-                      
-                    </Dropdown.Menu>
-                  </Dropdown>
-                  </div>
-                  </div>
+              </div>
+              <div>
+                <Table striped bordered hover className="mb-5">
+                  <thead>
+                    <tr>
+                      <th>Quiz</th>
+                      <th>Level</th>
+                      <th>Attempted On</th>
+                      <th>Score</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {quizs?.map((quizReport) => (
+                      <tr>
+                        <td>
+                          <Button
+                            variant="success"
+                            onClick={() =>
+                              navigate(
+                                "/test/" + currentUser?.id + "/report",
+                                {
+                                  state: {
+                                    score: quizReport.data.score,
+                                    tq: quizReport.data.tq,
+                                    questions: quizReport.data.questions,
+                                    answers: quizReport.data.answers,
+                                  },
+                                }
+                              )
+                            }
+                          >
+                            Quiz-{quizs.indexOf(quizReport) + 1}
+                          </Button>
+                        </td>
+                        <td>{quizReport.data.level}</td>
+                        <td>{Date(quizReport.data.created?.nanoseconds)}</td>
+                        <td>
+                          {quizReport.data.score}/{quizReport.data.tq}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
               </div>
             </div>
           </div>
-        </div>
+        </div>:""}
       </div>
 
       <Footbar class="footBar-bottom" />
     </>
   );
-}
+ }
+                        
