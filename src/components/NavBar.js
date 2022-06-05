@@ -67,6 +67,7 @@ export default function NavBar() {
       <Nav.Link onClick={() => navigate("/practice")} >Practice</Nav.Link>
       <Nav.Link onClick={() => navigate("/test")}>Test</Nav.Link>
       <Nav.Link onClick={() => navigate("/feedback")}>Feedback</Nav.Link>
+      <Nav.Link onClick={() => navigate("/contribute")}>Contribute</Nav.Link>
     </Nav>
     <Nav className="mr-7">
         
