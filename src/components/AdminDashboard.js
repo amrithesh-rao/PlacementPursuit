@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { db } from "../firebase.js";
 import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
 import { Form, Button, Modal, Dropdown, Table } from "react-bootstrap";
+import { useUserAuth } from "../context/UserAuthContext";
 
 export default function AdminDashboard() {
   let navigate = useNavigate();
@@ -31,7 +32,8 @@ export default function AdminDashboard() {
   const [show1, setShow1] = useState(false);
   const handleClose1 = () => setShow1(false);
   const handleShow1 = () => setShow1(true);
-
+  const [isAdmin, setAdmin] = useState(false);
+  const { user } = useUserAuth();
   const test = [
     {
       title: "Data Structures",
@@ -88,6 +90,10 @@ export default function AdminDashboard() {
       console.log(e);
     }
   }
+
+
+
+
   function searchUSN(e) {
     e.preventDefault();
     const { formUSN } = e.target.elements;
@@ -146,7 +152,25 @@ export default function AdminDashboard() {
     }
   });
 
+
+
+  useEffect(() => {
+    if (user?.email !== undefined) {
+
+          getDocs(
+            query(collection(db, "adminDb"), where("email", "==", user?.email))
+          ).then((snapshot) => {
+            if (snapshot.docs.length === 0) {
+            } else {
+              setAdmin(true);
+              console.log(isAdmin);
+            }
+          });
+        }
+  }, [user?.email]);
+
   return (
+  isAdmin?
     <>
       <NavBar />
       <div className="container">
@@ -302,7 +326,10 @@ export default function AdminDashboard() {
       </div>
 
       <Footbar class="footBar-bottom" />
-    </>
+    </>:
+    "This feature available to only admin"
+
+
   );
  }
                         
