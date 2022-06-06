@@ -36,40 +36,40 @@ const Home = () => {
   const handleShow2 = () => setShow2(true);
   const [ allow, setAllow ] = useState(false);
   useEffect(() => {
-    try {
-      if (user.email !== undefined) {
-        getDocs(
-          query(collection(db, "adminDb"), where("email", "==", user?.email))
-        ).then((snapshot) => {
-          if (snapshot.docs.length === 0) {
-            //he student or outsider
-            getDocs(
-              query(collection(db, "usndb"), where("email", "==", user?.email))
-            ).then((snapshot) => {
-              if (snapshot.docs.length === 0) {
-                //outsider
-                console.log("Outsider");
-                handleLogoutOutsider();
-              } else {
-                // allow.current = true;
-                setAllow(true)
-                usn.current = snapshot.docs[0].data()?.usn;
-                console.log("This guy student");
-              }
-            });
+    // try {
+    //   if (user.email !== undefined) {
+    //     getDocs(
+    //       query(collection(db, "adminDb"), where("email", "==", user?.email))
+    //     ).then((snapshot) => {
+    //       if (snapshot.docs.length === 0) {
+    //         //he student or outsider
+    //         getDocs(
+    //           query(collection(db, "usndb"), where("email", "==", user?.email))
+    //         ).then((snapshot) => {
+    //           if (snapshot.docs.length === 0) {
+    //             //outsider
+    //             console.log("Outsider");
+    //             handleLogoutOutsider();
+    //           } else {
+    //             // allow.current = true;
+    //             setAllow(true)
+    //             usn.current = snapshot.docs[0].data()?.usn;
+    //             console.log("This guy student");
+    //           }
+    //         });
   
-            // handleShow2();
-          } else {
-            // allow.current = true;
-            setAllow(true)
-            console.log("This guy admin");
-            //admin
-          }
-        });
-      }
-    } catch (e) {
-      console.log(e);
-    }
+    //         // handleShow2();
+    //       } else {
+    //         // allow.current = true;
+    //         setAllow(true)
+    //         console.log("This guy admin");
+    //         //admin
+    //       }
+    //     });
+    //   }
+    // } catch (e) {
+    //   console.log(e);
+    // }
     if (user?.displayName !== null) {
     } else {
       handleShow1();
@@ -94,8 +94,9 @@ const Home = () => {
         }
       }
     };
-    if (allow) setUser();
-  }, [allow]);
+    // if (allow) 
+    setUser();
+  }, []);
 
   console.log(allow);
   async function saveName(e) {
@@ -120,7 +121,7 @@ const Home = () => {
   };
   return (
 
-    allow ?
+    // allow ?
     <>
       <div>
         <NavBar />
@@ -282,8 +283,8 @@ const Home = () => {
       </div>
       <Footbar class="footBar" />
     </>
-   : 
-    ""
+  //  : 
+  //   ""
   )
 };
 
