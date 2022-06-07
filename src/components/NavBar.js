@@ -9,7 +9,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 
 export default function NavBar() {
-  const { user, logOut } = useUserAuth();
+  const { user, logOut, who } = useUserAuth();
   const navigate = useNavigate();
   const uName = useRef("");
   const [show, setShow] = useState(false);
@@ -36,34 +36,13 @@ export default function NavBar() {
     navigate(0);
   }
   useEffect(() => {
-    if (user?.email !== undefined) {
-
-      getDocs(
-        query(collection(db, "alumniDb"), where("email", "==", user?.email))
-      ).then((snapshot) => {
-        if (snapshot.docs.length === 0) {
-
-
-          getDocs(
-            query(collection(db, "adminDb"), where("email", "==", user?.email))
-          ).then((snapshot) => {
-            if (snapshot.docs.length === 0) {
-            } else {
-              setAdmin(true);
-              console.log(isAdmin);
-            }
-          });
-
-        } else {
-          setAlumni(true);
-
-        }
-      });
-
-
-
+   if(who === "admin")
+    setAdmin(true)
+    else if(who === "alumni")
+    setAlumni(true)
     }
-  }, [user?.email]);
+  , [user?.email]);
+  console.log(who)
   console.log(isAlumni);
   console.log(isAdmin);
   return (

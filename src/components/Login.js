@@ -13,7 +13,11 @@ import { db } from "../firebase";
 
 const Login = () => {
   const [error, setError] = useState("");
-  const { user, logIn, googleSignIn, logOut } = useUserAuth();
+  const { user, logIn, googleSignIn, logOut, setTheWho } = useUserAuth();
+  const [gSign1, setGSign1] = useState(false);
+  const [gSign2, setGSign2] = useState(false);
+  const [gSign3, setGSign3] = useState(false);
+
   const navigate = useNavigate();
 
   const handleSubmitStudent = async (e) => {
@@ -45,7 +49,53 @@ const Login = () => {
       setError(err.message);
     }
   };
-
+  useEffect(() => {
+    if (gSign1 && user?.email) {
+      getDocs(
+        query(collection(db, "usndb"), where("email", "==", user?.email))
+      ).then((snapshot) => {
+        if (snapshot.docs.length === 0) {
+          setGSign1(false);
+          handleLogout();
+          alert("Student data does not exist");
+        } else {
+          navigate("/home", { replace: true });
+        }
+      });
+    }
+  }, [user?.email, gSign1]);
+  useEffect(() => {
+    if (gSign2 && user?.email) {
+      getDocs(
+        query(collection(db, "adminDb"), where("email", "==", user?.email))
+      ).then((snapshot) => {
+        if (snapshot.docs.length === 0) {
+          setGSign2(false);
+          handleLogout();
+          alert("Not admin");
+        } else {
+          setTheWho("admin")
+          navigate("/home", { replace: true });
+        }
+      });
+    }
+  }, [user?.email, gSign2]);
+  useEffect(() => {
+    if (gSign3 && user?.email) {
+      getDocs(
+        query(collection(db, "alumniDb"), where("email", "==", user?.email))
+      ).then((snapshot) => {
+        if (snapshot.docs.length === 0) {
+          setGSign3(false);
+          handleLogout();
+          alert("Not alumni");
+        } else {
+          setTheWho("alumni")
+          navigate("/home", { replace: true });
+        }
+      });
+    }
+  }, [user?.email, gSign3]);
   const handleLogout = async () => {
     try {
       await logOut();
@@ -58,18 +108,7 @@ const Login = () => {
     e.preventDefault();
     try {
       await googleSignIn();
-
-      if (user?.email)
-        getDocs(
-          query(collection(db, "usndb"), where("email", "==", user?.email))
-        ).then((snapshot) => {
-          if (snapshot.docs.length === 0) {
-            handleLogout();
-            alert("Student data does not exist");
-          } else {
-            navigate("/home", { replace: true });
-          }
-        });
+      setGSign1(true);
     } catch (error) {
       console.log(error.message);
     }
@@ -82,7 +121,6 @@ const Login = () => {
     setError("");
     try {
       await logIn(formBasicEmailAdminl.value, formBasicPasswordAdminl.value);
-
       getDocs(
         query(
           collection(db, "adminDb"),
@@ -93,6 +131,7 @@ const Login = () => {
           handleLogout();
           alert("Not admin");
         } else {
+          setTheWho("admin")
           navigate("/home", { replace: true });
         }
       });
@@ -105,17 +144,7 @@ const Login = () => {
     e.preventDefault();
     try {
       await googleSignIn();
-      if (user?.email)
-        getDocs(
-          query(collection(db, "adminDb"), where("email", "==", user?.email))
-        ).then((snapshot) => {
-          if (snapshot.docs.length === 0) {
-            handleLogout();
-            alert("Not admin");
-          } else {
-            navigate("/home", { replace: true });
-          }
-        });
+      setGSign2(true);
     } catch (error) {
       console.log(error.message);
     }
@@ -140,6 +169,7 @@ const Login = () => {
           handleLogout();
           alert("Not alumni");
         } else {
+          setTheWho("alumni")
           navigate("/home", { replace: true });
         }
       });
@@ -152,17 +182,7 @@ const Login = () => {
     e.preventDefault();
     try {
       await googleSignIn();
-      if (user?.email)
-        getDocs(
-          query(collection(db, "alumniDb"), where("email", "==", user?.email))
-        ).then((snapshot) => {
-          if (snapshot.docs.length === 0) {
-            handleLogout();
-            alert("Not alumni");
-          } else {
-            navigate("/home", { replace: true });
-          }
-        });
+      setGSign3(true);
     } catch (error) {
       console.log(error.message);
     }

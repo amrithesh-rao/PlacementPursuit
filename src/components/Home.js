@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import Footbar from "./Footbar";
 import { Button, Carousel, Modal, Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,useLocation} from "react-router-dom";
 import { updateProfile } from "firebase/auth";
 import { useUserAuth } from "../context/UserAuthContext";
 import testCarousel from "../img/testCarousel.png";
