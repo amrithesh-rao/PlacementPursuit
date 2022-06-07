@@ -41,8 +41,10 @@ export default function NavBar() {
     else if(who === "alumni")
     setAlumni(true)
     }
-  , [user?.email]);
+  , [user?.email,isAdmin,isAlumni]);
   console.log(who)
+  
+  console.log(user.email)
   console.log(isAlumni);
   console.log(isAdmin);
   return (
@@ -79,7 +81,7 @@ export default function NavBar() {
               )}
             </Nav>
             <Nav className="mr-7">
-              <img src={user.photoURL} className="profile-pic" alt="profile" />
+              <img src={user?.photoURL} className="profile-pic" alt="profile" />
               <NavDropdown
                 title={user.displayName}
                 id="collasible-nav-dropdown"
