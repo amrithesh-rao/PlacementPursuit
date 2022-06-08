@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import { Navigate, Link, useNavigate } from "react-router-dom";
 import { Form, Alert, Tabs, Tab } from "react-bootstrap";
 import { Button, Carousel } from "react-bootstrap";
@@ -11,14 +11,18 @@ import logo from "../img/logo.png";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 
+
+
 const Login = () => {
   const [error, setError] = useState("");
   const { user, logIn, googleSignIn, logOut, setTheWho } = useUserAuth();
+  
   const [gSign1, setGSign1] = useState(false);
   const [gSign2, setGSign2] = useState(false);
   const [gSign3, setGSign3] = useState(false);
 
   const navigate = useNavigate();
+
 
   const handleSubmitStudent = async (e) => {
     e.preventDefault();

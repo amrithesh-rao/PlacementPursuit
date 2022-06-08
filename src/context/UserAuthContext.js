@@ -14,7 +14,7 @@ const userAuthContext = createContext();
 
 export function UserAuthContextProvider({ children }) {
   const [user, setUser] = useState({});
-  const [who, setWho] = useState("");
+  const [who, setWho] = useState("student");
 
   function logIn(email, password) {
     return signInWithEmailAndPassword(auth, email, password);
@@ -37,8 +37,7 @@ export function UserAuthContextProvider({ children }) {
       setWho(who)
   }
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
-      console.log("Auth", currentuser);
+    const unsubscribe = onAuthStateChanged(auth, (currentuser) => { 
       setUser(currentuser);
     });
 

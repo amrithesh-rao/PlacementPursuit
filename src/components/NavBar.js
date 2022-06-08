@@ -87,7 +87,7 @@ export default function NavBar() {
                 id="collasible-nav-dropdown"
               >
                 <NavDropdown.Item onClick={handleShow}>
-                  Edit Name
+                  Edit Profile
                 </NavDropdown.Item>
                 {/* {!isAdmin?
         "":
