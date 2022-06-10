@@ -12,7 +12,7 @@ import {
   getDoc,
   onSnapshot
 } from "firebase/firestore";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import { ToggleButton } from "react-bootstrap";
 import { useUserAuth } from "../context/UserAuthContext";
@@ -171,7 +171,7 @@ console.log(checked);
                   <a
                     href={practiceItem.data.practiceItemLink}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                   >
                     {practiceItem.data.practiceItemName}
                   </a>

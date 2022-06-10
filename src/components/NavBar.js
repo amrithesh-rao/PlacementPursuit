@@ -67,9 +67,9 @@ export default function NavBar() {
               )}
 
               <Nav.Link onClick={() => navigate("/practice")}>
-                Practice
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Practice
               </Nav.Link>
-              <Nav.Link onClick={() => navigate("/test")}>Test</Nav.Link>
+              <Nav.Link onClick={() => navigate("/test")}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Test&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Nav.Link>
               <Nav.Link onClick={() => navigate("/feedback")}>
                 Feedback
               </Nav.Link>
@@ -87,6 +87,12 @@ export default function NavBar() {
                 title={user.displayName}
                 id="collasible-nav-dropdown"
               >
+{!who?
+        "":
+<NavDropdown.Item>
+                 { "This is " + who.charAt(0).toUpperCase() + who.slice(1)} 
+                </NavDropdown.Item>
+}
                 <NavDropdown.Item onClick={handleShow}>
                   Edit Profile
                 </NavDropdown.Item>
