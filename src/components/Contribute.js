@@ -13,9 +13,11 @@ import {
 } from "firebase/firestore";
 import { Form, Button, Modal, Tabs, Tab, Alert } from "react-bootstrap";
 import { useUserAuth } from "../context/UserAuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Contribute() {
   const { user } = useUserAuth();
+  let navigate = useNavigate();
   const [{ topic, subTopic }, setData] = useState({
     topic: "Operating System",
     subTopic: "Threads",
@@ -26,13 +28,14 @@ export default function Contribute() {
   });
   const [title, setTitle] = useState("");
   const [link, setLink] = useState("");
+  const [show2, setShow2] = useState(false);
+  const handleClose2 = () => setShow2(false);
+  const handleShow2 = () => setShow2(true);
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
   const [key, setKey] = useState("practice");
   const [isAlumni,setAlumni] = useState(false);
-  if(localStorage.getItem("who")==="Alumni"){
-    setAlumni(true);
-  }
+  
 
 
   const pTOptions = [
@@ -276,6 +279,11 @@ export default function Contribute() {
     form.reset();
     setShow(true);
   }
+  useEffect(()=>{
+    if(localStorage.getItem("who")==="Alumni"){
+      setAlumni(true);
+    }
+  },[])
   return (
     isAlumni?
     <>
@@ -496,6 +504,24 @@ export default function Contribute() {
       </div>
 
       <Footbar class="footBar-bottom" />
-    </>:"Thi feature is available for alumnis only"
+    </>:<Modal show={true} onHide={handleClose2} centered={true} backdrop="static">
+      
+      <Modal.Header >
+        <Modal.Title>Sorry!!</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+      You are not authorized to perform this action.
+
+        
+       
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="primary" onClick={()=>navigate(-1)}>
+          Go Back
+        </Button>
+        
+      </Modal.Footer>
+     
+    </Modal>
   );
 }

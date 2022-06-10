@@ -37,40 +37,7 @@ const Home = () => {
   const [ allow, setAllow ] = useState(false);
 console.log(localStorage.getItem("who"));
   useEffect(() => {
-    // try {
-    //   if (user.email !== undefined) {
-    //     getDocs(
-    //       query(collection(db, "adminDb"), where("email", "==", user?.email))
-    //     ).then((snapshot) => {
-    //       if (snapshot.docs.length === 0) {
-    //         //he student or outsider
-    //         getDocs(
-    //           query(collection(db, "usndb"), where("email", "==", user?.email))
-    //         ).then((snapshot) => {
-    //           if (snapshot.docs.length === 0) {
-    //             //outsider
-    //             console.log("Outsider");
-    //             handleLogoutOutsider();
-    //           } else {
-    //             // allow.current = true;
-    //             setAllow(true)
-    //             usn.current = snapshot.docs[0].data()?.usn;
-    //             console.log("This guy student");
-    //           }
-    //         });
-  
-    //         // handleShow2();
-    //       } else {
-    //         // allow.current = true;
-    //         setAllow(true)
-    //         console.log("This guy admin");
-    //         //admin
-    //       }
-    //     });
-    //   }
-    // } catch (e) {
-    //   console.log(e);
-    // }
+    
     if (user?.displayName !== null) {
     } else {
       handleShow1();
