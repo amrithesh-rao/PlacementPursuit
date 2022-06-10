@@ -14,6 +14,9 @@ export default function AdminDashboard() {
     title: "Data Structures",
     id: "xUddbjWlwvVpbvXn5aHZ",
   });
+  const [show2, setShow2] = useState(false);
+  const handleClose2 = () => setShow2(false);
+  const handleShow2 = () => setShow2(true);
   const [quizs, setQuiz] = useState([]);
   const [currentUser,setCurrentUser] = useState({});
   const [userSearched,setUserSearched] = useState(false);
@@ -33,9 +36,7 @@ export default function AdminDashboard() {
   const handleClose1 = () => setShow1(false);
   const handleShow1 = () => setShow1(true);
   const [isAdmin, setAdmin] = useState(false);
-  if(localStorage.getItem("who")==="Admin"){
-    setAdmin(true)
-  }
+  
   const { user } = useUserAuth();
   const test = [
     {
@@ -68,7 +69,11 @@ export default function AdminDashboard() {
     },
   ];
 
-
+useEffect(()=>{
+  if(localStorage.getItem("who")==="Admin"){
+    setAdmin(true)
+  }
+},[])
   function getDetails() {
     console.log("called",currentUser?.userName)
     try {
@@ -155,22 +160,6 @@ export default function AdminDashboard() {
     }
   });
 
-
-
-  // useEffect(() => {
-  //   if (user?.email !== undefined) {
-
-  //         getDocs(
-  //           query(collection(db, "adminDb"), where("email", "==", user?.email))
-  //         ).then((snapshot) => {
-  //           if (snapshot.docs.length === 0) {
-  //           } else {
-  //             setAdmin(true);
-  //             console.log(isAdmin);
-  //           }
-  //         });
-  //       }
-  // }, [user?.email]);
 
   return (
   isAdmin?
@@ -330,7 +319,25 @@ export default function AdminDashboard() {
 
       <Footbar class="footBar-bottom" />
     </>:
-    "This feature available to only admin"
+    <Modal show={true} onHide={handleClose2} centered={true} backdrop="static">
+      
+    <Modal.Header >
+      <Modal.Title>Sorry!!</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+    You are not authorized to perform this action.
+
+      
+     
+    </Modal.Body>
+    <Modal.Footer>
+      <Button variant="primary" onClick={()=>navigate(-1)}>
+        Go Back
+      </Button>
+      
+    </Modal.Footer>
+   
+  </Modal>
 
 
   );
