@@ -9,9 +9,10 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 
 export default function NavBar() {
-  const { user, logOut, who } = useUserAuth();
+  const { user, logOut } = useUserAuth();
   const navigate = useNavigate();
   const uName = useRef("");
+  const who=localStorage.getItem("who");
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -36,9 +37,9 @@ export default function NavBar() {
     navigate(0);
   }
   useEffect(() => {
-   if(who === "admin")
+   if(who === "Admin")
     setAdmin(true)
-    else if(who === "alumni")
+    else if(who === "Alumni")
     setAlumni(true)
     }
   , [user?.email,isAdmin,isAlumni]);
@@ -89,11 +90,7 @@ export default function NavBar() {
                 <NavDropdown.Item onClick={handleShow}>
                   Edit Profile
                 </NavDropdown.Item>
-                {/* {!isAdmin?
-        "":
-        <NavDropdown.Item onClick={ ()=>navigate("/dashboard") }>Dashboard</NavDropdown.Item>
-      }
-         */}
+                
                 <NavDropdown.Item onClick={handleLogout}>
                   Log Out
                 </NavDropdown.Item>

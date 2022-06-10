@@ -35,6 +35,7 @@ const Home = () => {
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
   const [ allow, setAllow ] = useState(false);
+console.log(localStorage.getItem("who"));
   useEffect(() => {
     // try {
     //   if (user.email !== undefined) {
