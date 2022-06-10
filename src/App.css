@@ -4,6 +4,9 @@ body {
     overflow-x: hidden;
 }
 
+.navMargin{
+    margin-left: 40px;
+}
 
 
 .navBar.container {
