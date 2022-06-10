@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { Form, Alert, Tabs, Tab } from "react-bootstrap";
+import { Form, Alert, Tabs, Tab, Modal } from "react-bootstrap";
 import { Button, Carousel } from "react-bootstrap";
 import { useUserAuth } from "../context/UserAuthContext";
 import GoogleButton from "react-google-button";
@@ -18,6 +18,15 @@ const Signup = () => {
   const [gSign1, setGSign1] = useState(false);
   const [gSign2, setGSign2] = useState(false);
   const [gSign3, setGSign3] = useState(false);
+  const [show1, setShow1] = useState(false);
+  const [show2, setShow2] = useState(false);
+  const [show3, setShow3] = useState(false);
+  const handleClose1 = () => setShow1(false);
+  const handleShow1 = () => setShow1(true);
+  const handleClose2 = () => setShow2(false);
+  const handleShow2 = () => setShow2(true);
+  const handleClose3 = () => setShow3(false);
+  const handleShow3 = () => setShow3(true);
 
   const handleLogout = async () => {
     try {
@@ -34,8 +43,9 @@ const Signup = () => {
         if (snapshot.docs.length === 0) {
           setGSign1(false);
           handleLogout();
-          alert("Student data does not exist");
+          handleShow1()
         } else {
+          localStorage.setItem("who", "Student");
           navigate("/home", { replace: true });
         }
       });
@@ -49,9 +59,9 @@ const Signup = () => {
         if (snapshot.docs.length === 0) {
           setGSign2(false);
           handleLogout();
-          alert("Not admin");
+          handleShow2()
         } else {
-          setTheWho("admin")
+          localStorage.setItem("who", "Admin");
           navigate("/home", { replace: true });
         }
       });
@@ -65,9 +75,9 @@ const Signup = () => {
         if (snapshot.docs.length === 0) {
           setGSign3(false);
           handleLogout();
-          alert("Not alumni");
+          handleShow3();
         } else {
-          setTheWho("alumni")
+          localStorage.setItem("who", "Alumni");
           navigate("/home", { replace: true });
         }
       });
@@ -101,8 +111,9 @@ const Signup = () => {
       ).then((snapshot) => {
         if (snapshot.docs.length === 0) {
           handleLogout();
-          alert("Student data does not exist");
+          handleShow1();
         } else {
+          localStorage.setItem("who", "Student");
           navigate("/home", { replace: true });
         }
       });
@@ -145,9 +156,9 @@ const Signup = () => {
       ).then((snapshot) => {
         if (snapshot.docs.length === 0) {
           handleLogout();
-          alert("Not admin");
+          handleShow2();
         } else {
-          setTheWho("admin")
+          localStorage.setItem("who", "Admin");
           navigate("/home", { replace: true });
         }
       });
@@ -188,9 +199,9 @@ const Signup = () => {
       ).then((snapshot) => {
         if (snapshot.docs.length === 0) {
           handleLogout();
-          alert("Not alumni");
+          handleShow3();
         } else {
-          setTheWho("alumni")
+          localStorage.setItem("who", "Alumni");
           navigate("/home", { replace: true });
         }
       });
@@ -269,6 +280,64 @@ const Signup = () => {
                       </div>
                     </Form>
                   </div>
+                  <Modal
+                    show={show1}
+                    onHide={handleClose1}
+                    centered={true}
+                    backdrop="static"
+                  >
+                    <Modal.Header>
+                      <Modal.Title>Sorry!!</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      You are not authorized to login as Student.
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="primary" onClick={handleClose1}>
+                        Okay
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
+
+
+                  <Modal
+                    show={show2}
+                    onHide={handleClose2}
+                    centered={true}
+                    backdrop="static"
+                  >
+                    <Modal.Header>
+                      <Modal.Title>Sorry!!</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      You are not authorized to login as Admin.
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="primary" onClick={handleClose2}>
+                        Okay
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
+
+                  <Modal
+                    show={show3}
+                    onHide={handleClose3}
+                    centered={true}
+                    backdrop="static"
+                  >
+                    <Modal.Header>
+                      <Modal.Title>Sorry!!</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      You are not authorized to login as Alumni.
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="primary" onClick={handleClose3}>
+                        Okay
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
+
                   <div className="box mt-2 mb-4 text-center">
                     Already have an account? <Link to="/">Log In</Link>
                   </div>
