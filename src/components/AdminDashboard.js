@@ -33,6 +33,9 @@ export default function AdminDashboard() {
   const handleClose1 = () => setShow1(false);
   const handleShow1 = () => setShow1(true);
   const [isAdmin, setAdmin] = useState(false);
+  if(localStorage.getItem("who")==="Admin"){
+    setAdmin(true)
+  }
   const { user } = useUserAuth();
   const test = [
     {
@@ -154,20 +157,20 @@ export default function AdminDashboard() {
 
 
 
-  useEffect(() => {
-    if (user?.email !== undefined) {
+  // useEffect(() => {
+  //   if (user?.email !== undefined) {
 
-          getDocs(
-            query(collection(db, "adminDb"), where("email", "==", user?.email))
-          ).then((snapshot) => {
-            if (snapshot.docs.length === 0) {
-            } else {
-              setAdmin(true);
-              console.log(isAdmin);
-            }
-          });
-        }
-  }, [user?.email]);
+  //         getDocs(
+  //           query(collection(db, "adminDb"), where("email", "==", user?.email))
+  //         ).then((snapshot) => {
+  //           if (snapshot.docs.length === 0) {
+  //           } else {
+  //             setAdmin(true);
+  //             console.log(isAdmin);
+  //           }
+  //         });
+  //       }
+  // }, [user?.email]);
 
   return (
   isAdmin?

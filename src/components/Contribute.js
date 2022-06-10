@@ -29,6 +29,11 @@ export default function Contribute() {
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
   const [key, setKey] = useState("practice");
+  const [isAlumni,setAlumni] = useState(false);
+  if(localStorage.getItem("who")==="Alumni"){
+    setAlumni(true);
+  }
+
 
   const pTOptions = [
     {
@@ -271,8 +276,8 @@ export default function Contribute() {
     form.reset();
     setShow(true);
   }
-
   return (
+    isAlumni?
     <>
       <NavBar />
       <h2 className="subtopic-name">Contribute by adding questions</h2>
@@ -491,6 +496,6 @@ export default function Contribute() {
       </div>
 
       <Footbar class="footBar-bottom" />
-    </>
+    </>:"Thi feature is available for alumnis only"
   );
 }

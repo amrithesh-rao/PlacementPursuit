@@ -119,7 +119,6 @@ export default function AddFeedback() {
               
           })
         }
-        console.log(info.current.usn)
     }
     catch(e){
         console.log(e);
@@ -155,7 +154,6 @@ export default function AddFeedback() {
     setTimeout(()=>navigate("/Feedback"),5000)
         }
   }
-
   return (
     <>
       <NavBar />

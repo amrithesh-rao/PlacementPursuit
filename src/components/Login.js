@@ -46,6 +46,7 @@ const Login = () => {
           handleLogout();
           alert("Student data does not exist");
         } else {
+          localStorage.setItem("who", "Student");
           navigate("/home", { replace: true });
         }
       });
@@ -63,7 +64,9 @@ const Login = () => {
           handleLogout();
           alert("Student data does not exist");
         } else {
+          localStorage.setItem("who", "Student");
           navigate("/home", { replace: true });
+          
         }
       });
     }
@@ -78,7 +81,7 @@ const Login = () => {
           handleLogout();
           alert("Not admin");
         } else {
-          setTheWho("admin")
+          localStorage.setItem("who", "Admin");
           navigate("/home", { replace: true });
         }
       });
@@ -94,7 +97,7 @@ const Login = () => {
           handleLogout();
           alert("Not alumni");
         } else {
-          setTheWho("alumni")
+          localStorage.setItem("who", "Alumni");
           navigate("/home", { replace: true });
         }
       });
@@ -103,6 +106,7 @@ const Login = () => {
   const handleLogout = async () => {
     try {
       await logOut();
+
     } catch (error) {
       console.log(error.message);
     }
@@ -135,7 +139,7 @@ const Login = () => {
           handleLogout();
           alert("Not admin");
         } else {
-          setTheWho("admin")
+          localStorage.setItem("who", "Admin");
           navigate("/home", { replace: true });
         }
       });
@@ -173,7 +177,7 @@ const Login = () => {
           handleLogout();
           alert("Not alumni");
         } else {
-          setTheWho("alumni")
+          localStorage.setItem("who", "Alumni");
           navigate("/home", { replace: true });
         }
       });
