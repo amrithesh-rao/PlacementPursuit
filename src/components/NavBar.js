@@ -61,22 +61,22 @@ export default function NavBar() {
               {!isAdmin ? (
                 ""
               ) : (
-                <Nav.Link onClick={() => navigate("/dashboard")}>
+                <Nav.Link className="navMargin" onClick={() => navigate("/dashboard")}>
                   Dashboard
                 </Nav.Link>
               )}
 
-              <Nav.Link onClick={() => navigate("/practice")}>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Practice
+              <Nav.Link className="navMargin" onClick={() => navigate("/practice")}>
+              Practice
               </Nav.Link>
-              <Nav.Link onClick={() => navigate("/test")}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Test&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Nav.Link>
-              <Nav.Link onClick={() => navigate("/feedback")}>
+              <Nav.Link className="navMargin" onClick={() => navigate("/test")}>Test</Nav.Link>
+              <Nav.Link className="navMargin" onClick={() => navigate("/feedback")}>
                 Feedback
               </Nav.Link>
               {!isAlumni ? (
                 ""
               ) : (
-              <Nav.Link onClick={() => navigate("/contribute")}>
+              <Nav.Link className="navMargin" onClick={() => navigate("/contribute")}>
                 Contribute
               </Nav.Link>
               )}
@@ -87,9 +87,9 @@ export default function NavBar() {
                 title={user.displayName}
                 id="collasible-nav-dropdown"
               >
-{!who?
-        "":
-<NavDropdown.Item>
+          {!who?
+          "":
+                <NavDropdown.Item>
                  { "This is " + who.charAt(0).toUpperCase() + who.slice(1)} 
                 </NavDropdown.Item>
 }
