@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { updateProfile } from "firebase/auth";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 export default function NavBar() {
   const { user, logOut } = useUserAuth();
@@ -67,11 +69,11 @@ export default function NavBar() {
               )}
 
               <Nav.Link className="navMargin" onClick={() => navigate("/practice")}>
-              Practice
+              <FontAwesomeIcon icon={solid('book')}/> Practice 
               </Nav.Link>
-              <Nav.Link className="navMargin" onClick={() => navigate("/test")}>Test</Nav.Link>
+              <Nav.Link className="navMargin" onClick={() => navigate("/test")}><FontAwesomeIcon icon={solid('file-circle-check')}/> Test</Nav.Link>
               <Nav.Link className="navMargin" onClick={() => navigate("/feedback")}>
-                Feedback
+              <FontAwesomeIcon icon={solid('comments')}/> Feedback
               </Nav.Link>
               {!isAlumni ? (
                 ""
@@ -94,11 +96,11 @@ export default function NavBar() {
                 </NavDropdown.Item>
 }
                 <NavDropdown.Item onClick={handleShow}>
-                  Edit Profile
+                <FontAwesomeIcon icon={solid('id-card')}/> Edit Profile
                 </NavDropdown.Item>
                 
                 <NavDropdown.Item onClick={handleLogout}>
-                  Log Out
+                <FontAwesomeIcon icon={solid('right-from-bracket')}/> Log Out
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>

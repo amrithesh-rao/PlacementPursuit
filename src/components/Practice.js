@@ -5,10 +5,15 @@ import PracticeCard from "./PracticeCard";
 import { db } from "../firebase";
 import { collection, getDocs, query, orderBy, where } from "firebase/firestore";
 import SelectSearch from "react-select-search";
+import {Table,Button} from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 export default function Practice() {
   const [titles, setTitles] = useState([]);
   const [dept, setDept] = useState("CS");
+  let navigate = useNavigate();
   useEffect(() => {
       try{
         const colRef = collection(db, "infodb");
@@ -34,6 +39,7 @@ export default function Practice() {
   return (
     <>
       <NavBar />
+      <Button variant="light" onClick={()=>navigate('/home')}><FontAwesomeIcon icon={solid('circle-left')} size="2x"/></Button>
       <div className="container"> 
       <SelectSearch
       className="select-search dept-search"

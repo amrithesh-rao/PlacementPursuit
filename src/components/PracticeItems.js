@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import NavBar from "./NavBar";
 import Footbar from "./Footbar";
 import { db } from "../firebase";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
+
 import {
   collection,
   getDocs,
@@ -14,10 +17,12 @@ import {
 } from "firebase/firestore";
 import { Link, useParams } from "react-router-dom";
 import Table from "react-bootstrap/Table";
-import { ToggleButton } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { ToggleButton,Button } from "react-bootstrap";
 import { useUserAuth } from "../context/UserAuthContext";
 import { useLocation } from "react-router-dom";
 export default function PracticeItems() {
+  let navigate = useNavigate();
   const [practiceItem, setPracticeItem] = useState([]);
   const { id, sid } = useParams();
   const { user } = useUserAuth();
@@ -149,11 +154,13 @@ console.log(checked);
   return (
     <>
       <NavBar />
+      <Button variant="light" onClick={()=>navigate(-1)}><FontAwesomeIcon icon={solid('circle-left')} size="2x"/></Button>
       <h2 className="subtopic-name">{subtitle}</h2>
         {
       (practiceItem?.length !==0 && checked?.length !==0    )  &&
 
       <div className="p-5 mx-auto">
+        
         <Table striped bordered hover>
           <thead>
             <tr>

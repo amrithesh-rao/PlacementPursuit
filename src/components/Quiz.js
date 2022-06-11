@@ -9,7 +9,8 @@ import { sampleSize } from "lodash";
 import { Button,Card,Form,Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth} from "../context/UserAuthContext";
-//import useUnsavedChangesWarning from "./useUnsavedChangesWarning";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 export default function Quiz() {
   let navigate = useNavigate();
@@ -229,26 +230,26 @@ export default function Quiz() {
           
         </Card.Body>
       </Card>
-      <Button className="btn-ctr mx-auto mb-3" variant="success" type="submit">Save Choice</Button>
+      <Button className="btn-ctr mx-auto mb-3" variant="success" type="submit"><FontAwesomeIcon icon={solid('circle-check')}/> Save Choice</Button>
       </Form>
       </>:""}
       
       
       <div style={{display:"flex", justifyContent: "space-around"}}>
-      <Button className="quiz-nav-but m-3" onClick={()=>setQno(qno-1<0?qlength-1:qno-1)}>Previous</Button>
-      <Button variant="danger" className="quiz-nav-but m-3" onClick={handleShow2} >Submit</Button>
-      <Button className="quiz-nav-but m-3" onClick={()=>setQno((qno+1)%qlength)}>Next</Button>
+      <Button className="quiz-nav-but m-3" onClick={()=>setQno(qno-1<0?qlength-1:qno-1)}><FontAwesomeIcon icon={solid('circle-left')}/> Previous</Button>
+      <Button variant="danger" className="quiz-nav-but m-3" onClick={handleShow2} ><FontAwesomeIcon icon={solid('flag-checkered')}/> Submit</Button>
+      <Button className="quiz-nav-but m-3" onClick={()=>setQno((qno+1)%qlength)}><FontAwesomeIcon icon={solid('circle-right')}/> Next</Button>
       </div>
       <Modal show={show2} onHide={handleClose2}>
         <Modal.Header closeButton>
-          <Modal.Title>End Test?</Modal.Title>
+          <Modal.Title className="quiz-end">End Test?</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Finish and submit answers?</Modal.Body>
+        <Modal.Body>This will end your test!!Are you sure? </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose2}>
             Close
           </Button>
-          <Button variant="primary" onClick={()=>{oneSubmit.current=true; endTest();}}>
+          <Button variant="danger" onClick={()=>{oneSubmit.current=true; endTest();}}>
             Submit Test
           </Button>
         </Modal.Footer>

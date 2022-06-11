@@ -9,6 +9,9 @@ import { useUserAuth } from "../context/UserAuthContext";
 import {Table,Button} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
+
 
 export default function TestInner() {
     const [levels, setLevels] = useState([]);
@@ -58,6 +61,7 @@ export default function TestInner() {
   return (
     <>
       <NavBar />
+      <Button variant="light" onClick={()=>navigate(-1)}><FontAwesomeIcon icon={solid('circle-left')} size="2x"/></Button>
       <h2 className="subtopic-name">{testHeading}</h2>
       <div className="container">
         <div className="row px-auto">

@@ -8,6 +8,9 @@ import FeedbackImg from "../img/preview.jpg"
 import { useNavigate } from "react-router-dom";
 import SelectSearch,{ fuzzySearch } from 'react-select-search';
 import { Button } from "react-bootstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
+
 
 export default function SearchBar() {
   const [company_name, setCompanyName] = useState([]);
@@ -117,9 +120,7 @@ const [pt,setPt] = useState("");
     return(
       <>
       <NavBar/>
-      {/* <div>
-        <img className="feedback-img"  src={FeedbackImg} alt="First slide" />
-      </div> */}
+      <Button variant="light" onClick={()=>navigate('/home')}><FontAwesomeIcon icon={solid('circle-left')} size="2x"/></Button>
       <div>
         <h2 className="subtopic-name">Feedback from Aluminies</h2>
       </div>

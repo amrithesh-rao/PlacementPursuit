@@ -2,6 +2,9 @@ import React, { useEffect, useState, useRef } from "react";
 import NavBar from "./NavBar";
 import Footbar from "./Footbar";
 import { db } from "../firebase";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
+
 import {
   collection,
   addDoc,
@@ -288,6 +291,7 @@ export default function Contribute() {
     isAlumni?
     <>
       <NavBar />
+      <Button variant="light" onClick={()=>navigate('/home')}><FontAwesomeIcon icon={solid('circle-left')} size="2x"/></Button>
       <h2 className="subtopic-name">Contribute by adding questions</h2>
       <div className="feedbox mb-5">
         <div className="feedreportbox w-75 mx-auto">
@@ -304,7 +308,7 @@ export default function Contribute() {
                     className="mt-3 mb-3 w-25 single-line ms-5 me-4"
                     controlId="formPracticeTopic"
                   >
-                    <Form.Label>Topic</Form.Label>
+                    <Form.Label className="bold-font">Topic</Form.Label>
                     <Form.Select
                       value={topic}
                       aria-label="Default select example"
@@ -317,7 +321,7 @@ export default function Contribute() {
                     className="mt-3 mb-3 w-25 single-line ms-5"
                     controlId="formPracticeSubTopic"
                   >
-                    <Form.Label>Sub-Topic</Form.Label>
+                    <Form.Label className="bold-font">Sub-Topic</Form.Label>
                     <Form.Select
                       value={subTopic}
                       aria-label="Default select example"
@@ -331,7 +335,7 @@ export default function Contribute() {
                   className=" mb-3  ms-5 me-5"
                   controlId="formPracticeItem"
                 >
-                  <Form.Label>Title</Form.Label>
+                  <Form.Label className="bold-font">Title</Form.Label>
                   <Form.Control
                     type="text"
                     onChange={(q) => setTitle(q.target.value)}
@@ -343,7 +347,7 @@ export default function Contribute() {
                   className=" mb-3  ms-5 me-5"
                   controlId="formPracticeItemLink"
                 >
-                  <Form.Label>Link to Material</Form.Label>
+                  <Form.Label className="bold-font">Link to Material</Form.Label>
                   <Form.Control
                     type="text"
                     onChange={(q) => setLink(q.target.value)}
@@ -390,7 +394,7 @@ export default function Contribute() {
                     className="mt-3 mb-3 w-25 single-line ms-5 me-4"
                     controlId="formTestTopic"
                   >
-                    <Form.Label>Topic</Form.Label>
+                    <Form.Label className="bold-font">Topic</Form.Label>
                     <Form.Select
                       aria-label="Default select example"
                       onChange={handleQTopicChange}
@@ -402,7 +406,7 @@ export default function Contribute() {
                     className="mt-3 mb-3 w-25 single-line ms-5"
                     controlId="formTestLevel"
                   >
-                    <Form.Label>Level</Form.Label>
+                    <Form.Label className="bold-font">Level</Form.Label>
                     <Form.Select
                       aria-label="Default select example"
                       onChange={handleLevelChange}
@@ -415,7 +419,7 @@ export default function Contribute() {
                   className=" mb-3  ms-5 me-5"
                   controlId="formTestQuestion"
                 >
-                  <Form.Label>Question</Form.Label>
+                  <Form.Label className="bold-font">Question</Form.Label>
                   <Form.Control
                     as="textarea"
                     rows={2}
@@ -427,7 +431,7 @@ export default function Contribute() {
                   className=" mb-3  ms-5 me-5"
                   controlId="formTestOption1"
                 >
-                  <Form.Label>Option 1</Form.Label>
+                  <Form.Label className="bold-font">Option 1</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter option 1 "
@@ -438,7 +442,7 @@ export default function Contribute() {
                   className=" mb-3  ms-5 me-5"
                   controlId="formTestOption2"
                 >
-                  <Form.Label>Option 2</Form.Label>
+                  <Form.Label className="bold-font">Option 2</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter option 2 "
@@ -449,7 +453,7 @@ export default function Contribute() {
                   className=" mb-3  ms-5 me-5"
                   controlId="formTestOption3"
                 >
-                  <Form.Label>Option 3</Form.Label>
+                  <Form.Label className="bold-font">Option 3</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter option 3 "
@@ -460,7 +464,7 @@ export default function Contribute() {
                   className=" mb-3  ms-5 me-5"
                   controlId="formTestOption4"
                 >
-                  <Form.Label>Option 4</Form.Label>
+                  <Form.Label className="bold-font">Option 4</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter option 4 "
@@ -471,7 +475,7 @@ export default function Contribute() {
                   className=" mb-3  ms-5 me-5"
                   controlId="formTestAnswer"
                 >
-                  <Form.Label>Answer</Form.Label>
+                  <Form.Label className="bold-font answer-label">Answer</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter option answer "
