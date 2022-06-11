@@ -2,9 +2,14 @@ import React, { useEffect } from "react";
 import NavBar from "./NavBar";
 import Footbar from "./Footbar";
 import { useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
+
+import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 export default function QuizReport() {
-  
+  let navigate = useNavigate();
   const location=useLocation();
   const {score,tq,questions,answers,quizNo} =location.state;
   const attempted = [];
@@ -29,6 +34,7 @@ export default function QuizReport() {
   return (
     <>
       <NavBar />
+      <Button variant="light" onClick={()=>navigate(-1)}><FontAwesomeIcon icon={solid('circle-left')} size="2x"/></Button>
       <h1 className="m-3 quizno">Quiz-{quizNo}</h1>
       <div className="main-div">
       

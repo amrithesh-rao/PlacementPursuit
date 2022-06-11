@@ -146,8 +146,15 @@ hr.style-eight:after {
 .question-title{
     font-size: 0.65cm;
 }
-
-
+.quiz-end{
+    color:red;
+}
+.bold-font{
+    font-weight: 650;
+}
+.answer-label{
+    color: green;
+}
 .feedback-img {
     display: block;
     margin-left: auto;

@@ -7,6 +7,9 @@ import { useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
+
 
 
 export default function FeedbackReport(){
@@ -59,10 +62,11 @@ console.log(feedbackInfo);
 return(
   <>
   <NavBar/>
+  <Button variant="light" onClick={()=>navigate(-1)}><FontAwesomeIcon icon={solid('circle-left')} size="2x"/></Button>
   <div className="feedbox" >
         
         <div className="feedreportbox">
-        <Button variant="primary" onClick={()=>navigate(-1)}>Back</Button>
+        
             <p className="p1"> Name : <strong className="s1">{ feedbackInfo.name }</strong> </p>
             <p className="p1"> Company Name : <strong className="s1">{ feedbackInfo.company_name }</strong> </p>
             {feedbackInfo.usn?<p className="p1"> USN : <strong className="s1">{ feedbackInfo.usn  }</strong> </p>:""}
@@ -71,7 +75,7 @@ return(
             {feedbackInfo.year?<p className="p1"> Year : <strong className="s1">{ feedbackInfo.year }</strong> </p>:""}
             {/* <p className="p1"> Email : <strong className="s1">{ feedbackInfo.email }</strong> </p> */}
             <p className="p2"> <strong>Experience : </strong><span className="s2">{ feedbackInfo.experience }</span> </p>
-            {feedbackInfo.word?<p className="p2"> <strong>Word : </strong><span className="s2">{ feedbackInfo.word }</span> </p>:""}
+            {feedbackInfo.word?<p className="p2"> <strong>Word of Advice : </strong><span className="s2">{ feedbackInfo.word }</span> </p>:""}
         </div>
   </div>
       

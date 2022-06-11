@@ -11,6 +11,9 @@ import {
   where,
   getDocs,
 } from "firebase/firestore";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
+
 import { useParams } from "react-router-dom";
 import { Form, Button ,Modal} from "react-bootstrap";
 import SelectSearch, { fuzzySearch } from "react-select-search";
@@ -157,6 +160,7 @@ export default function AddFeedback() {
   return (
     <>
       <NavBar />
+      <Button variant="light" onClick={()=>navigate(-1)}><FontAwesomeIcon icon={solid('circle-left')} size="2x"/></Button>
       <h2 className="subtopic-name">Add Feedback</h2>
       <div className="feedbox mb-5">
         <div className="feedreportbox w-75 mx-auto">

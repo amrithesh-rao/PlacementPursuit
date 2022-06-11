@@ -4,9 +4,15 @@ import Footbar from "./Footbar";
 import TopicCard from "./TopicCard";
 import { db } from "../firebase.js";
 import {collection,getDocs,query,orderBy} from "firebase/firestore"
+import {Table,Button} from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
+
 
 export default function Test() {
   const [titles, setTitles] = useState([]);
+  let navigate = useNavigate();
   useEffect(  () => {
       const collectionRef = collection(db,"quiz_questions");
       getDocs(query(collectionRef, orderBy("priority")))
@@ -24,6 +30,7 @@ export default function Test() {
   return (
     <>
       <NavBar />
+      <Button variant="light" onClick={()=>navigate('/home')}><FontAwesomeIcon icon={solid('circle-left')} size="2x"/></Button>
       <div className="container">
         <div className="row px-auto">
         {

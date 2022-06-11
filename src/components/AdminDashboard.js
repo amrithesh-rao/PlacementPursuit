@@ -6,6 +6,9 @@ import { db } from "../firebase.js";
 import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
 import { Form, Button, Modal, Dropdown, Table } from "react-bootstrap";
 import { useUserAuth } from "../context/UserAuthContext";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
+
 
 export default function AdminDashboard() {
   let navigate = useNavigate();
@@ -165,6 +168,7 @@ useEffect(()=>{
   isAdmin?
     <>
       <NavBar />
+      <Button variant="light" onClick={()=>navigate('/home')}><FontAwesomeIcon icon={solid('circle-left')} size="2x"/></Button>
       <div className="container">
         <div className="row px-auto ">
           <div>
