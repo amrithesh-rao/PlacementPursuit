@@ -5,11 +5,12 @@ import { db } from "../firebase.js";
 import {addDoc, collection,doc,getDocs,serverTimestamp} from "firebase/firestore"
 import { useLocation, useParams } from "react-router-dom";
 import NumberBox from "./NumberBox";
-import { sampleSize } from "lodash";
+import { sampleSize, set } from "lodash";
 import { Button,Card,Form,Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth} from "../context/UserAuthContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import ReactLoading from 'react-loading';
 import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 export default function Quiz() {
@@ -19,10 +20,12 @@ export default function Quiz() {
   const oneTime = useRef(true);
   const oneSubmit= useRef(false);
   const {user} = useUserAuth();
+  const [showPage,setShowPage] = useState(false);
   //const [ Prompt, setDirty, setProstine ] = useUnsavedChangesWarning();
 
   function startTimer(duration, display) {
     var timer = duration, minutes, seconds;
+    setShowPage(true)
    var counter= setInterval(function () {
         minutes = parseInt(timer / 60, 10)
         seconds = parseInt(timer % 60, 10);
@@ -30,11 +33,12 @@ export default function Quiz() {
         minutes = minutes < 10 ? "0" + minutes : minutes;
         seconds = seconds < 10 ? "0" + seconds : seconds;
         display.textContent = minutes + ":" + seconds;
-  
+        
         if (--timer<= -1) {
           
             clearInterval(counter);
             if(oneSubmit.current===false){
+              
               endTest();
             }
             
@@ -45,9 +49,17 @@ export default function Quiz() {
   }
   
   const quizTimer = function () {
+    var time;
     if( oneTime.current === false ) return;
-    var time = 30, // your time in seconds here
-        display = document.querySelector('#safeTimerDisplay');
+    if(level==="Easy"){
+      time =900; 
+    }else if(level==="Medium"){
+      time = 1200;
+    }else{
+      time = 1800;
+    }
+    var  display = document.querySelector('#safeTimerDisplay');
+    
     startTimer(time, display);
     oneTime.current = false;
   };
@@ -69,39 +81,10 @@ export default function Quiz() {
   const randomQuestions = useRef([]);
   const score = useRef(0);
   const qlength=15;
-  
-  // window.onpopstate = (e) => {
-  //   oneSubmit.current=true;
-  //   for(let x in answers.current){
-  //     if(answers.current[x]===randomQuestions.current[x-1].data.answer){
-  //       score.current=score.current+1;
-  //     }
-  //   }
-  //   setQuizReport();
-    
-  //   navigate(0,{replace:true})
-  // }
 
 
   useEffect(()=>{},[answeres1])
-  // useEffect(()=>{window.onbeforeunload = isDirty && (() => "super"); return window.onbeforeunload = null; },[isDirty])
-  // useEffect(()=>{
-  //   if(isDirty){
-  //    window.addEventListener("beforeunload",(event)=>{
-  //     event.preventDefault();
-  //     // Chrome requires returnValue to be set.
-  //     event.returnValue = 'yaaa';
-  //     alert("ok");
-  //     console.log("its comming")
-  //   })
-  // }
-  //   return window.removeEventListener("beforeunload",(event)=>{
-  //     event.preventDefault();
-  //     // Chrome requires returnValue to be set.
-  //     event.returnValue = 'yaadsfdsfa';
-  //     alert("not ok")
-  //   });
-  // },[isDirty])
+ 
   useEffect(  () => {
     
     try{
@@ -123,6 +106,7 @@ export default function Quiz() {
  
 
   }, []);
+  useEffect(()=>{},[showPage])
   quiz.length!==0?quizTimer():console.log()
   if(randomQuestions.current.length===0){
     randomQuestions.current=sampleSize(quiz,qlength);
@@ -162,7 +146,7 @@ export default function Quiz() {
 
   }
   function endTest(){
-    
+    setShowPage(false)
     for(let x in answers.current){
       if(answers.current[x]===randomQuestions.current[x-1].data.answer){
         score.current=score.current+1;
@@ -176,8 +160,9 @@ export default function Quiz() {
   
   return (
     <>
-
+ 
       <NavBar  />
+      {showPage===false?<ReactLoading className="center-loading" type="spinningBubbles" color="#728FCE" height={'7%'} width={'7%'} />:""}
       <div id="safeTimer" className="p-2 position-absolute end-0">
         <h6>Time remaining</h6>
         <p id="safeTimerDisplay"></p>
