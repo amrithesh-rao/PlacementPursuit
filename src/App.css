@@ -616,3 +616,8 @@ div[role="progressbar"]::before {
     width: 40%;
     margin-top: 2em;
 }
+.center-loading{
+    position: absolute;
+    bottom: 50vh;
+    left: 50vw;
+}

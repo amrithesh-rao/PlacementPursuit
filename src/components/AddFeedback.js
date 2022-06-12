@@ -167,15 +167,15 @@ export default function AddFeedback() {
           <Form onSubmit={addNewFeedback}>
             <div className="mx-auto">
             <Form.Group className="mt-3 mb-3 w-25 single-line ms-5 me-4" controlId="formUSN">
-              <Form.Label>USN</Form.Label>
+              <Form.Label><FontAwesomeIcon icon={solid('id-badge')}/> USN</Form.Label>
               <Form.Control type="number" placeholder={info.current.usn} disabled />
             </Form.Group>
             <Form.Group className="mt-3 mb-3 w-25 single-line ms-5 me-4" controlId="formYear">
-              <Form.Label>Year</Form.Label>
+              <Form.Label><FontAwesomeIcon icon={solid('calendar-days')}/> Year</Form.Label>
               <Form.Control type="number" defaultValue={2022} step={1} required/>
             </Form.Group>
             <Form.Group className="mt-3 mb-3 w-25 single-line ms-5" controlId="formCompany">
-            <Form.Label>Company</Form.Label>
+            <Form.Label><FontAwesomeIcon icon={solid('building')}/> Company</Form.Label>
 
             <SelectSearch
               options={options}
@@ -190,15 +190,15 @@ export default function AddFeedback() {
           
             
             <Form.Group className=" mb-3 w-50 single-line ms-5 me-4" controlId="formRole">
-              <Form.Label>Role</Form.Label>
+              <Form.Label><FontAwesomeIcon icon={solid('user-graduate')}/> Role</Form.Label>
               <Form.Control type="text" placeholder="Enter your role" required/>
             </Form.Group>
             <Form.Group className="mb-3 w-25 single-line ms-5 me-4" controlId="formCTC">
-              <Form.Label>CTC</Form.Label>
+              <Form.Label><FontAwesomeIcon icon={solid('sack-dollar')}/> CTC</Form.Label>
               <Form.Control type="float" placeholder="CTC in lakhs" required />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formExperience" >
-              <Form.Label>Experience</Form.Label>
+              <Form.Label><FontAwesomeIcon icon={solid('comment')}/> Experience</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={5}
@@ -206,7 +206,7 @@ export default function AddFeedback() {
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formWord">
-              <Form.Label>Word to Aspirants</Form.Label>
+              <Form.Label><FontAwesomeIcon icon={solid('comments')}/> Word to Aspirants</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={2}
