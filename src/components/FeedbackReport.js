@@ -67,15 +67,15 @@ return(
         
         <div className="feedreportbox">
         
-            <p className="p1"> Name : <strong className="s1">{ feedbackInfo.name }</strong> </p>
-            <p className="p1"> Company Name : <strong className="s1">{ feedbackInfo.company_name }</strong> </p>
-            {feedbackInfo.usn?<p className="p1"> USN : <strong className="s1">{ feedbackInfo.usn  }</strong> </p>:""}
-            <p className="p1"> Role : <strong className="s1">{ feedbackInfo.role }</strong> </p>
-            <p className="p1">CTC : <strong className="s1">{ feedbackInfo.ctc }</strong> </p>
-            {feedbackInfo.year?<p className="p1"> Year : <strong className="s1">{ feedbackInfo.year }</strong> </p>:""}
+            <p className="p1"><FontAwesomeIcon icon={solid('user')}/> Name : <strong className="s1">{ feedbackInfo.name }</strong> </p>
+            <p className="p1"><FontAwesomeIcon icon={solid('building')}/> Company Name : <strong className="s1">{ feedbackInfo.company_name }</strong> </p>
+            {feedbackInfo.usn?<p className="p1"><FontAwesomeIcon icon={solid('id-badge')}/> USN : <strong className="s1">{ feedbackInfo.usn  }</strong> </p>:""}
+            <p className="p1"><FontAwesomeIcon icon={solid('user-graduate')}/> Role : <strong className="s1">{ feedbackInfo.role }</strong> </p>
+            <p className="p1"><FontAwesomeIcon icon={solid('sack-dollar')}/> CTC : <strong className="s1">{ feedbackInfo.ctc }</strong> </p>
+            {feedbackInfo.year?<p className="p1"><FontAwesomeIcon icon={solid('calendar-days')}/> Year : <strong className="s1">{ feedbackInfo.year }</strong> </p>:""}
             {/* <p className="p1"> Email : <strong className="s1">{ feedbackInfo.email }</strong> </p> */}
-            <p className="p2"> <strong>Experience : </strong><span className="s2">{ feedbackInfo.experience }</span> </p>
-            {feedbackInfo.word?<p className="p2"> <strong>Word of Advice : </strong><span className="s2">{ feedbackInfo.word }</span> </p>:""}
+            <p className="p2"> <strong><FontAwesomeIcon icon={solid('comment')}/> Experience : </strong><span className="s2">{ feedbackInfo.experience }</span> </p>
+            {feedbackInfo.word?<p className="p2"> <strong><FontAwesomeIcon icon={solid('comments')}/> Word of Advice : </strong><span className="s2">{ feedbackInfo.word }</span> </p>:""}
         </div>
   </div>
       

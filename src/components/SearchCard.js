@@ -2,6 +2,8 @@ import React from 'react';
 import {Card,Button} from 'react-bootstrap';
 import cardBackground from '../img/topic_background.webp'
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 export default function SearchCard(props) {
   let navigate = useNavigate();
@@ -14,7 +16,7 @@ export default function SearchCard(props) {
     <Card.Title className='text-center'>{props.name}</Card.Title>
     
   </Card.Body>
-  <div className='subtopic-name mt-3'><Button variant="primary" onClick={()=>navigate( props.id,{state:{name:props.name}})}>Open now</Button></div>
+  <div className='subtopic-name mt-3'><Button variant="primary" onClick={()=>navigate( props.id,{state:{name:props.name}})}><FontAwesomeIcon icon={solid('book-open')}/> Read</Button></div>
   </Card.ImgOverlay>
 </Card>
     )
