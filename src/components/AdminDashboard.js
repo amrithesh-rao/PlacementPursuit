@@ -186,7 +186,7 @@ useEffect(()=>{
                   variant="primary"
                   type="submit"
                 >
-                  Search
+                  Search🔍
                 </Button>
               </div>
             </Form>
@@ -207,11 +207,11 @@ useEffect(()=>{
               
               <div className="row m-0 p-0">
                 <div className="col p-0 test-report m-0 my-3">
-                <div className="col-12 level-title h2 mt-2 ">Test</div>
+                <div className="col-12 level-title h2 mt-2 "><FontAwesomeIcon icon={solid('file-circle-check')}/> Test</div>
                 <div className="row mx-auto">
                 <div className="col mx-auto level-title h4">
-                  <div>Name:</div><div>{currentUser?.userName}</div></div>
-                <div className="col mx-auto level-title h4"><div>USN:</div><div>{currentUser?.usn}</div></div>
+                  <div><FontAwesomeIcon icon={solid('user')}/> Name:</div><div>{currentUser?.userName}</div></div>
+                <div className="col mx-auto level-title h4"><div><FontAwesomeIcon icon={solid('id-badge')}/> USN:</div><div>{currentUser?.usn}</div></div>
               </div>
                   <div className="col-12 level-title ">
                     <div>
@@ -237,7 +237,7 @@ useEffect(()=>{
                       variant="primary"
                       onClick={() => getDetails()}
                     >
-                      Get
+                      <FontAwesomeIcon icon={solid('file-arrow-down')}/> Get
                     </Button>
                     </div>
                     
@@ -303,7 +303,7 @@ useEffect(()=>{
                               )
                             }
                           >
-                            Quiz-{quizs.indexOf(quizReport) + 1}
+                            <FontAwesomeIcon icon={solid('square-poll-horizontal')}/> Quiz-{quizs.indexOf(quizReport) + 1}
                           </Button>
                         </td>
                         <td>{quizReport.data.level}</td>

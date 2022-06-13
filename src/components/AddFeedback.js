@@ -214,7 +214,7 @@ export default function AddFeedback() {
               />
             </Form.Group>
             <Button className="btn-ctr mx-auto" variant="primary" type="submit">
-              Submit Feedback
+            <FontAwesomeIcon icon={solid('paper-plane')}/> Submit Feedback
             </Button>
           </Form>
         </div>
