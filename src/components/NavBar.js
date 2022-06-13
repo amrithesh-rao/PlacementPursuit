@@ -45,11 +45,6 @@ export default function NavBar() {
     setAlumni(true)
     }
   , [user?.email,isAdmin,isAlumni]);
-  console.log(who)
-  
-  console.log(user.email)
-  console.log(isAlumni);
-  console.log(isAdmin);
   return (
     <>
       <Navbar collapse OnSelect expand="lg" variant="light">
@@ -64,14 +59,15 @@ export default function NavBar() {
                 ""
               ) : (
                 <Nav.Link className="navMargin" onClick={() => navigate("/dashboard")}>
-                  Dashboard
+                  <FontAwesomeIcon icon={solid('square-poll-vertical')}/> Dashboard
                 </Nav.Link>
               )}
 
               <Nav.Link className="navMargin" onClick={() => navigate("/practice")}>
               <FontAwesomeIcon icon={solid('book')}/> Practice 
               </Nav.Link>
-              <Nav.Link className="navMargin" onClick={() => navigate("/test")}><FontAwesomeIcon icon={solid('file-circle-check')}/> Test</Nav.Link>
+              <Nav.Link className="navMargin" onClick={() => navigate("/test")}>
+                <FontAwesomeIcon icon={solid('file-circle-check')}/> Test</Nav.Link>
               <Nav.Link className="navMargin" onClick={() => navigate("/feedback")}>
               <FontAwesomeIcon icon={solid('comments')}/> Feedback
               </Nav.Link>
@@ -79,7 +75,7 @@ export default function NavBar() {
                 ""
               ) : (
               <Nav.Link className="navMargin" onClick={() => navigate("/contribute")}>
-                Contribute
+                <FontAwesomeIcon icon={solid('hand-holding-hand')}/> Contribute
               </Nav.Link>
               )}
             </Nav>

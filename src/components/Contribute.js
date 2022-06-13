@@ -308,7 +308,7 @@ export default function Contribute() {
                     className="mt-3 mb-3 w-25 single-line ms-5 me-4"
                     controlId="formPracticeTopic"
                   >
-                    <Form.Label className="bold-font">Topic</Form.Label>
+                    <Form.Label className="bold-font"><FontAwesomeIcon icon={solid('code-commit')}/> Topic</Form.Label>
                     <Form.Select
                       value={topic}
                       aria-label="Default select example"
@@ -321,7 +321,7 @@ export default function Contribute() {
                     className="mt-3 mb-3 w-25 single-line ms-5"
                     controlId="formPracticeSubTopic"
                   >
-                    <Form.Label className="bold-font">Sub-Topic</Form.Label>
+                    <Form.Label className="bold-font"><FontAwesomeIcon icon={solid('code-merge')}/> Sub-Topic</Form.Label>
                     <Form.Select
                       value={subTopic}
                       aria-label="Default select example"
@@ -335,7 +335,7 @@ export default function Contribute() {
                   className=" mb-3  ms-5 me-5"
                   controlId="formPracticeItem"
                 >
-                  <Form.Label className="bold-font">Title</Form.Label>
+                  <Form.Label className="bold-font"><FontAwesomeIcon icon={solid('feather-pointed')}/> Title</Form.Label>
                   <Form.Control
                     type="text"
                     onChange={(q) => setTitle(q.target.value)}
@@ -347,7 +347,7 @@ export default function Contribute() {
                   className=" mb-3  ms-5 me-5"
                   controlId="formPracticeItemLink"
                 >
-                  <Form.Label className="bold-font">Link to Material</Form.Label>
+                  <Form.Label className="bold-font"><FontAwesomeIcon icon={solid('link')}/> Link to Material</Form.Label>
                   <Form.Control
                     type="text"
                     onChange={(q) => setLink(q.target.value)}
@@ -361,7 +361,7 @@ export default function Contribute() {
                   variant="primary"
                   type="submit"
                 >
-                  Submit Question
+                  <FontAwesomeIcon icon={solid('paper-plane')}/> Submit Question
                 </Button>
                 <Alert
                   className="w-65 mx-auto"
@@ -394,7 +394,7 @@ export default function Contribute() {
                     className="mt-3 mb-3 w-25 single-line ms-5 me-4"
                     controlId="formTestTopic"
                   >
-                    <Form.Label className="bold-font">Topic</Form.Label>
+                    <Form.Label className="bold-font"><FontAwesomeIcon icon={solid('code-commit')}/> Topic</Form.Label>
                     <Form.Select
                       aria-label="Default select example"
                       onChange={handleQTopicChange}
@@ -406,7 +406,7 @@ export default function Contribute() {
                     className="mt-3 mb-3 w-25 single-line ms-5"
                     controlId="formTestLevel"
                   >
-                    <Form.Label className="bold-font">Level</Form.Label>
+                    <Form.Label className="bold-font"><FontAwesomeIcon icon={solid('code-merge')}/> Level</Form.Label>
                     <Form.Select
                       aria-label="Default select example"
                       onChange={handleLevelChange}
@@ -419,7 +419,7 @@ export default function Contribute() {
                   className=" mb-3  ms-5 me-5"
                   controlId="formTestQuestion"
                 >
-                  <Form.Label className="bold-font">Question</Form.Label>
+                  <Form.Label className="bold-font"><FontAwesomeIcon icon={solid('clipboard-question')}/> Question</Form.Label>
                   <Form.Control
                     as="textarea"
                     rows={2}
@@ -431,7 +431,7 @@ export default function Contribute() {
                   className=" mb-3  ms-5 me-5"
                   controlId="formTestOption1"
                 >
-                  <Form.Label className="bold-font">Option 1</Form.Label>
+                  <Form.Label className="bold-font"><FontAwesomeIcon icon={solid('map-pin')}/> Option 1</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter option 1 "
@@ -442,7 +442,7 @@ export default function Contribute() {
                   className=" mb-3  ms-5 me-5"
                   controlId="formTestOption2"
                 >
-                  <Form.Label className="bold-font">Option 2</Form.Label>
+                  <Form.Label className="bold-font"><FontAwesomeIcon icon={solid('map-pin')}/> Option 2</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter option 2 "
@@ -453,7 +453,7 @@ export default function Contribute() {
                   className=" mb-3  ms-5 me-5"
                   controlId="formTestOption3"
                 >
-                  <Form.Label className="bold-font">Option 3</Form.Label>
+                  <Form.Label className="bold-font"><FontAwesomeIcon icon={solid('map-pin')}/> Option 3</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter option 3 "
@@ -464,7 +464,7 @@ export default function Contribute() {
                   className=" mb-3  ms-5 me-5"
                   controlId="formTestOption4"
                 >
-                  <Form.Label className="bold-font">Option 4</Form.Label>
+                  <Form.Label className="bold-font"><FontAwesomeIcon icon={solid('map-pin')}/> Option 4</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter option 4 "
@@ -475,7 +475,7 @@ export default function Contribute() {
                   className=" mb-3  ms-5 me-5"
                   controlId="formTestAnswer"
                 >
-                  <Form.Label className="bold-font answer-label">Answer</Form.Label>
+                  <Form.Label className="bold-font answer-label"><FontAwesomeIcon icon={solid('circle-check')}/> Answer</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter option answer "
@@ -488,7 +488,7 @@ export default function Contribute() {
                   variant="primary"
                   type="submit"
                 >
-                  Submit Question
+                  <FontAwesomeIcon icon={solid('paper-plane')}/> Submit Question
                 </Button>
                 <Alert
                   className="w-65 mx-auto"

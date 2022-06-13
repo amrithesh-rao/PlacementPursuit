@@ -12,6 +12,8 @@ import homeCarousel from "../img/homeCarousel.png";
 import testSectionImg from "../img/testSectionImg.png";
 import feedbackSectionImg from "../img/feedbackSectionImg.png";
 import practiceSectionImg from "../img/practiceSectionImg.jpg";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro';
 import {
   collection,
   getDocs,
@@ -159,27 +161,6 @@ console.log(localStorage.getItem("who"));
           </Form>
         </Modal>
       </div>
-      {/* <div>
-      <Modal show={show2} onHide={handleClose2} centered={true} backdrop="static">
-      
-        <Modal.Header >
-          <Modal.Title>Sorry!!</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-        We are currently open only to SJCE students.
-
-          
-         
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={handleLogout}>
-            Exit
-          </Button>
-          
-        </Modal.Footer>
-       
-      </Modal>
-      </div> */}
 
       <div className="container" id="practice">
         <div className="row">
@@ -199,7 +180,7 @@ console.log(localStorage.getItem("who"));
               </p>
             </div>
             <div className="p-2 m-3" onClick={() => navigate("/practice")}>
-              <Button size="lg">Practice ---{">"}</Button>
+              <Button size="lg"><FontAwesomeIcon icon={solid('book')}/> Practice</Button>
             </div>
           </div>
         </div>
@@ -215,7 +196,7 @@ console.log(localStorage.getItem("who"));
               </p>
             </div>
             <div className="p-2 ml-10" onClick={() => navigate("/test")}>
-              <Button size="lg">Test ---{">"}</Button>
+              <Button size="lg"><FontAwesomeIcon icon={solid('file-circle-check')}/> Test</Button>
             </div>
           </div>
           <div className="col">
@@ -243,7 +224,7 @@ console.log(localStorage.getItem("who"));
             </div>
             <div className="p-2 m-3">
               <Button size="lg" onClick={() => navigate("/feedback")}>
-                Feedback ---{">"}
+              <FontAwesomeIcon icon={solid('comments')}/> Feedback
               </Button>
             </div>
           </div>
