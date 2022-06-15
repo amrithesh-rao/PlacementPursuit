@@ -82,7 +82,7 @@ export default function NavBar() {
             <Nav className="mr-7">
               <img src={user?.photoURL} className="profile-pic" alt="profile" />
               <NavDropdown
-                title={user.displayName}
+                title={user?.displayName}
                 id="collasible-nav-dropdown"
               >
           {!who?

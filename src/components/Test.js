@@ -35,7 +35,7 @@ export default function Test() {
         <div className="row px-auto">
         {
         titles?.map(title => (
-          <div className="col-lg-3 p-5 ">
+          <div className="col-lg-3 p-5 mx-auto">
         <TopicCard title={title.data.subject} id = {title.id}/>
         </div>
       ))}

@@ -485,7 +485,12 @@ div[role="progressbar"]::before {
 .select-search__option:disabled {
     cursor: not-allowed;
 }
-
+.input-icon{
+    font-family: FontAwesome, "Open Sans", Verdana, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+}
 /**
  * Group
  */

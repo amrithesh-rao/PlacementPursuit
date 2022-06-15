@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { Navigate, Link, useNavigate } from "react-router-dom";
-import { Form, Alert, Tabs, Tab,Modal } from "react-bootstrap";
+import { Form, Alert, Tabs, Tab, Modal } from "react-bootstrap";
 import { Button, Carousel } from "react-bootstrap";
 import GoogleButton from "react-google-button";
+import Footbar from "./Footbar";
 import { useUserAuth } from "../context/UserAuthContext";
 import practiceImg from "../img/practiceSectionImg.jpg";
 import testImg from "../img/testSectionImg.png";
@@ -10,8 +11,12 @@ import feedbackImg from "../img/feedbackSectionImg.png";
 import logo from "../img/logo.png";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
-
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  solid,
+  regular,
+  brands,
+} from "@fortawesome/fontawesome-svg-core/import.macro";
 
 const Login = () => {
   const [error, setError] = useState("");
@@ -25,13 +30,12 @@ const Login = () => {
   const [show3, setShow3] = useState(false);
   const handleClose3 = () => setShow3(false);
   const handleShow3 = () => setShow3(true);
-  
+
   const [gSign1, setGSign1] = useState(false);
   const [gSign2, setGSign2] = useState(false);
   const [gSign3, setGSign3] = useState(false);
 
   const navigate = useNavigate();
-
 
   const handleSubmitStudent = async (e) => {
     e.preventDefault();
@@ -53,7 +57,7 @@ const Login = () => {
       ).then((snapshot) => {
         if (snapshot.docs.length === 0) {
           handleLogout();
-          handleShow1()
+          handleShow1();
         } else {
           localStorage.setItem("who", "Student");
           navigate("/home", { replace: true });
@@ -75,7 +79,6 @@ const Login = () => {
         } else {
           localStorage.setItem("who", "Student");
           navigate("/home", { replace: true });
-          
         }
       });
     }
@@ -88,7 +91,7 @@ const Login = () => {
         if (snapshot.docs.length === 0) {
           setGSign2(false);
           handleLogout();
-          handleShow2()
+          handleShow2();
         } else {
           localStorage.setItem("who", "Admin");
           navigate("/home", { replace: true });
@@ -104,7 +107,7 @@ const Login = () => {
         if (snapshot.docs.length === 0) {
           setGSign3(false);
           handleLogout();
-          handleShow3()
+          handleShow3();
         } else {
           localStorage.setItem("who", "Alumni");
           navigate("/home", { replace: true });
@@ -115,7 +118,6 @@ const Login = () => {
   const handleLogout = async () => {
     try {
       await logOut();
-
     } catch (error) {
       console.log(error.message);
     }
@@ -231,67 +233,69 @@ const Login = () => {
                       </Alert>
                     )}
                     <Modal
-                    show={show1}
-                    onHide={handleClose1}
-                    centered={true}
-                    backdrop="static"
-                  >
-                    <Modal.Header>
-                      <Modal.Title>Sorry!!</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      You are not authorized to login as Student.
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <Button variant="primary" onClick={handleClose1}>
-                        Okay
-                      </Button>
-                    </Modal.Footer>
-                  </Modal>
-                  <Modal
-                    show={show2}
-                    onHide={handleClose2}
-                    centered={true}
-                    backdrop="static"
-                  >
-                    <Modal.Header>
-                      <Modal.Title>Sorry!!</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      You are not authorized to login as Admin.
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <Button variant="primary" onClick={handleClose2}>
-                        Okay
-                      </Button>
-                    </Modal.Footer>
-                  </Modal>
-                  <Modal
-                    show={show3}
-                    onHide={handleClose3}
-                    centered={true}
-                    backdrop="static"
-                  >
-                    <Modal.Header>
-                      <Modal.Title>Sorry!!</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      You are not authorized to login as Alumni.
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <Button variant="primary" onClick={handleClose3}>
-                        Okay
-                      </Button>
-                    </Modal.Footer>
-                  </Modal>
+                      show={show1}
+                      onHide={handleClose1}
+                      centered={true}
+                      backdrop="static"
+                    >
+                      <Modal.Header>
+                        <Modal.Title>Sorry!!</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        You are not authorized to login as Student.
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button variant="primary" onClick={handleClose1}>
+                          Okay
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
+                    <Modal
+                      show={show2}
+                      onHide={handleClose2}
+                      centered={true}
+                      backdrop="static"
+                    >
+                      <Modal.Header>
+                        <Modal.Title>Sorry!!</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        You are not authorized to login as Admin.
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button variant="primary" onClick={handleClose2}>
+                          Okay
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
+                    <Modal
+                      show={show3}
+                      onHide={handleClose3}
+                      centered={true}
+                      backdrop="static"
+                    >
+                      <Modal.Header>
+                        <Modal.Title>Sorry!!</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        You are not authorized to login as Alumni.
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button variant="primary" onClick={handleClose3}>
+                          Okay
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
                     <Form onSubmit={handleSubmitStudent}>
                       <Form.Group
                         className="mb-3 w-65 mx-auto"
                         controlId="formBasicEmailStudentl"
                       >
                         <Form.Control
+                          
                           type="email"
-                          placeholder="Email address"
+                          className="input-icon"
+                          placeholder="&#xf007;  Email"
                         />
                       </Form.Group>
 
@@ -299,13 +303,19 @@ const Login = () => {
                         className="w-65 mx-auto"
                         controlId="formBasicPasswordStudentl"
                       >
-                        <Form.Control type="password" placeholder="Password" />
+                        <Form.Control
+                          
+                          type="password"
+                          className="input-icon"
+                          placeholder="&#xf09c;  Password"
+                        />
                       </Form.Group>
                       <div className="forgot-pass mx-auto mb-3">
                         <Link to="/reset">Forgot password?</Link>
                       </div>
                       <div className="d-grid gap-2 w-65 mx-auto">
                         <Button variant="primary" type="Submit">
+                          <FontAwesomeIcon icon={solid("right-to-bracket")} />{" "}
                           Log In
                         </Button>
                       </div>
@@ -342,7 +352,8 @@ const Login = () => {
                       >
                         <Form.Control
                           type="email"
-                          placeholder="Email address"
+                          className="input-icon"
+                          placeholder="&#xf007;  Email"
                         />
                       </Form.Group>
 
@@ -350,14 +361,16 @@ const Login = () => {
                         className="w-65 mx-auto"
                         controlId="formBasicPasswordAdminl"
                       >
-                        <Form.Control type="password" placeholder="Password" />
+                        <Form.Control type="password" className="input-icon"
+                          placeholder="&#xf09c;  Password"/>
                       </Form.Group>
                       <div className="forgot-pass mx-auto mb-3">
                         <Link to="/reset">Forgot password?</Link>
                       </div>
                       <div className="d-grid gap-2 w-65 mx-auto">
                         <Button variant="primary" type="Submit">
-                          Log In
+                        <FontAwesomeIcon icon={solid("right-to-bracket")} />{" "}
+                        Log In
                         </Button>
                       </div>
                       <div className="box mt-1 mb-4 text-center">
@@ -393,7 +406,8 @@ const Login = () => {
                       >
                         <Form.Control
                           type="email"
-                          placeholder="Email address"
+                          className="input-icon"
+                          placeholder="&#xf007;  Email"
                         />
                       </Form.Group>
 
@@ -401,14 +415,16 @@ const Login = () => {
                         className="w-65 mx-auto"
                         controlId="formBasicPasswordAlumnil"
                       >
-                        <Form.Control type="password" placeholder="Password" />
+                        <Form.Control type="password" className="input-icon"
+                          placeholder="&#xf09c;  Password" />
                       </Form.Group>
                       <div className="forgot-pass mx-auto mb-3">
                         <Link to="/reset">Forgot password?</Link>
                       </div>
                       <div className="d-grid gap-2 w-65 mx-auto">
                         <Button variant="primary" type="Submit">
-                          Log In
+                        <FontAwesomeIcon icon={solid("right-to-bracket")} />{" "}
+                        Log In
                         </Button>
                       </div>
                       <div className="box mt-1 mb-4 text-center">
@@ -500,6 +516,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <Footbar class="footBar-bottom" />
     </>
   );
 };
