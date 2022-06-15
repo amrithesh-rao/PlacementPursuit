@@ -9,10 +9,11 @@ import { useNavigate } from "react-router-dom";
 import SelectSearch,{ fuzzySearch } from 'react-select-search';
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 
 export default function SearchBar() {
+  
   const [company_name, setCompanyName] = useState([]);
   const options = [
     {name: 'Amazon', value: 'Amazon'},
@@ -90,26 +91,13 @@ export default function SearchBar() {
   ];
 const [pt,setPt] = useState("Amazon");
 useEffect(()=>{
-  try{
-    getDocs(query(collection(db, "feedbackdb"), where("company_name", "==", pt)))
-        .then( snapshot => {
-          if(snapshot.docs.length === 0)
-          alert("No data found");
-          else
-            setCompanyName(snapshot.docs.map(doc =>({
-                id: doc.id,
-                data: doc.data()
-            })))
-        })
-  }
-  catch(e){
-      console.log(e);
-  }
+  filter();
 },[]);
   let navigate = useNavigate();
   const colRef = collection(db, "feedbackdb");
   function filter(){
     try{
+      console.log(pt)
       getDocs(query(colRef, where("company_name", "==", pt)))
           .then( snapshot => {
             if(snapshot.docs.length === 0)
@@ -124,7 +112,6 @@ useEffect(()=>{
     catch(e){
         console.log(e);
     }
-    // navigate('/feedback/'+{state:{name:pt}})
   }
   const handleSubmit = event => {
     event.preventDefault();

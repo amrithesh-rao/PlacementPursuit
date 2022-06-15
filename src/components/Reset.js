@@ -4,6 +4,13 @@ import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
 import logo from "../img/logo.png";
+import Footbar from "./Footbar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  solid,
+  regular,
+  brands,
+} from "@fortawesome/fontawesome-svg-core/import.macro";
 
 export default function Reset() {
   const emailRef = useRef()
@@ -38,18 +45,21 @@ export default function Reset() {
           <Form.Group className="mb-3 w-75 mx-auto" controlId="formBasicEmail">
             <Form.Control
               type="email"
-              placeholder="Email address"
+              className="input-icon"
+               placeholder="&#xf007;  Email"
               ref = { emailRef }
             />
           </Form.Group>
 
           <div className="d-grid gap-2 w-75 mx-auto">
             <Button variant="primary" type="Submit">
-              Send password reset mail
+            <FontAwesomeIcon icon={solid("key")} />{" "}
+            Send password reset mail
             </Button>
           </div>
         </Form>
         </div>
+        <Footbar class="footBar-bottom" />
         </>
   )
 }

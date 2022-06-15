@@ -5,11 +5,14 @@ import { Button, Carousel } from "react-bootstrap";
 import { useUserAuth } from "../context/UserAuthContext";
 import GoogleButton from "react-google-button";
 import practiceImg from "../img/practiceSectionImg.jpg";
+import Footbar from "./Footbar";
 import testImg from "../img/testSectionImg.png";
 import feedbackImg from "../img/feedbackSectionImg.png";
 import logo from "../img/logo.png";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 const Signup = () => {
   const [error, setError] = useState("");
@@ -252,7 +255,8 @@ const Signup = () => {
                       >
                         <Form.Control
                           type="email"
-                          placeholder="Email address"
+                          className="input-icon"
+                          placeholder="&#xf007;  Email"
                         />
                       </Form.Group>
 
@@ -260,7 +264,8 @@ const Signup = () => {
                         className="mb-3 w-65 mx-auto"
                         controlId="formBasicPassword1Student"
                       >
-                        <Form.Control type="password" placeholder="Password" />
+                        <Form.Control type="password" className="input-icon"
+                          placeholder="&#xf09c;  Password" />
                       </Form.Group>
 
                       <Form.Group
@@ -269,13 +274,15 @@ const Signup = () => {
                       >
                         <Form.Control
                           type="password"
-                          placeholder="Confirm password"
+                          className="input-icon"
+                          placeholder="&#xf09c;  Confirm Password"
                         />
                       </Form.Group>
 
                       <div className="d-grid gap-2 w-65 mx-auto">
                         <Button variant="primary" type="Submit">
-                          Create account
+                        <FontAwesomeIcon icon={solid("user-plus")} />{" "}
+                        Create account
                         </Button>
                       </div>
                     </Form>
@@ -369,7 +376,8 @@ const Signup = () => {
                       >
                         <Form.Control
                           type="email"
-                          placeholder="Email address"
+                          className="input-icon"
+                          placeholder="&#xf007;  Email"
                         />
                       </Form.Group>
 
@@ -377,7 +385,8 @@ const Signup = () => {
                         className="mb-3 w-65 mx-auto"
                         controlId="formBasicPassword1Admin"
                       >
-                        <Form.Control type="password" placeholder="Password" />
+                        <Form.Control type="password" className="input-icon"
+                          placeholder="&#xf09c;  Password" />
                       </Form.Group>
 
                       <Form.Group
@@ -386,13 +395,15 @@ const Signup = () => {
                       >
                         <Form.Control
                           type="password"
-                          placeholder="Confirm password"
+                          className="input-icon"
+                          placeholder="&#xf09c;  Confirm Password"
                         />
                       </Form.Group>
 
                       <div className="d-grid gap-2 w-65 mx-auto">
                         <Button variant="primary" type="Submit">
-                          Create account
+                        <FontAwesomeIcon icon={solid("user-plus")} />{" "}
+                        Create account
                         </Button>
                       </div>
                     </Form>
@@ -428,7 +439,8 @@ const Signup = () => {
                       >
                         <Form.Control
                           type="email"
-                          placeholder="Email address"
+                          className="input-icon"
+                          placeholder="&#xf007;  Email"
                         />
                       </Form.Group>
 
@@ -436,7 +448,8 @@ const Signup = () => {
                         className="mb-3 w-65 mx-auto"
                         controlId="formBasicPassword1Alumni"
                       >
-                        <Form.Control type="password" placeholder="Password" />
+                        <Form.Control type="password" className="input-icon"
+                          placeholder="&#xf09c;  Password" />
                       </Form.Group>
 
                       <Form.Group
@@ -445,13 +458,15 @@ const Signup = () => {
                       >
                         <Form.Control
                           type="password"
-                          placeholder="Confirm password"
+                          className="input-icon"
+                          placeholder="&#xf09c;  Confirm Password"
                         />
                       </Form.Group>
 
                       <div className="d-grid gap-2 w-65 mx-auto">
                         <Button variant="primary" type="Submit">
-                          Create account
+                        <FontAwesomeIcon icon={solid("user-plus")} />{" "}
+                        Create account
                         </Button>
                       </div>
                     </Form>
@@ -552,6 +567,7 @@ const Signup = () => {
           </div>
         </div>
       </div>
+      <Footbar class="footBar-bottom" />
     </>
   );
 };
