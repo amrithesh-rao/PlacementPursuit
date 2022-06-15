@@ -51,6 +51,7 @@ export default function Practice() {
        ]}
        onChange={setDept}
        value={dept}
+       placeholder="Select department"
        />
        </div>
       <div className="container">

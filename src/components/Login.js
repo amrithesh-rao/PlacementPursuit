@@ -15,7 +15,7 @@ import { db } from "../firebase";
 
 const Login = () => {
   const [error, setError] = useState("");
-  const { user, logIn, googleSignIn, logOut, setTheWho } = useUserAuth();
+  const { user, logIn, googleSignIn, logOut } = useUserAuth();
   const [show1, setShow1] = useState(false);
   const handleClose1 = () => setShow1(false);
   const handleShow1 = () => setShow1(true);

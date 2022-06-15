@@ -88,8 +88,24 @@ export default function SearchBar() {
     {name: 'Lenscart', value: 'Lenscart'},
     {name: 'Pensando', value: 'Pensando'},
   ];
-const [pt,setPt] = useState("");
-
+const [pt,setPt] = useState("Amazon");
+useEffect(()=>{
+  try{
+    getDocs(query(collection(db, "feedbackdb"), where("company_name", "==", pt)))
+        .then( snapshot => {
+          if(snapshot.docs.length === 0)
+          alert("No data found");
+          else
+            setCompanyName(snapshot.docs.map(doc =>({
+                id: doc.id,
+                data: doc.data()
+            })))
+        })
+  }
+  catch(e){
+      console.log(e);
+  }
+},[]);
   let navigate = useNavigate();
   const colRef = collection(db, "feedbackdb");
   function filter(){
@@ -122,7 +138,7 @@ const [pt,setPt] = useState("");
       <NavBar/>
       <Button variant="light" onClick={()=>navigate('/home')}><FontAwesomeIcon icon={solid('circle-left')} size="2x"/></Button>
       <div>
-        <h2 className="subtopic-name">Feedback from Aluminies</h2>
+        <h2 className="subtopic-name">Feedback from Alumni</h2>
       </div>
       <div>
       <form className='box-n mt-5' onSubmit={handleSubmit}>
