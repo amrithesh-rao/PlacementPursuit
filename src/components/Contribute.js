@@ -335,11 +335,11 @@ export default function Contribute() {
                   className=" mb-3  ms-5 me-5"
                   controlId="formPracticeItem"
                 >
-                  <Form.Label className="bold-font"><FontAwesomeIcon icon={solid('feather-pointed')}/> Title</Form.Label>
+                  <Form.Label className="bold-font"><FontAwesomeIcon icon={solid('feather-pointed')}/>Article Title</Form.Label>
                   <Form.Control
                     type="text"
                     onChange={(q) => setTitle(q.target.value)}
-                    placeholder="Enter Title "
+                    placeholder=" Enter article title "
                     required
                   />
                 </Form.Group>
@@ -347,11 +347,11 @@ export default function Contribute() {
                   className=" mb-3  ms-5 me-5"
                   controlId="formPracticeItemLink"
                 >
-                  <Form.Label className="bold-font"><FontAwesomeIcon icon={solid('link')}/> Link to Material</Form.Label>
+                  <Form.Label className="bold-font"><FontAwesomeIcon icon={solid('link')}/> Link to Article</Form.Label>
                   <Form.Control
                     type="text"
                     onChange={(q) => setLink(q.target.value)}
-                    placeholder="Enter link "
+                    placeholder=" Enter article link "
                     required
                   />
                 </Form.Group>

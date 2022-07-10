@@ -94,6 +94,9 @@ export default function NavBar() {
                 <NavDropdown.Item onClick={handleShow}>
                 <FontAwesomeIcon icon={solid('id-card')}/> Edit Profile
                 </NavDropdown.Item>
+                <NavDropdown.Item onClick={()=>navigate('/siteFeedback')}>
+                <FontAwesomeIcon icon={solid('comment')}/> Site Feedback
+                </NavDropdown.Item>
                 
                 <NavDropdown.Item onClick={handleLogout}>
                 <FontAwesomeIcon icon={solid('right-from-bracket')}/> Log Out

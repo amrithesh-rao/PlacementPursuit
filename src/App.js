@@ -13,6 +13,7 @@ import { UserAuthContextProvider } from "./context/UserAuthContext";
 import Practice from "./components/Practice";
 import SubPractice from "./components/SubPractice";
 import PageNotFound from "./404";
+import SiteFeedback from "./components/SiteFeedback";
 import PracticeItems from "./components/PracticeItems";
 import AddFeedback from "./components/AddFeedback";
 import Feedback from "./components/Search";
@@ -73,6 +74,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/siteFeedback"
+            element={
+              <ProtectedRoute>
+                <SiteFeedback />
               </ProtectedRoute>
             }
           />

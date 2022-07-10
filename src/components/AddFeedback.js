@@ -24,8 +24,10 @@ export default function AddFeedback() {
   const [pt, setPt] = useState("");
   const [show1, setShow1] = useState(false);
   const [show2, setShow2] = useState(false);
+  const [show3, setShow3] = useState(false);
   const [usn,setUsn] = useState("");
   const info = useRef({});
+  let payload={};
   const { user } = useUserAuth();
   let navigate = useNavigate();
 
@@ -33,6 +35,8 @@ export default function AddFeedback() {
   const handleShow1 = () => setShow1(true);
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
+  const handleClose3 = () => setShow3(false);
+  const handleShow3 = () => setShow3(true);
 
   const options = [
     { name: "Amazon", value: "Amazon" },
@@ -131,17 +135,8 @@ export default function AddFeedback() {
 
   async function addNewFeedback(e) {
     e.preventDefault();
-    const collRef1 = collection(db, "feedbackdb");
-    const docSnap = await getDocs(
-      query(collRef1, where("email", "==", user?.email))
-    );
-        if(docSnap.docs.length!==0){
-            console.log(docSnap.docs)
-            handleShow1();
-        }else{
     const { formCTC, formExperience, formRole,formYear,formWord } = e.target.elements;
-    const collRef = collection(db, "feedbackdb");
-    const payload = {
+    payload = {
       company_name: pt,
       ctc: formCTC.value,
       experience: formExperience.value,
@@ -151,11 +146,27 @@ export default function AddFeedback() {
       usn:info.current?.usn,
       year:formYear.value,
       word:formWord.value
-    };
-    await addDoc(collRef, payload);
-    handleShow2();
-    setTimeout(()=>navigate("/Feedback"),5000)
-        }
+      };
+      handleShow3();
+      
+        
+  }
+  async function confirmFeedback(p){
+    const collRef1 = collection(db, "feedbackdb");
+    const docSnap = await getDocs(
+      query(collRef1, where("email", "==", user?.email))
+    );
+    if(docSnap.docs.length!==0){
+      console.log(docSnap.docs)
+      handleShow1();
+  }else{
+
+const collRef = collection(db, "feedbackdb");
+
+await addDoc(collRef, payload);
+handleShow2();
+setTimeout(()=>navigate("/Feedback"),5000)
+  }
   }
   return (
     <>
@@ -241,6 +252,20 @@ export default function AddFeedback() {
         <Modal.Footer>
           <Button variant="primary" onClick={()=>navigate('/Feedback')}>
             Go back to Feedback page
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal show={show3} onHide={handleClose3}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Adding feedback.All values are correct?</Modal.Body>
+        <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose3}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={()=>{confirmFeedback();handleClose3();}}>
+            Yes!!
           </Button>
         </Modal.Footer>
       </Modal>
